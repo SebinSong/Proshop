@@ -48,7 +48,7 @@ module.exports = (envSettings) => {
               test: fontRegex,
               type: 'asset/resource',
               generator: {
-                filename: 'static/font/[hash][ext]'
+                filename: 'static/fonts/[hash][ext]'
               }
             },
             {
@@ -105,8 +105,20 @@ module.exports = (envSettings) => {
             {
               test: scssRegex,
               use: [
-                { loader: isProd ? MiniCssExtractPlugin.loader : 'style-loader' },
+                { loader: isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+                  options: Object.assign({}, 
+                    isProd && {
+                      publicPath: '../../'
+                    })
+                },
                 { loader: require.resolve('css-loader') },
+                {
+                  loader: require.resolve('resolve-url-loader'),
+                  options: {
+                    sourceMap: isDev,
+                    root: paths.appSrc,
+                  },
+                },
                 {
                   loader: require.resolve('sass-loader'),
                   options: {
