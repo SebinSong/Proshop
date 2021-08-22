@@ -19,6 +19,7 @@ const paths = {
 }
 
 // regExps
+const fontRegex = /\.(woff(2)?|ttf|eot)$/
 const imageRegex = [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/]
 const svgRegex = /\.svg$/
 const rawAssetRegex = [/\.txt$/]
@@ -42,69 +43,88 @@ module.exports = (envSettings) => {
     module: {
       rules: [
         {
-          // emit all images to output directory as static assets
-          test: imageRegex,
-          type: 'asset/resource',
-          generator: {
-            filename: 'static/images/[hash][ext]'
-          }
-        },
-        {
-          // if bigger than 8kb, emit it as a static asset,
-          // otherwise inline the asset as dataURL.
-          test: svgRegex,
-          type: 'asset',
-          generator: {
-            dataUrl: content => {
-              content = content.toString()
-
-              // optimize the generated svg dataURI
-              return svgToMiniDataURI(content)
-            }
-          },
-          parser: {
-            dataUrlCondition: {
-              maxSize: 8 * 1024 // 8kb
-            }
-          }
-        },
-        {
-          // anything that needs to be read as a raw data
-          test: rawAssetRegex,
-          type: 'asset/source'
-        },
-        {
-          test: jsRegex,
-          exclude: /node_modules/,
-          use: [
+          oneOf: [
             {
-              loader: require.resolve('babel-loader'),
-              options: {
-                presets: [
-                  '@babel/preset-env',
-                  '@babel/preset-react'
-                ],
-                plugins: [
-                  '@babel/plugin-proposal-class-properties'
-                ],
-                compact: isProd
+              test: fontRegex,
+              type: 'asset/resource',
+              generator: {
+                filename: 'static/font/[hash][ext]'
               }
-            }
-          ]
-        },
-        {
-          test: scssRegex,
-          use: [
-            { loader: isProd ? MiniCssExtractPlugin.loader : 'style-loader' },
-            { loader: require.resolve('css-loader') },
+            },
             {
-              loader: require.resolve('sass-loader'),
-              options: {
-                implementation: require('sass'),
-                sassOptions: {
-                  includePaths: [ paths.appSass ]
-                },
-                additionalData: "@import 'variables';"
+              // emit all images to output directory as static assets
+              test: imageRegex,
+              type: 'asset/resource',
+              generator: {
+                filename: 'static/images/[hash][ext]'
+              }
+            },
+            {
+              // if bigger than 8kb, emit it as a static asset,
+              // otherwise inline the asset as dataURL.
+              test: svgRegex,
+              type: 'asset',
+              generator: {
+                dataUrl: content => {
+                  content = content.toString()
+    
+                  // optimize the generated svg dataURI
+                  return svgToMiniDataURI(content)
+                }
+              },
+              parser: {
+                dataUrlCondition: {
+                  maxSize: 8 * 1024 // 8kb
+                }
+              }
+            },
+            {
+              // anything that needs to be read as a raw data
+              test: rawAssetRegex,
+              type: 'asset/source'
+            },
+            {
+              test: jsRegex,
+              exclude: /node_modules/,
+              use: [
+                {
+                  loader: require.resolve('babel-loader'),
+                  options: {
+                    presets: [
+                      '@babel/preset-env',
+                      '@babel/preset-react'
+                    ],
+                    plugins: [
+                      '@babel/plugin-proposal-class-properties'
+                    ],
+                    compact: isProd
+                  }
+                }
+              ]
+            },
+            {
+              test: scssRegex,
+              use: [
+                { loader: isProd ? MiniCssExtractPlugin.loader : 'style-loader' },
+                { loader: require.resolve('css-loader') },
+                {
+                  loader: require.resolve('sass-loader'),
+                  options: {
+                    implementation: require('sass'),
+                    sassOptions: {
+                      includePaths: [ paths.appSass ]
+                    },
+                    additionalData: "@import 'variables';"
+                  }
+                }
+              ]
+            },
+            // if none of the rules above matches, it will fall back to this rule
+            {
+              type: 'asset/resource',
+              exclude: [ /\.js$/, /\.html$/, /\.json$/],
+              generator: {
+                filename: 'static/media/[hash][ext]'
               }
             }
           ]
