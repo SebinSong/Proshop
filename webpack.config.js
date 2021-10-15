@@ -96,7 +96,8 @@ module.exports = (envSettings) => {
                     ],
                     plugins: [
                       '@babel/plugin-proposal-class-properties',
-                      '@babel/plugin-syntax-dynamic-import'
+                      '@babel/plugin-syntax-dynamic-import',
+                      '@babel/plugin-transform-runtime'
                     ],
                     compact: isProd
                   }
