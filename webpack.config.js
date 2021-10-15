@@ -187,8 +187,12 @@ module.exports = (envSettings) => {
         devServer: {
           hot: true,
           compress: true,
-          overlay: true,
-          contentBase: paths.appDist,
+          client: {
+            overlay: true
+          },
+          static: {
+            directory: paths.appDist
+          },
           port: 3030
         }
       }
