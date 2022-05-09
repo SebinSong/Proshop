@@ -13,7 +13,9 @@ function App (props) {
       <AppStyles />
       <div className="app-container">
         <Header />
-        Hello world!
+        <main>
+          Hello world!
+        </main>
 
         <Footer />
       </div>

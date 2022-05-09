@@ -1,14 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 // global styles
 import '@scss/main.scss'
 // root component
 import App from '@components/root/App.js'
 
-const rootEl = document.querySelector('#root')
+const root = createRoot(document.querySelector('#root'))
 
-ReactDOM.render(
-  <App />,
-  rootEl
-)
+root.render(<App />)
