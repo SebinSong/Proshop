@@ -18,6 +18,13 @@ const paths = {
   appAssets: resolvePath('src/assets')
 }
 
+// alias definition
+const aliasDefs = {
+  '@scss': paths.appSass,
+  '@images': path.join(paths.appAssets, 'images'),
+  '@components':  path.join(paths.appSrc, 'js/components')
+}
+
 // regExps
 const fontRegex = /\.(woff(2)?|ttf|eot)$/
 const imageRegex = [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/]
@@ -158,11 +165,7 @@ module.exports = (envSettings) => {
       })
     ].filter(Boolean),
     resolve: {
-      alias: {
-        '@scss': paths.appSass,
-        '@images': path.join(paths.appAssets, 'images'),
-        '@components':  path.join(paths.appSrc, 'js/components')
-      },
+      alias: aliasDefs,
       extensions: ['.js', '.json'], // extensions to be used to resolve when a module is referenced without the extension specified
       mainFiles: ['index'] // the file name to be used when resolving a folder
     },
