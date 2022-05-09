@@ -8,72 +8,7 @@ body {
 }
 
 .app-container {
-  $color-list: $color_1, $color_2, $bg_color_1, $bg_color_2, $light_green_1;
-
-  @extend %overlay;
-
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-
-  .app_block {
-    position: relative;
-    display: block;
-    height: 100%;
-    min-width: 1px;
-    flex-grow: 1;
-
-    @for $n from 1 through 5 {
-      &.is-#{$n} {
-        background-color: nth($color-list, $n);
-      }
-    }
-  }
-
-  img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    box-shadow: 0px 0px 12px 2px rgba(255, 200, 150, 0.1);
-
-    z-index: 1;
-
-    // animation
-    animation: rotate-logo 15s linear infinite;
-  }
-
-  .name {
-    position: absolute;
-    display: block;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    color: #fff;
-    line-height: 1.4;
-    text-align: center;
-    font: {
-      size: 13px;
-      weight: 400;
-    }
-
-    a {
-      display: inline-block;
-      color: inherit;
-      margin-left: 6px;
-      font-weight: 700;
-    }
-  }
-}
-
-@keyframes rotate-logo {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  position: relative;
+  display: block;
+  background-color: var(--background_0);
 }
