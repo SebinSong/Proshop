@@ -1,0 +1,25 @@
+.app-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: $toolbar-height 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    "l-toolbar"
+    "l-page";
+}
+
+.l-toolbar {
+  grid-area: l-toolbar;
+  position: fixed;
+  z-index: $zindex_toolbar;
+}
+
+.l-page {
+  grid-area: l-page;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

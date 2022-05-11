@@ -4,7 +4,7 @@ import './Header.scss'
 
 const Header = () => {
   return (
-    <header>Header</header>
+    <header className="l-toolbar">Header</header>
   )
 }
 

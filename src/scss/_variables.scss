@@ -9,4 +9,12 @@ $smallphone: 415px;
 $tablet: 769px;
 $desktop: 1200px;
 
+// miscellaneous
+$toolbar-height: 6rem;
+$footer-height: 4rem;
+
+// z-indexes
+$zindex_toolbar: 20;
+$zindex_footer: $zindex_toolbar;
+
 @import "mixins";
