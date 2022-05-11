@@ -22,7 +22,8 @@ const paths = {
 const aliasDefs = {
   '@scss': paths.appSass,
   '@images': path.join(paths.appAssets, 'images'),
-  '@components':  path.join(paths.appSrc, 'js/components')
+  '@components':  path.join(paths.appSrc, 'js/components'),
+  '@frontend-utils': path.join(paths.appSrc, 'js/utils')
 }
 
 // regExps

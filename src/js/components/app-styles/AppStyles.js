@@ -1,5 +1,5 @@
 import React from 'react'
-import ColorSets from './colors'
+import ColorSets from '@frontend-utils/colors.js'
 
 const defaultTheme = 'light'
 const defaultColorSet = ColorSets[defaultTheme].colors || {}

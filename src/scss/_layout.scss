@@ -6,7 +6,7 @@
   display: grid;
   grid-template-rows: $toolbar-height 1fr;
   grid-template-columns: 1fr;
-  grid-template-areas: 
+  grid-template-areas:
     "l-toolbar"
     "l-page";
 }
