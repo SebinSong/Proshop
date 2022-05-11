@@ -1,7 +1,7 @@
 {
-  "name": "my-react-spa-boilerplate",
+  "name": "proshop",
   "version": "1.0.0",
-  "description": "React SPA boilerplate configured using Webpack",
+  "description": "MERN stack practice",
   "homepage": "http://SebinSong.github.io/my-react-spa-boilerplate",
   "main": "index.js",
   "scripts": {
