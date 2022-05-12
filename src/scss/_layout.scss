@@ -9,12 +9,18 @@
   grid-template-areas:
     "l-toolbar"
     "l-page";
+
+  margin: 0 auto;
+  border: 1px dashed #000;
 }
 
 .l-toolbar {
   grid-area: l-toolbar;
   position: fixed;
   z-index: $zindex_toolbar;
+  width: 100%;
+  height: $toolbar-height;
+  border: 1px dashed #ff0000;
 }
 
 .l-page {

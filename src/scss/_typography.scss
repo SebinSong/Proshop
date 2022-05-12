@@ -1,9 +1,19 @@
 @font-face {
-  src: url(../assets/fonts/urbanist_400_regular.woff2) format('woff2');
-  font-family: "urbanist";
+  src: url(../assets/fonts/cera_round_pro_400_regular.woff) format('woff');
+  font-family: "Cera Round Pro";
   font-weight: 400;
 }
 
+@font-face {
+  src: url(../assets/fonts/cera_round_pro_600_bold.woff) format('woff');
+  font-family: "Cera Round Pro";
+  font-weight: 600;
+}
+
 :root {
-  font-family: "urbanist";
+  font: {
+    size: 10px;
+    family: "Cera Round Pro";
+    weight: 400;
+  }
 }

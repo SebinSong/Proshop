@@ -1,8 +1,11 @@
-$color_1: #F25E6B;
-$color_2: #73363B;
-$bg_color_1: #112226;
-$bg_color_2: #0C3B40;
-$light_green_1: #A9BF5A;
+$primary: var(--primary);
+$secondary: var(--secondary);
+$tertiary: var(--tertiary);
+$background_0: var(--background_0);
+$background_1: var(--background_1);
+$text_0: var(--text_0);
+$text_1: var(--text_1);
+$warning: var(--warning);
 
 // breakpoints
 $smallphone: 415px;
@@ -10,8 +13,9 @@ $tablet: 769px;
 $desktop: 1200px;
 
 // miscellaneous
-$toolbar-height: 6rem;
-$footer-height: 4rem;
+$page-max-content-width: 1600px;
+$toolbar-height: 7.2rem;
+$footer-height: 8rem;
 
 // z-indexes
 $zindex_toolbar: 20;
