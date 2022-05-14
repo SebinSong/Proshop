@@ -12,17 +12,26 @@
 
     .app-header__logo {
       display: block;
-      height: 3.8rem;
+      height: 2.8rem;
       width: auto;
-      margin-right: 1.2rem;
+      margin-right: 0.6rem;
     }
 
     .app-header__app-title {
       display: block;
       font: {
-        size: 2.8rem;
+        size: 2.2rem;
         weight: 600;
       }
+      line-height: 1.1;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .app-header__menu-container {
+      display: block;
+      margin-left: 2.4em;
     }
   }
 }

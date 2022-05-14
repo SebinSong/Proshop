@@ -1,0 +1,23 @@
+$fa-icons: (
+  // search icons to use -> https://fontawesome.com/search?s=solid
+  cart: \f07a,
+  sign-in: \f2f6
+);
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url(../assets/fonts/fa-solid-900.woff2) format('woff2');
+}
+
+[class^="fa-"] {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-style: normal;
+}
+
+@each $name, $unicode in $fa-icons {
+  .fa-#{$name}::before { content: "#{$unicode}"; }
+}

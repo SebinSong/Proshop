@@ -12,13 +12,14 @@ $smallphone: 415px;
 $tablet: 769px;
 $desktop: 1200px;
 
+// z-indexes
+$zindex_toolbar: 20;
+$zindex_footer: $zindex_toolbar;
+
 // miscellaneous
 $page-max-content-width: 1600px;
 $toolbar-height: 7.2rem;
 $footer-height: 8rem;
-
-// z-indexes
-$zindex_toolbar: 20;
-$zindex_footer: $zindex_toolbar;
+$page-common-side-padding: 2rem;
 
 @import "mixins";
