@@ -1,0 +1,39 @@
+
+
+button,
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  @extend %unselectable;
+  height: auto; // Usability purposes
+  min-height: 3.2rem; // A11Y purposes
+  border-radius: 3.2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border: {
+    color: transparent;
+    width: 1px;
+    style: solid;
+  }
+  outline: none;
+  background-color: $primary_0;
+  color: $text_0;
+  transition: box-shadow 150ms ease-in;
+  white-space: nowrap;
+  font: {
+    family: "Cera Round Pro";
+    size: $size_4 * 1.1;
+  }
+
+  > * {
+    display: inline-block;
+  }
+
+  &.is-secondary {
+    background-color: $secondary_0;
+    color: $text_1;
+  }
+}

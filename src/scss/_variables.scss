@@ -1,6 +1,6 @@
-$primary: var(--primary);
-$secondary: var(--secondary);
-$tertiary: var(--tertiary);
+$primary_0: var(--primary);
+$secondary_0: var(--secondary);
+$tertiary_0: var(--tertiary);
 $background_0: var(--background_0);
 $background_1: var(--background_1);
 $text_0: var(--text_0);
@@ -21,5 +21,29 @@ $page-max-content-width: 1600px;
 $toolbar-height: 7.2rem;
 $footer-height: 8rem;
 $page-common-side-padding: 2rem;
+
+// text-sizes
+$size_0: 6.4rem;
+$size_1: 3.2rem;
+$size_2: 2.4rem;
+$size_3: 1.8rem;
+$size_4: 1.4rem;
+$size_5: 1.2rem;
+
+// Alias for fonts
+$size_small: $size_5;
+$size_normal: $size_4;
+$size_medium: $size_3;
+$size_large: $size_2;
+$size__extra-large: $size_1;
+
+$radius: 3px;
+$radius-large: 5px;
+
+$gap: 1rem;
+$tablet: 769px;
+$desktop: 1200px;
+
+$transitionSpeed: 300ms;
 
 @import "mixins";
