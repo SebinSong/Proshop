@@ -78,6 +78,8 @@
 }
 
 @mixin width-constraint-center {
+  // mixin for .app-inner global util class
+  
   max-width: $page-max-content-width;
   margin-left: auto;
   margin-right: auto;

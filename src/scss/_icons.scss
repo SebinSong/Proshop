@@ -1,7 +1,12 @@
 $fa-icons: (
   // search icons to use -> https://fontawesome.com/search?s=solid
+  /*
+    usage e.g. : <Icon tag="span" name="search" /> -> <span class="fa-search" />
+    refer to Icon.js global component
+  */
   cart: \f07a,
-  sign-in: \f2f6
+  sign-in: \f2f6,
+  search: \f002
 );
 
 @font-face {

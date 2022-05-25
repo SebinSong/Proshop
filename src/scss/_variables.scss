@@ -7,6 +7,17 @@ $text_0: var(--text_0);
 $text_1: var(--text_1);
 $warning: var(--warning);
 
+// hex values for the variables above -> need to be updated accordingly,
+// if the color specs in colors.js change.
+$primary_0_hex: #FED501;
+$secondary_0_hex: #000000;
+$tertiary_0_hex: #E4E4E4;
+$background_0_hex: #FFFFFF;
+$background_1_hex: #E4E4E4;
+$text_0_hex: #000000;
+$text_1_hex: #FFFFFF;
+$warning_hex: #FD5C61;
+
 // breakpoints
 $smallphone: 415px;
 $tablet: 769px;

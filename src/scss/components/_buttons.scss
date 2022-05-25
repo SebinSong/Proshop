@@ -36,4 +36,12 @@ button,
     background-color: $secondary_0;
     color: $text_1;
   }
+
+  &.icon {
+    border-radius: 0;
+    padding: 0;
+    width: 3.6rem;
+    height: 3.6rem;
+    font-size: 1.6rem;
+  }
 }
