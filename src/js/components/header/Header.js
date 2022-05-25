@@ -24,13 +24,17 @@ const Header = () => {
 
         <div className="app-header__menu-container">
           <button className="app-header__menu-btn">
-            <span>Cart</span>
-            <Icon tag="i" name="cart" />
+            <span className="menu-btn__wrap">
+              <span className="text">Cart</span>
+              <Icon tag="i" name="cart" />
+            </span>
           </button>
 
           <button className="app-header__menu-btn">
-            <span>Sign in</span>
-            <Icon tag="i" name="sign-in" />
+            <span className="menu-btn__wrap">
+              <span className="text">Sign in</span>
+              <Icon tag="i" name="sign-in" />
+            </span>
           </button>
         </div>
 

@@ -39,6 +39,35 @@
     .app-header__menu-container {
       display: block;
       margin-left: 2.4em;
+
+      .app-header__menu-btn {
+        border: {
+          radius: 2px;
+          width: 2px;
+          style: dashed;
+          color: transparent;
+        }
+        padding: 0.6rem 1.2rem;
+
+        .menu-btn__wrap {
+          display: inline-flex;
+          align-items: center;
+          border-bottom: 2px solid currentColor;
+          padding: 0.4rem 0;
+  
+          i {
+            display: inline-block;
+            font-size: 0.9em;
+            margin-left: 0.4rem;
+          }
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+          border-color: currentColor;
+        }
+      }
     }
   }
 }
