@@ -4,11 +4,12 @@
   height: 100%;
   overflow: hidden;
   display: grid;
-  grid-template-rows: $toolbar-height 1fr;
+  grid-template-rows: $toolbar-height 1fr $footer-height;
   grid-template-columns: 1fr;
   grid-template-areas:
     "l-toolbar"
-    "l-page";
+    "l-page"
+    "l-footer";
 
   margin: 0 auto;
 }
@@ -24,6 +25,15 @@
 .l-page {
   grid-area: l-page;
   position: relative;
-  overflow-y: auto;
+  height: calc(100vh - $toolbar-height - $footer-height);
   overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px dashed #ff0000;
+}
+
+.l-footer {
+  grid-area: l-footer;
+  position: relative;
+  height: $footer-height;
+  width: 100%;
 }

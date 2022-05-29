@@ -1,7 +1,69 @@
 .app-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: $footer-height;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $secondary_0;
+  color: $text_1;
+  @include width-constraint-center;
+
+  &__right-statement {
+    color: rgba($tertiary_0_hex, 0.925);
+    font-size: 1.1rem;
+
+    > .shop-name {
+      display: inline-block;
+      color: $text_1;
+      font-weight: 600;
+      margin-left: 0.4rem;
+    }
+  }
+
+  &__logo {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 2.2rem;
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-left: 0.2rem;
+    }
+
+    img {
+      display: inline-block;
+      height: 2rem;
+      width: auto;
+    }
+  }
+
+  &__sns-icons {
+    position: relative;
+    display: block;
+
+    > *:not(:last-child) {
+      margin-right: 0.4rem;
+    }
+
+    .app-footer__sns-icon-link {
+      $side: 2.8rem;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: $primary_0;
+      width: $side;
+      height: $side;
+      border-radius: $side;
+      border: 1px solid $primary_0;
+
+      &:hover,
+      &:active {
+        text-decoration: none;
+      }
+    }
+  }
 }

@@ -13,3 +13,14 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+a,
+.link {
+  color: currentColor;
+  text-decoration: none;
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+}

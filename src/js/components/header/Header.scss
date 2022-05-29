@@ -43,7 +43,7 @@
       .app-header__menu-btn {
         border: {
           radius: 2px;
-          width: 2px;
+          width: 1px;
           style: dashed;
           color: transparent;
         }
@@ -65,7 +65,7 @@
         &:hover,
         &:active,
         &:focus {
-          border-color: currentColor;
+          border-color: rgba($secondary_0_hex, 0.5);
         }
       }
     }
