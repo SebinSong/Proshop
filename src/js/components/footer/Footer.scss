@@ -1,11 +1,13 @@
 .app-footer {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  justify-content: space-between;
   background-color: $secondary_0;
   color: $text_1;
-  @include width-constraint-center;
+
+  > .ps-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    height: 100%;
+  }
 
   &__right-statement {
     color: rgba($tertiary_0_hex, 0.925);
@@ -63,6 +65,8 @@
       &:hover,
       &:active {
         text-decoration: none;
+        color: $text_1;
+        border-color: $text_1;
       }
     }
   }

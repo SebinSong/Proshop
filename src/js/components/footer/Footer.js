@@ -3,7 +3,7 @@ import React from 'react'
 import logoPath from '@images/logo-white.svg'
 import './Footer.scss'
 
-const { Icon } = React.Global
+const { Icon, Container } = React.Global
 const iconList = [
   { 
     name: 'instagram', 
@@ -40,20 +40,22 @@ const FooterIcons = () => iconList.map(
 const Footer = () => {
   return (
     <footer className="l-footer app-footer">
-      <div className="app-footer__logo">
-        <img src={logoPath} />
-        <h1>Proshop</h1>
-      </div>
+      <Container>
+        <div className="app-footer__logo">
+          <img src={logoPath} />
+          <h1>Proshop</h1>
+        </div>
 
-      <div className="app-footer__right-statement">
-        &copy; Copyright 2022 
-        <span className="shop-name">Proshop</span>.
-        All Rights Reserved. 
-      </div>
+        <div className="app-footer__right-statement">
+          &copy; Copyright 2022 
+          <span className="shop-name">Proshop</span>.
+          All Rights Reserved. 
+        </div>
 
-      <div className="app-footer__sns-icons">
-        <FooterIcons />
-      </div>
+        <div className="app-footer__sns-icons">
+          <FooterIcons />
+        </div>
+      </Container>
     </footer>
   )
 }

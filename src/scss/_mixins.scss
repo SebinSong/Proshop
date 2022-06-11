@@ -85,6 +85,11 @@
   margin-right: auto;
   padding-left: $page-common-side-padding;
   padding-right: $page-common-side-padding;
+
+  @include smallphone {
+    padding-left: $page-common-side-padding-mobile;
+    padding-right: $page-common-side-padding-mobile;
+  }
 }
 
 @mixin dashline ($color: #000) {
