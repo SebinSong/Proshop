@@ -20,11 +20,7 @@ const iconList = [
   { 
     name: 'heart', 
     url: 'https://www.linkedin.com/in/sebinsong/' 
-  },
-  { 
-    name: 'youtube', 
-    url: 'https://www.youtube.com/' 
-  },
+  }
 ]
 
 const FooterIcons = () => iconList.map(
@@ -39,8 +35,8 @@ const FooterIcons = () => iconList.map(
 
 const Footer = () => {
   return (
-    <footer className="l-footer app-footer">
-      <Container>
+    <footer className="p-footer app-footer">
+      <Container classes="app-footer__container">
         <div className="app-footer__logo">
           <img src={logoPath} />
           <h1>Proshop</h1>

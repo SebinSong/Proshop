@@ -1,31 +1,40 @@
 .app-footer {
+  position: relative;
+  height: max-content;
+  width: 100%;
   background-color: $secondary_0;
   color: $text_1;
 
-  > .ps-container {
+  &__container {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+      "f-logo f-icons"
+      "f-statement f-icons";
     align-items: center;
+    min-height: $footer-height;
     height: 100%;
-  }
 
-  &__right-statement {
-    color: rgba($tertiary_0_hex, 0.925);
-    font-size: 1.1rem;
-
-    > .shop-name {
-      display: inline-block;
-      color: $text_1;
-      font-weight: 600;
-      margin-left: 0.4rem;
+    @include from (550px) {
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto;
+      grid-template-areas: "f-logo f-statement f-icons";
+      align-items: center;
     }
   }
 
   &__logo {
+    grid-area: f-logo;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
     margin-right: 2.2rem;
+    padding-top: 1.2rem;
+
+    @include from (550px) {
+      padding-top: 0;
+    }
 
     h1 {
       font-size: 1.6rem;
@@ -41,7 +50,26 @@
     }
   }
 
+  &__right-statement {
+    grid-area: f-statement;
+    color: rgba($tertiary_0_hex, 0.925);
+    font-size: 1.1rem;
+    padding: 1.2rem 0;
+
+    @include from (550px) {
+      padding: 0;
+    }
+
+    > .shop-name {
+      display: inline-block;
+      color: $text_1;
+      font-weight: 600;
+      margin-left: 0.4rem;
+    }
+  }
+
   &__sns-icons {
+    grid-area: f-icons;
     position: relative;
     display: block;
 

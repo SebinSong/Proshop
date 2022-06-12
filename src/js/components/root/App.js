@@ -14,12 +14,13 @@ function App (props) {
       <div className="app-container app-layout">
         <Header />
         <main className="l-page">
-          <Container>
-          Hello world!
+          <Container classes="p-content">
+            Hello World
           </Container>
+          
+          <Footer />
         </main>
 
-        <Footer />
       </div>
     </>
   )
