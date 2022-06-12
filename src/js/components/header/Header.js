@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import './Header.scss'
 import logoPath from '@images/logo.svg'
@@ -6,9 +6,16 @@ import logoPath from '@images/logo.svg'
 // child components
 import HeaderSearchBar from './header-search-bar'
 
-const { Icon } = React.Global
+// hooks
+import useMQ from '@hooks/media-queries'
+
+const { Icon, Mq } = React.Global
 
 const Header = () => {
+  const searchBarQueryString = '(max-width: 529px)'
+  const isSmallDevice = useMQ(null, searchBarQueryString)
+  const [showSearchBarInSmallDevice, setShowSearchBar] = useState(false)
+
   return (
     <header className="l-toolbar app-header">
       <div className="app-header__content">
@@ -36,11 +43,24 @@ const Header = () => {
               <Icon tag="i" name="sign-in" />
             </span>
           </button>
+
+          <Mq customQueryString={searchBarQueryString}>
+            <button className="app-header__menu-btn"
+              onClick={() => setShowSearchBar(v => !v)}>
+              <span className="menu-btn__wrap">
+                <Icon tag="i" name="search" />
+              </span>
+            </button>
+          </Mq>
         </div>
 
-        <div className="app-header__search-bar-container">
-          <HeaderSearchBar placeholder="Serch Products..." />
-        </div>
+        { 
+          !isSmallDevice || showSearchBarInSmallDevice
+            ? <div className="app-header__search-bar-container">
+              <HeaderSearchBar placeholder="Serch Products..." />
+              </div>
+            : null
+        }
       </div>
     </header>
   )

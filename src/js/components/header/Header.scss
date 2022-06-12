@@ -148,7 +148,7 @@
       width: 100%;
       padding-bottom: 1.8rem;
 
-      @mixin fromBreakPoint {
+      @include fromBreakPoint {
         display: block;
         width: auto;
         padding-bottom: 0;

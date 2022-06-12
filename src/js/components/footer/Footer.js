@@ -30,7 +30,7 @@ const iconList = [
 const FooterIcons = () => iconList.map(
   ({ name = '', url = '#' }) => (
     <a className="app-footer__sns-icon-link"
-      href={url}
+      href={url} key={name}
       target="_blank">
       <Icon name={name} tag="i" />
     </a>

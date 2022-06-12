@@ -1,0 +1,2 @@
+- creating react version of vue-mq library
+- setup react-router with 'loadable' library

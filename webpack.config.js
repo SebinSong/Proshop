@@ -23,6 +23,7 @@ const aliasDefs = {
   '@scss': paths.appSass,
   '@images': path.join(paths.appAssets, 'images'),
   '@components':  path.join(paths.appSrc, 'js/components'),
+  '@hooks':  path.join(paths.appSrc, 'js/hooks'),
   '@frontend-utils': path.join(paths.appSrc, 'js/utils')
 }
 
