@@ -12,7 +12,7 @@
     grid-template-areas: 
       "f-logo f-icons"
       "f-statement f-icons";
-    align-items: center;
+    align-items: stretch;
     min-height: $footer-height;
     height: 100%;
 
@@ -66,12 +66,27 @@
       font-weight: 600;
       margin-left: 0.4rem;
     }
+
+    @include from (550px) {
+      > .right-statement__line-break {
+        display: none;   
+      }
+    }
   }
 
   &__sns-icons {
     grid-area: f-icons;
     position: relative;
-    display: block;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 1.2rem;
+    margin-left: 2.2rem;
+
+    @include from(550px) {
+      padding-bottom: 0;
+      align-items: center;
+    }
 
     > *:not(:last-child) {
       margin-right: 0.4rem;

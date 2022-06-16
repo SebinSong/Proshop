@@ -45,6 +45,7 @@ const Footer = () => {
         <div className="app-footer__right-statement">
           &copy; Copyright 2022 
           <span className="shop-name">Proshop</span>.
+          <br className="right-statement__line-break" />
           All Rights Reserved. 
         </div>
 
