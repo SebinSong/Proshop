@@ -2,7 +2,6 @@
   "name": "proshop",
   "version": "1.0.0",
   "description": "MERN stack practice",
-  "homepage": "http://SebinSong.github.io/my-react-spa-boilerplate",
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --env mode=development --open",
