@@ -4,21 +4,21 @@
   height: 100%;
   overflow: hidden;
   display: grid;
-  grid-template-rows: $toolbar-height 1fr;
+  grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
   grid-template-areas:
     "l-toolbar"
     "l-page";
-
   margin: 0 auto;
 }
 
 .l-toolbar {
   grid-area: l-toolbar;
-  position: fixed;
+  position: relative;
   z-index: $zindex_toolbar;
   width: 100%;
-  height: $toolbar-height;
+  min-height: $toolbar-height;
+  height: max-content;
 }
 
 .l-page {
@@ -31,7 +31,6 @@
     "p-content"
     "p-footer";
   position: relative;
-  height: calc(100vh - #{$toolbar-height});
   overflow-x: hidden;
   overflow-y: auto;
 }

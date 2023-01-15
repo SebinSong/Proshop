@@ -1,0 +1,36 @@
+$primary_0: var(--primary);
+$secondary_0: var(--secondary);
+$tertiary_0: var(--tertiary);
+$background_0: var(--background_0);
+$background_1: var(--background_1);
+$text_0: var(--text_0);
+$text_1: var(--text_1);
+$warning: var(--warning);
+$neautral_light: var(--neautral_light);
+$neautral_light_1: var(--neautral_light_1);
+$neautral_light_2: var(--neautral_light_2);
+$neautral_dark: var(--neautral_dark);
+$neautral_dark_1: var(--neautral_dark_1);
+$neautral_dark_2: var(--neautral_dark_2);
+
+$colorVars: (
+
+  /* footer */
+  footer-border-color: (rgba(36, 43, 51, 0.25), rgba(36, 43, 51, 0.25))
+);
+
+:root {
+  @each $name, $pair in $colorVars {
+    $light_val: nth($pair, 1);
+
+    --#{$name}: #{$light_val};
+  }
+}
+
+:root[data-theme="dark"] {
+  @each $name, $pair in $colorVars {
+    $dark_val: nth($pair, 2);
+
+    --#{$name}: #{$dark_val};
+  }
+}

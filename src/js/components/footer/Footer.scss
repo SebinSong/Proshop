@@ -3,6 +3,7 @@
   height: max-content;
   width: 100%;
   color: $text_1;
+  border-top: 1px solid var(--footer-border-color);
 
   &__container {
     display: grid;
@@ -36,10 +37,9 @@
     }
 
     h1 {
-
       font: {
         family: "Fascinate";
-        size: 1.6rem;
+        size: 1.75rem;
       }
       letter-spacing: 1px;
       text-transform: uppercase;

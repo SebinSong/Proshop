@@ -9,7 +9,7 @@ import useMQ from '@hooks/media-queries'
 const { Icon, Mq } = React.Global
 
 const Header = () => {
-  const searchBarQueryString = '(max-width: 529px)'
+  const searchBarQueryString = '(max-width: 600px)'
   const isSmallDevice = useMQ(null, searchBarQueryString)
   const [showSearchBarInSmallDevice, setShowSearchBar] = useState(false)
 
@@ -54,7 +54,7 @@ const Header = () => {
         { 
           !isSmallDevice || showSearchBarInSmallDevice
             ? <div className="app-header__search-bar-container">
-              <HeaderSearchBar placeholder="Serch Products..." />
+                <HeaderSearchBar placeholder="Serch Products..." />
               </div>
             : null
         }

@@ -1,5 +1,5 @@
 @mixin fromBreakPoint {
-  @media screen and (min-width: 530px) {
+  @media screen and (min-width: 600px) {
     @content;
   }
 }
@@ -112,7 +112,7 @@
           }
         }
 
-        @include from (680px) {
+        @include from (720px) {
           padding: 0.6rem 1.4rem;
 
           .menu-btn__wrap {
@@ -137,11 +137,13 @@
       display: flex;
       justify-content: flex-end;
       width: 100%;
-      padding-bottom: 1.8rem;
+      margin-top: 0.8rem;
+      padding-bottom: 1.4rem;
 
       @include fromBreakPoint {
         display: block;
         width: auto;
+        margin-top: 0;
         padding-bottom: 0;
       }
     }
