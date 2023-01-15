@@ -19,12 +19,12 @@ button,
     style: solid;
   }
   outline: none;
-  background-color: $primary_0;
+  background-color: rgba(0,0,0,0);
   color: $text_0;
   transition: box-shadow 150ms ease-in;
   white-space: nowrap;
   font: {
-    family: "Cera Round Pro";
+    family: "Roboto";
     size: $size_4 * 1.1;
   }
 

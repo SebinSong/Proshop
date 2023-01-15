@@ -2,7 +2,6 @@
   position: relative;
   height: max-content;
   width: 100%;
-  background-color: $secondary_0;
   color: $text_1;
 
   &__container {
@@ -37,9 +36,13 @@
     }
 
     h1 {
-      font-size: 1.6rem;
-      font-weight: 600;
+
+      font: {
+        family: "Fascinate";
+        size: 1.6rem;
+      }
       letter-spacing: 1px;
+      text-transform: uppercase;
       margin-left: 0.2rem;
     }
 
@@ -52,8 +55,7 @@
 
   &__right-statement {
     grid-area: f-statement;
-    color: rgba($tertiary_0_hex, 0.925);
-    font-size: 1.1rem;
+    font-size: $size_5;
     padding: 1.2rem 0;
 
     @include from (550px) {
@@ -89,21 +91,22 @@
     }
 
     > *:not(:last-child) {
-      margin-right: 0.4rem;
+      margin-right: 0.8rem;
     }
 
     .app-footer__sns-icon-link {
-      $side: 2.8rem;
+      $side: 3rem;
 
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      color: $primary_0;
+      font-size: 1.4rem;
+      color: inherit;
       width: $side;
       height: $side;
       border-radius: $side;
       border: 1px solid $primary_0;
+      line-height: $side;
 
       &:hover,
       &:active {

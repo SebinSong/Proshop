@@ -1,0 +1,40 @@
+$searchbar_height: 3.8rem;
+
+.searchbar {
+  display: inline-flex;
+  align-items: center;
+  border-radius: $searchbar_height * 1.4;
+  height: $searchbar_height;
+  background-color: $neautral_light;
+  overflow: hidden;
+  padding-left: 0.6rem;
+  padding-right: 1.2rem;
+
+  &-icon {
+    display: inline-block;
+    width: $searchbar_height;
+    height: $searchbar_height;
+    font-size: $size_medium;
+    line-height: $size_medium;
+  }
+
+  &-input {
+    font-size: $size_small;
+    color: $text_1;
+    background-color: rgba(0,0,0,0);
+    flex-grow: 1;
+    height: $searchbar_height;
+    min-width: 20rem;
+    margin-left: 0.4rem;
+
+    @include placeholder {
+      color: $neautral_dark_2;
+      font: {
+        weight: 400;
+        style: italic;
+        family: inherit;
+        size: 1.3rem;
+      }
+    }
+  }
+}

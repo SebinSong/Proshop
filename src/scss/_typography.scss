@@ -1,21 +1,33 @@
 @font-face {
-  src: url(../assets/fonts/cera_round_pro_400_regular.woff) format('woff');
-  font-family: "Cera Round Pro";
+  src: url(../assets/fonts/Roboto_Flex_Regular.woff2) format('woff2');
+  font-family: "Roboto";
   font-weight: 400;
 }
 
 @font-face {
-  src: url(../assets/fonts/cera_round_pro_600_bold.woff) format('woff');
-  font-family: "Cera Round Pro";
+  src: url(../assets/fonts/Roboto_Flex_Solid.woff2) format('woff2');
+  font-family: "Roboto";
   font-weight: 600;
+}
+
+@font-face {
+  src: url(../assets/fonts/Fascinate_Inline.woff2) format('woff2');
+  font-family: "Fascinate";
+  font-weight: 400;
 }
 
 :root {
   font: {
     size: 10px;
-    family: "Cera Round Pro";
+    family: "Roboto";
     weight: 400;
   }
+}
+
+body {
+  font-size: $size_4;
+  line-height: 1.4;
+  color: $text_0;
 }
 
 .has-text-bold {

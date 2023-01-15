@@ -6,8 +6,8 @@
 
 .app-header {
   display: block;
-  background-color: $primary_0;
   height: max-content;
+  color: $primary_0;
 
   &__content {
     @include width-constraint-center;
@@ -50,10 +50,10 @@
         display: inline-block;
         font: {
           size: 2rem;
-          weight: 600;
+          family: "Fascinate";
         }
         line-height: 1.1;
-        letter-spacing: 1.5px;
+        letter-spacing: 2px;
         text-transform: uppercase;
         user-select: none;
       }
@@ -66,7 +66,8 @@
         }
 
         .app-header__app-title {
-          font-size: 2.2rem;
+          font-size: 2.8rem;
+          letter-spacing: 3px;
         }
       }
     }
@@ -83,12 +84,10 @@
       }
 
       .app-header__menu-btn {
-        border: {
-          radius: 2px;
-          width: 1px;
-          style: dashed;
-          color: transparent;
-        }
+        color: inherit;
+        font-weight: 600;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
         padding: 0 0.4rem;
 
         .menu-btn__wrap {
@@ -113,18 +112,10 @@
           }
         }
 
-        &:hover,
-        &:active,
-        &:focus {
-          border-color: rgba($secondary_0_hex, 0.5);
-        }
-
         @include from (680px) {
-          padding: 0.6rem 1.2rem;
+          padding: 0.6rem 1.4rem;
 
           .menu-btn__wrap {
-            border-bottom: 2px solid currentColor;
-
             .text {
               display: inline-block;
             }

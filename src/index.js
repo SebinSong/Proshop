@@ -1,15 +1,40 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import {
+  createBrowserRouter,
+  RouterProvider
+} from 'react-router-dom'
 
 // define global components
 import './js/components/global/index.js'
 
+// components
+import App from '@components/root/App.js'
+import ErrorBoundary from '@components/page-error-boundary/PageErrorBoundary.js'
+import Home from '@pages/home/Home.js'
+
 // global styles
 import '@scss/main.scss'
-// root component
-import App from '@components/root/App.js'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorBoundary />,
+    children: [
+      {
+        errorElement: <ErrorBoundary />,
+        children: [
+          { index: true, element: <Home /> }
+        ]
+      }
+    ]
+  }
+])
 
 
 const root = createRoot(document.querySelector('#root'))
 
-root.render(<App />)
+root.render(
+  <RouterProvider router={router} />
+)

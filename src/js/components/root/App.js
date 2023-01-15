@@ -1,4 +1,5 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 // children components
 import AppStyles from '../app-styles/AppStyles.js'
@@ -15,7 +16,7 @@ function App (props) {
         <Header />
         <main className="l-page">
           <Container classes="p-content">
-            Hello World
+            <Outlet />
           </Container>
 
           <Footer />

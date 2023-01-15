@@ -1,18 +1,10 @@
 import React from 'react'
 
-import logoPath from '@images/logo-white.svg'
+import logoPath from '@images/logo.svg'
 import './Footer.scss'
 
 const { Icon, Container } = React.Global
 const iconList = [
-  { 
-    name: 'instagram', 
-    url: 'https://www.instagram.com/s.sebin/' 
-  },
-  { 
-    name: 'facebook', 
-    url: 'https://www.facebook.com/freenaturalsoul' 
-  },
   { 
     name: 'github', 
     url: 'https://github.com/SebinSong' 

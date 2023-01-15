@@ -7,14 +7,15 @@ const HeaderSearchBar = ({
   placeholder = ''
 }) => {
   return (
-    <div className="app-header__searchbar">
-      <input type="text"
-        autoComplete="off"
-        placeholder={placeholder} />
-
-      <button className="icon" type="button">
+    <div className="searchbar app-header__searchbar">
+      <button className="searchbar-icon icon" type="button" aria-label="Search button">
         <Icon name="search" />
       </button>
+
+      <input className="searchbar-input" type="text"
+        aria-label='Header search bar'
+        autoComplete="off"
+        placeholder={placeholder} />
     </div>
   )
 }

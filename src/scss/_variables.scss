@@ -6,17 +6,22 @@ $background_1: var(--background_1);
 $text_0: var(--text_0);
 $text_1: var(--text_1);
 $warning: var(--warning);
+$neautral_light: var(--neautral_light);
+$neautral_light_1: var(--neautral_light_1);
+$neautral_light_2: var(--neautral_light_2);
+$neautral_dark: var(--neautral_dark);
+$neautral_dark_1: var(--neautral_dark_1);
+$neautral_dark_2: var(--neautral_dark_2);
 
 // hex values for the variables above -> need to be updated accordingly,
 // if the color specs in colors.js change.
-$primary_0_hex: #FED501;
-$secondary_0_hex: #000000;
-$tertiary_0_hex: #E4E4E4;
-$background_0_hex: #FFFFFF;
-$background_1_hex: #E4E4E4;
-$text_0_hex: #000000;
-$text_1_hex: #FFFFFF;
-$warning_hex: #FD5C61;
+$primary_0_hex: #003459;
+$secondary_0_hex: #F7DBA7;
+$background_0_hex: #FDFDFD;
+$background_1_hex: #EBEEEF;
+$text_0_hex: #00171F;
+$text_1_hex: #003459;
+$warning_hex: #FF564F;
 
 // breakpoints
 $smallphone: 428px;
@@ -29,25 +34,27 @@ $zindex_footer: $zindex_toolbar;
 
 // miscellaneous
 $page-max-content-width: 1600px;
-$toolbar-height: 7.2rem;
-$footer-height: 5rem;
+$toolbar-height: 7.6rem;
+$footer-height: 5.8rem;
 $page-common-side-padding: 2rem;
 $page-common-side-padding-mobile: 1.5rem;
 
 // text-sizes
-$size_0: 6.4rem;
-$size_1: 3.2rem;
-$size_2: 2.4rem;
+$size_0: 2.4rem;
+$size_1: 2.2rem;
+$size_2: 2rem;
 $size_3: 1.8rem;
-$size_4: 1.4rem;
-$size_5: 1.2rem;
+$size_4: 1.6rem;
+$size_5: 1.4rem;
+$size_6: 1.2rem;
 
 // Alias for fonts
+$size_extra_smallL: $size_6;
 $size_small: $size_5;
 $size_normal: $size_4;
 $size_medium: $size_3;
 $size_large: $size_2;
-$size__extra-large: $size_1;
+$size_extra_large: $size_1;
 
 $radius: 3px;
 $radius-large: 5px;

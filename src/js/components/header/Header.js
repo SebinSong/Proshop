@@ -2,13 +2,10 @@ import React, { useState } from 'react'
 
 import './Header.scss'
 import logoPath from '@images/logo.svg'
-
 // child components
 import HeaderSearchBar from './header-search-bar'
-
 // hooks
 import useMQ from '@hooks/media-queries'
-
 const { Icon, Mq } = React.Global
 
 const Header = () => {
