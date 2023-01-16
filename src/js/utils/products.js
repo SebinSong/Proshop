@@ -1,6 +1,8 @@
+import { genId } from '@utilities'
+
 const products = [
   {
-    _id: '1',
+    _id: genId(),
     name: 'Airpods Wireless Bluetooth Headphones',
     filename: 'airpods.jpg',
     description:
@@ -13,7 +15,7 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '2',
+    _id: genId(),
     name: 'iPhone 11 Pro 256GB Memory',
     filename: 'phone.jpg',
     description:
@@ -26,7 +28,7 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: '3',
+    _id: genId(),
     name: 'Cannon EOS 80D DSLR Camera',
     filename: 'camera.jpg',
     description:
@@ -39,7 +41,7 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '4',
+    _id: genId(),
     name: 'Sony Playstation 4 Pro White Version',
     filename: 'playstation.jpg',
     description:
@@ -52,7 +54,7 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '5',
+    _id: genId(),
     name: 'Logitech G-Series Gaming Mouse',
     filename: 'mouse.jpg',
     description:
@@ -65,7 +67,7 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: '6',
+    _id: genId(),
     name: 'Amazon Echo Dot 3rd Generation',
     filename: 'alexa.jpg',
     description:

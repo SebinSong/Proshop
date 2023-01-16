@@ -33,5 +33,3 @@ const root = createRoot(document.querySelector('#root'))
 root.render(
   <RouterProvider router={router} />
 )
-
-console.log('init React App: ', root)

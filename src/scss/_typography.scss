@@ -16,6 +16,12 @@
   font-weight: 400;
 }
 
+@font-face {
+  src: url(../assets/fonts/Yeseva.woff2) format('woff2');
+  font-family: "Yeseva";
+  font-weight: 400;
+}
+
 :root {
   font: {
     size: 10px;
@@ -28,6 +34,24 @@ body {
   font-size: $size_4;
   line-height: 1.4;
   color: $text_0;
+}
+
+$heading_sizes: 2.8rem, 2.6rem, 2.4rem, 2.25rem, 2rem;
+
+@each $size in $heading_sizes {
+  $i: index($heading_sizes, $size);
+
+  h#{$i},
+  .is-title-#{$i} {
+    font-family: "Yeseva";
+    font-size: $size;
+    letter-spacing: 1px;
+    color: $text_1;
+  }
+}
+
+.has-yeseva {
+  font-family: "Yeseva";
 }
 
 .has-text-bold {

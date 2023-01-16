@@ -4,3 +4,10 @@
   margin: 0 auto;
   padding: 0 $page-common-side-padding;
 }
+
+@for $n from 1 through 5 {
+  $val: $n * 10;
+
+  .mt-#{$val} { margin-top: #{$n}rem !important; }
+  .mb-#{$val} { margin-bottom: #{$n}rem !important; }
+}

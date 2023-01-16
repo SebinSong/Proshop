@@ -26,6 +26,7 @@ const aliasDefs = {
   '@components':  path.join(paths.appSrc, 'js/components'),
   '@hooks':  path.join(paths.appSrc, 'js/hooks'),
   '@frontend-utils': path.join(paths.appSrc, 'js/utils'),
+  '@utilities': path.join(paths.appSrc, 'js/utils/utilities.js'),
   '@pages': path.join(paths.appSrc, 'js/pages')
 }
 

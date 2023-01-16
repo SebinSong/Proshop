@@ -6,8 +6,6 @@ import AppStyles from '../app-styles/AppStyles.js'
 import Footer from '@components/footer'
 import Header from '@components/header'
 
-const { Container } = React.Global
-
 function App (props) {
   return (
     <>
@@ -15,9 +13,7 @@ function App (props) {
       <div className="app-container app-layout">
         <Header />
         <main className="l-page">
-          <Container classes="p-content">
-            <Outlet />
-          </Container>
+          <Outlet />
 
           <Footer />
         </main>
