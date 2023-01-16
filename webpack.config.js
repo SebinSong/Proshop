@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin') // provided out of the box in webpack 5
+const CopyPlugin = require('copy-webpack-plugin')
 
 // paths
 const resolvePath = relPath => path.resolve(__dirname, relPath)
@@ -66,7 +67,7 @@ module.exports = (envSettings) => {
               test: imageRegex,
               type: 'asset/resource',
               generator: {
-                filename: 'static/images/[hash][ext]'
+                filename: 'images/[hash][ext]'
               }
             },
             {
@@ -165,6 +166,11 @@ module.exports = (envSettings) => {
       isProd && new MiniCssExtractPlugin({
         filename: 'static/css/[name].[contenthash:8].css',
         chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
+      }),
+      new CopyPlugin({
+        patterns: [
+          { from: 'public/images', to: 'images' }
+        ]
       })
     ].filter(Boolean),
     resolve: {

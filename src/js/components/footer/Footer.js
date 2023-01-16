@@ -1,6 +1,4 @@
 import React from 'react'
-
-import logoPath from '@images/logo.svg'
 import './Footer.scss'
 
 const { Icon, Container } = React.Global
@@ -30,7 +28,7 @@ const Footer = () => {
     <footer className="p-footer app-footer">
       <Container classes="app-footer__container">
         <div className="app-footer__logo">
-          <img src={logoPath} />
+          <img src="images/logo.svg" />
           <h1>Proshop</h1>
         </div>
 

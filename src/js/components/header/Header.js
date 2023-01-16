@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import './Header.scss'
-import logoPath from '@images/logo.svg'
 // child components
 import HeaderSearchBar from './header-search-bar'
 // hooks
@@ -18,7 +17,7 @@ const Header = () => {
       <div className="app-header__content">
         <div className="app-header__branding">
           <img className="app-header__logo"
-            src={logoPath}
+            src="images/logo.svg"
             alt="A tiny shop logo" />
 
           <h1 className="app-header__app-title">
