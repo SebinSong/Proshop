@@ -1,7 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider
 } from 'react-router-dom'
 
@@ -16,18 +16,13 @@ import Home from '@pages/home/Home.js'
 // global styles
 import '@scss/main.scss'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorBoundary />,
     children: [
-      {
-        errorElement: <ErrorBoundary />,
-        children: [
-          { index: true, element: <Home /> }
-        ]
-      }
+      { index: true, element: <Home /> }
     ]
   }
 ])
@@ -38,3 +33,5 @@ const root = createRoot(document.querySelector('#root'))
 root.render(
   <RouterProvider router={router} />
 )
+
+console.log('init React App: ', root)
