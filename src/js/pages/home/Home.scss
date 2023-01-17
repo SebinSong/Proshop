@@ -1,9 +1,10 @@
 .page-home {
   .latest-product-list {
     position: relative;
-    margin-top: 3.2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    max-width: 100%;
+    margin: 3.2rem auto 0;
+    gap: 2.6rem;
   }
 }
