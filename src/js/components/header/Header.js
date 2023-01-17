@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import './Header.scss'
 // child components
 import HeaderSearchBar from './header-search-bar'
@@ -12,9 +12,11 @@ const Header = () => {
   const isSmallDevice = useMQ(null, searchBarQueryString)
   const [showSearchBarInSmallDevice, setShowSearchBar] = useState(false)
   const nav = useNavigate()
+  const location = useLocation()
 
   // methods
   const navigateTo = to => nav(to)
+  const isActiveWithPath = path => location.pathname === path ? 'is-active' : ''
 
   return (
     <header className="l-toolbar app-header">
@@ -30,14 +32,16 @@ const Header = () => {
         </div>
 
         <div className="app-header__menu-container">
-          <button className="app-header__menu-btn" onClick={() => navigateTo('/cart')}>
+          <button className={`app-header__menu-btn ${isActiveWithPath('/cart')}`}
+            onClick={() => navigateTo('/cart')}>
             <span className="menu-btn__wrap">
               <span className="text">Cart</span>
               <Icon tag="i" name="cart" />
             </span>
           </button>
 
-          <button className="app-header__menu-btn" onClick={() => navigateTo('/sign-in')}>
+          <button className={`app-header__menu-btn ${isActiveWithPath('/login')}`}
+            onClick={() => navigateTo('/login')}>
             <span className="menu-btn__wrap">
               <span className="text">Sign in</span>
               <Icon tag="i" name="sign-in" classes="sign-in-icon" />

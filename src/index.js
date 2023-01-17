@@ -12,6 +12,8 @@ import './js/components/global/index.js'
 import App from '@components/root/App.js'
 import Home from '@pages/home/Home.js'
 import Product from '@pages/product/Product.js'
+import Login from '@pages/login/Login.js'
+import Cart from '@pages/cart/Cart.js'
 import NotFound from '@pages/not-found/NotFound.js'
 
 // global styles
@@ -27,6 +29,14 @@ const router = createHashRouter([
       {
         path: 'product/:id',
         element: <Product />
+      },
+      {
+        path: 'cart',
+        element: <Cart />
+      },
+      {
+        path: 'login',
+        element: <Login />
       }
     ]
   }
