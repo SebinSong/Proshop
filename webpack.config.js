@@ -49,7 +49,7 @@ module.exports = (envSettings) => {
       filename: isProd ? 'static/js/[name].[contenthash:8].js' :
         isDev ? 'static/js/[name].bundle.js' : '',
       path: paths.appDist,
-      publicPath: '/'
+      publicPath: isDev ? '/' : ''
     },
     mode: mode || 'none',
     module: {
