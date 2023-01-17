@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Rating from '@components/rating/Rating.js'
 import './HomeProductCard.scss'
@@ -6,14 +7,15 @@ import './HomeProductCard.scss'
 export default function HomeProductCard ({ productData }) {
   if (!productData) return null
 
+  const nav = useNavigate()
   const {
     name, description, filename,
-    price, rating, numReviews, brand
+    price, rating, numReviews, brand, id
   } = productData
   const imgPath = `images/products/${filename}`
 
   return (
-    <div className="home-product-card">
+    <div className="home-product-card" onClick={() => nav(`product/${id}`)}>
       <img src={imgPath} alt={name} />
 
       <p className="product-info">

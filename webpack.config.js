@@ -49,7 +49,7 @@ module.exports = (envSettings) => {
       filename: isProd ? 'static/js/[name].[contenthash:8].js' :
         isDev ? 'static/js/[name].bundle.js' : '',
       path: paths.appDist,
-      publicPath: ''
+      publicPath: '/'
     },
     mode: mode || 'none',
     module: {
@@ -206,7 +206,8 @@ module.exports = (envSettings) => {
           static: {
             directory: paths.appDist
           },
-          port: 3030
+          port: 3030,
+          historyApiFallback: true
         }
       }
     )

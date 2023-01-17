@@ -1,7 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import {
-  createHashRouter,
+  createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
 
@@ -12,17 +12,22 @@ import './js/components/global/index.js'
 import App from '@components/root/App.js'
 import ErrorBoundary from '@components/page-error-boundary/PageErrorBoundary.js'
 import Home from '@pages/home/Home.js'
+import Product from '@pages/product/Product.js'
 
 // global styles
 import '@scss/main.scss'
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorBoundary />,
     children: [
-      { index: true, element: <Home /> }
+      { index: true, element: <Home /> },
+      {
+        path: 'product/:id',
+        element: <Product />
+      }
     ]
   }
 ])

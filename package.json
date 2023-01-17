@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MERN stack practice",
   "main": "index.js",
+  "homepage": "https://sebinsong.github.io/Proshop/",
   "scripts": {
     "dev": "webpack serve --env mode=development --open",
     "build": "webpack --env mode=production",

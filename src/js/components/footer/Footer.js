@@ -28,7 +28,7 @@ const Footer = () => {
     <footer className="p-footer app-footer">
       <Container classes="app-footer__container">
         <div className="app-footer__logo">
-          <img src="images/logo.svg" />
+          <img src="/images/logo.svg" />
           <h1>Proshop</h1>
         </div>
 

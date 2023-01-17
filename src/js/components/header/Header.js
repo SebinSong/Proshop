@@ -17,7 +17,7 @@ const Header = () => {
       <div className="app-header__content">
         <div className="app-header__branding">
           <img className="app-header__logo"
-            src="images/logo.svg"
+            src="/images/logo.svg"
             alt="A tiny shop logo" />
 
           <h1 className="app-header__app-title">
