@@ -10,9 +10,9 @@ import './js/components/global/index.js'
 
 // components
 import App from '@components/root/App.js'
-import ErrorBoundary from '@components/page-error-boundary/PageErrorBoundary.js'
 import Home from '@pages/home/Home.js'
 import Product from '@pages/product/Product.js'
+import NotFound from '@pages/not-found/NotFound.js'
 
 // global styles
 import '@scss/main.scss'
@@ -21,12 +21,17 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorBoundary />,
+    errorElement: <NotFound />,
     children: [
-      { index: true, element: <Home /> },
       {
-        path: 'product/:id',
-        element: <Product />
+        errorElement: <NotFound />,
+        children: [
+          { index: true, element: <Home /> },
+          {
+            path: 'product/:id',
+            element: <Product />
+          }
+        ]
       }
     ]
   }

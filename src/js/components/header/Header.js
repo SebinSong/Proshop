@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 import './Header.scss'
 // child components
 import HeaderSearchBar from './header-search-bar'
@@ -11,6 +11,10 @@ const Header = () => {
   const searchBarQueryString = '(max-width: 600px)'
   const isSmallDevice = useMQ(null, searchBarQueryString)
   const [showSearchBarInSmallDevice, setShowSearchBar] = useState(false)
+  const nav = useNavigate()
+
+  // methods
+  const navigateTo = to => nav(to)
 
   return (
     <header className="l-toolbar app-header">
@@ -26,14 +30,14 @@ const Header = () => {
         </div>
 
         <div className="app-header__menu-container">
-          <button className="app-header__menu-btn">
+          <button className="app-header__menu-btn" onClick={() => navigateTo('/cart')}>
             <span className="menu-btn__wrap">
               <span className="text">Cart</span>
               <Icon tag="i" name="cart" />
             </span>
           </button>
 
-          <button className="app-header__menu-btn">
+          <button className="app-header__menu-btn" onClick={() => navigateTo('/sign-in')}>
             <span className="menu-btn__wrap">
               <span className="text">Sign in</span>
               <Icon tag="i" name="sign-in" classes="sign-in-icon" />
