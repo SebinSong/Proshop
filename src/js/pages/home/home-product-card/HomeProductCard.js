@@ -1,5 +1,6 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
+import Rating from '@components/rating/Rating.js'
 import './HomeProductCard.scss'
 
 export default function HomeProductCard ({ productData }) {
@@ -23,10 +24,15 @@ export default function HomeProductCard ({ productData }) {
           <span className="is-desc-strong">{brand}</span>
         </span>
         <span className="product-info-ratings-reviews">
-          <span className="is-desc-strong">{rating}</span> from <span className="is-desc-strong">{numReviews}</span> reviews</span>
+          <Rating rate={rating} text={`${rating} (${numReviews} reviews)`} color='var(--orange_shine)' />
+        </span>
       </p>
 
       <p className="product-price has-yeseva">$ {price}</p>
     </div>
   )
+}
+
+HomeProductCard.propTypes = {
+  productData: PropTypes.object.isRequired
 }

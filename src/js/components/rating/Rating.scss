@@ -1,3 +1,14 @@
 .rating {
-  
+  display: inline-flex;
+  align-items: center;
+
+  > * {
+    display: inline-block;
+    font-size: inherit;
+  }
+
+  &-stars {
+    flex-shrink: 0;
+    margin-right: 0.6rem;
+  }
 }

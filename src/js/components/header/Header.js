@@ -36,7 +36,7 @@ const Header = () => {
           <button className="app-header__menu-btn">
             <span className="menu-btn__wrap">
               <span className="text">Sign in</span>
-              <Icon tag="i" name="sign-in" />
+              <Icon tag="i" name="sign-in" classes="sign-in-icon" />
             </span>
           </button>
 

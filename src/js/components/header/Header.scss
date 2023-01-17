@@ -109,6 +109,10 @@
             width: 3.6rem;
             height: 3.6rem;
             border: 1px solid currentColor;
+
+            &.sign-in-icon {
+              font-size: 1.1em;
+            }
           }
         }
 
