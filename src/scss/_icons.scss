@@ -1,5 +1,5 @@
 $fa-icons: (
-  // search icons to use -> https://fontawesome.com/search?s=solid
+  // search icons to use -> https://fontawesome.com/search?o=r&m=free&s=solid
   /*
     usage e.g. : <Icon tag="span" name="search" /> -> <span class="fa-search" />
     refer to Icon.js global component
@@ -14,6 +14,10 @@ $fa-icons: (
   youtube: \e131,
   star: \f005,
   star-half: \f5c0,
+  arrow-left: \f060,
+  arrow-right: \f061,
+  arrow-up: \f062,
+  arrow-down: \f063,
 );
 
 @font-face {

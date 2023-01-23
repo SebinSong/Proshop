@@ -11,7 +11,7 @@ import './js/components/global/index.js'
 // components
 import App from '@components/root/App.js'
 import Home from '@pages/home/Home.js'
-import Product from '@pages/product/Product.js'
+import Product, { loader as productLoader } from '@pages/product/Product.js'
 import Login from '@pages/login/Login.js'
 import Cart from '@pages/cart/Cart.js'
 import NotFound from '@pages/not-found/NotFound.js'
@@ -28,7 +28,8 @@ const router = createHashRouter([
       { index: true, element: <Home /> },
       {
         path: 'product/:id',
-        element: <Product />
+        element: <Product />,
+        loader: productLoader
       },
       {
         path: 'cart',

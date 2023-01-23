@@ -1,5 +1,3 @@
-
-
 button,
 .button {
   position: relative;
@@ -9,10 +7,10 @@ button,
   cursor: pointer;
   @extend %unselectable;
   height: auto; // Usability purposes
-  min-height: 3.2rem; // A11Y purposes
-  border-radius: 3.2rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  min-height: 4.2rem; // A11Y purposes
+  border-radius: 4.2rem;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
   border: {
     color: transparent;
     width: 1px;
@@ -21,27 +19,48 @@ button,
   outline: none;
   background-color: rgba(0,0,0,0);
   color: $text_0;
-  transition: box-shadow 150ms ease-in;
+  transition: box-shadow 120ms ease-in;
   white-space: nowrap;
   font: {
     family: "Roboto";
-    size: $size_4 * 1.1;
+    size: $size_4;
   }
 
-  > * {
-    display: inline-block;
-  }
+  > * { display: inline-block; }
 
-  &.is-secondary {
-    background-color: $secondary_0;
-    color: $text_1;
-  }
+  > i.is-prefix { margin-right: 0.6rem; }
+  > i.is-postfix { margin-left: 0.6rem; }
 
   &.icon {
     border-radius: 0;
     padding: 0;
-    width: 3.6rem;
-    height: 3.6rem;
+    min-width: unset;
+    min-height: unset;
+    width: 4.2rem;
+    height: 4.2rem;
     font-size: 1.6rem;
+  }
+
+  &.is-text-btn {
+    min-width: 9.6rem;
+  }
+
+  $btn-styles: 'primary', 'secondary', 'outline';
+
+  @each $btn-style in $btn-styles {
+    &.is-#{$btn-style} {
+      background-color: var(--button-bg-color-#{$btn-style});
+      color: var(--button-text-color-#{$btn-style});
+      border-color: var(--button-border-color-#{$btn-style});
+
+      &:focus,
+      &:hover {
+        box-shadow: 0px 0px 3px 3px var(--button-shadow-on-focus-#{$btn-style});
+      }
+
+      &:active {
+        box-shadow: 0px 0px 3px 4px var(--button-shadow-on-active-#{$btn-style});
+      }
+    }
   }
 }
