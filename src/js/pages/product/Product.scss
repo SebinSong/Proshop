@@ -1,2 +1,52 @@
 .page-product {
+  .product-details {
+    // grid specification
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "product-img" "product-details";
+    margin-top: 3.2rem;
+
+    @include tablet {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: "product-img product-details";
+    }
+
+    &-image {
+      position: relative;
+      width: 100%;
+      padding: 1.6rem;
+      border-radius: 1.2rem;
+      border: 1px solid $text_1;
+
+      img {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+      }
+
+      @include tablet {
+        margin-right: 3.2rem;
+        width: 40vw;
+        max-width: 60rem;
+      }
+    }
+
+    &-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 1.8rem;
+      max-width: 69rem;
+
+      @include from(1520px) {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+  }
 }

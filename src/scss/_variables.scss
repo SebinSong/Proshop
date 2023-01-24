@@ -1,8 +1,3 @@
-// breakpoints
-$smallphone: 428px;
-$tablet: 769px;
-$desktop: 1200px;
-
 // z-indexes
 $zindex_toolbar: 20;
 $zindex_footer: $zindex_toolbar;
@@ -34,7 +29,9 @@ $size_extra_large: $size_1;
 $radius: 3px;
 $radius-large: 5px;
 
+// breakpoints
 $gap: 1rem;
+$smallphone: 428px;
 $tablet: 769px;
 $desktop: 1200px;
 

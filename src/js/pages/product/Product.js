@@ -34,20 +34,24 @@ export default function Product () {
       </div>
 
       <div className="product-details">
-        <img className="product-details-image" src={imgPath} alt={name} />
+        <div className="product-details-image">
+          <img src={imgPath} alt={name} />
+        </div>
 
         <div className="product-details-content">
-          <div className="product-brand">{brand}</div>
-          <h2 className="product-name">{name}</h2>
-          <div className="product-rating">
-            <Rating rate={rating}
-              text={`${rating} / 5 (from ${numReviews})`}
-              color='var(--orange_shine)' />
-          </div>
-          <div className="product-price">$ {price}</div>
-          <div className="product-description">
-            <span className="product-description-label">Description:</span>
-            <p>{description}</p>
+          <div className="product-details-specs">
+            <div className="product-brand">{brand}</div>
+            <h2 className="product-name">{name}</h2>
+            <div className="product-rating">
+              <Rating rate={rating}
+                text={`${rating} / 5 (from ${numReviews})`}
+                color='var(--orange_shine)' />
+            </div>
+            <div className="product-price">$ {price}</div>
+            <div className="product-description">
+              <span className="product-description-label">Description:</span>
+              <p>{description}</p>
+            </div>
           </div>
 
           <div className="product-call-to-action">
