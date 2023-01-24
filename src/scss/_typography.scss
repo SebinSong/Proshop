@@ -34,6 +34,7 @@ body {
   font-size: $size_4;
   line-height: 1.4;
   color: $text_0;
+  letter-spacing: 0.75px;
 }
 
 $heading_sizes: 2.8rem, 2.6rem, 2.4rem, 2.25rem, 2rem;
@@ -56,4 +57,12 @@ $heading_sizes: 2.8rem, 2.6rem, 2.4rem, 2.25rem, 2rem;
 
 .has-text-bold {
   font-weight: 600;
+}
+
+.has-text-1 {
+  color: $text_1;
+}
+
+.has-text-neau-dark-1 {
+  color: $neautral_dark_1;
 }

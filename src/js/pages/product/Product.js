@@ -1,6 +1,6 @@
 import React from 'react'
 import './Product.scss'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 import products from '@frontend-utils/products.js'
 import Rating from '@components/rating/Rating.js'
 
@@ -22,12 +22,14 @@ export default function Product () {
     numReviews, price, description,
     countInStock
   } = useLoaderData()
+  const navigate = useNavigate()
   const imgPath = `images/products/${filename}`
 
   return (
     <PageTemplate classes='page-product'>
       <div className="back-btn-container">
-        <button className="has-text is-outline back-btn">
+        <button className="has-text is-outline back-btn"
+          onClick={() => navigate(-1)}>
           <i className="fa-arrow-left is-prefix" />
           <span>Back</span>
         </button>
@@ -40,26 +42,35 @@ export default function Product () {
 
         <div className="product-details-content">
           <div className="product-details-specs">
-            <div className="product-brand">{brand}</div>
-            <h2 className="product-name">{name}</h2>
+            <div className="product-brand has-text-neau-dark-1 has-text-bold">{brand}</div>
+            <h2 className="product-name is-title-1">{name}</h2>
             <div className="product-rating">
-              <Rating rate={rating}
-                text={`${rating} / 5 (from ${numReviews})`}
+              <Rating classes="has-text-neau-dark-1"
+                rate={rating}
+                text={`${rating} / 5 ( from ${numReviews} )`}
                 color='var(--orange_shine)' />
             </div>
-            <div className="product-price">$ {price}</div>
+            <div className="product-price has-yeseva">$ {price}</div>
             <div className="product-description">
-              <span className="product-description-label">Description:</span>
+              <span className="product-description-label has-text-bold">Description:</span>
               <p>{description}</p>
             </div>
           </div>
 
-          <div className="product-call-to-action">
-            <div className="product-total-price">total price: $ {price}</div>
-            <div className="product-status">status: {countInStock} items in stock</div>
-
-            <div className="button-container">
-              <button className="is-text-btn is-primary">
+          <div className="product-details-summary">
+            <div className="summary-row product-total-price">
+              <label className="has-text-bold">total price:</label>
+              <span className="summary-value total-price">$ {price}</span>
+            </div>
+            <div className="summary-row product-status">
+              <label className="has-text-bold">status:</label>
+              <span className="summary-value">
+                <span className="stock-count">{countInStock}</span>
+                items in stock
+              </span>
+            </div>
+            <div className="summary-row button-container">
+              <button className="is-text-btn is-primary add-to-cart-btn">
                 <span>Add to cart</span>
                 <i className="fa-circle-plus is-postfix"></i>
               </button>

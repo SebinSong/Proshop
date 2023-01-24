@@ -55,7 +55,7 @@ button,
 
       &:focus,
       &:hover {
-        box-shadow: 0px 0px 3px 3px var(--button-shadow-on-focus-#{$btn-style});
+        box-shadow: 0px 0px 1px 3px var(--button-shadow-on-focus-#{$btn-style});
       }
 
       &:active {

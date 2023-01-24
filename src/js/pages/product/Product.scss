@@ -1,3 +1,23 @@
+$border_neautral: 1px solid $neautral_dark_1;
+$border_solid: 1px solid $text_1;
+
+@mixin veryWide {
+  @include from(1600px) {
+    @content;
+  }
+}
+
+@mixin littleWide {
+  @include from(916px) {
+    @content;
+  }
+}
+
+@mixin side-margin-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .page-product {
   .product-details {
     // grid specification
@@ -8,44 +28,149 @@
     grid-template-areas: "product-img" "product-details";
     margin-top: 3.2rem;
 
-    @include tablet {
+    @include littleWide {
       grid-template-columns: auto 1fr;
       grid-template-rows: 1fr;
       grid-template-areas: "product-img product-details";
     }
 
     &-image {
+      grid-area: product-img;
       position: relative;
       width: 100%;
-      padding: 1.6rem;
-      border-radius: 1.2rem;
-      border: 1px solid $text_1;
+      max-width: 42rem;
+      height: max-content;
+      border-radius: 0.8rem;
+      padding: 1rem;
+      border: $border_neautral;
+      margin-bottom: 3.2rem;
+      @include side-margin-auto;
 
       img {
         display: inline-block;
         width: 100%;
         height: auto;
+        border-radius: inherit;
+        border: $border_neautral;
       }
 
-      @include tablet {
-        margin-right: 3.2rem;
+      @include littleWide {
+        margin-right: 3.8rem;
         width: 40vw;
         max-width: 60rem;
+        min-width: 38rem;
+        border-radius: 1.2rem;
+        padding: 1.4rem;
+        margin-bottom: 0;
+      }
+
+      @include veryWide {
+        margin-right: 4.8rem;
       }
     }
 
     &-content {
+      grid-area: product-details;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: stretch;
       justify-content: flex-start;
       gap: 1.8rem;
-      max-width: 69rem;
+      max-width: 64rem;
+      @include side-margin-auto;
 
-      @include from(1520px) {
+      @include littleWide {
+        max-width: unset;
+      }
+
+      @include veryWide {
         flex-direction: row;
         align-items: flex-start;
+        padding-left: 4.8rem;
+        border-left: $border_neautral;
+      }
+    }
+
+    &-specs {
+      > * { margin-bottom: 0.4rem; }
+
+      .product-brand {
+        font-size: 1.265em;
+        letter-spacing: 1px;
+      }
+
+      .product-name {
+        margin-bottom: 3.6rem;
+      }
+
+      .product-rating {
+        font-size: 1.075em;
+      }
+
+      .product-price {
+        font-size: 1.75em; 
+        color: $text_1;
+        margin-bottom: 2.8rem;
+      }
+
+      .product-description {
+        margin-bottom: 2.4rem;
+        max-width: 62rem;
+
+        &-label {
+          display: block;
+          margin-bottom: 0.6rem;
+        }
+      }
+    }
+
+    &-summary {
+      position: relative;
+      border: $border_solid;
+      width: 100%;
+      
+      @include littleWide {
+        max-width: 36rem;
+      }
+
+      .summary-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.6rem 2.2rem;
+
+        &:not(:first-child) {
+          border-top: $border_solid;
+        }
+
+        &.button-container {
+          padding-top: 5.6rem;
+        }
+
+        label {
+          text-transform: capitalize;
+          letter-spacing: 1.5px;
+        }
+      }
+
+      button.add-to-cart-btn {
+        width: 100%;
+      }
+
+      .total-price {
+        font-size: 1.35em;
+        text-decoration: underline;
+        font-weight: bold;
+        color: $text_1;
+      }
+
+      .stock-count {
+        display: inline-block;
+        color: $text_1;
+        font-weight: 600;
+        margin-right: 0.4rem;
+        text-decoration: underline;
       }
     }
   }
