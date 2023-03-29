@@ -9,7 +9,7 @@ const { PageTemplate } = React.Global
 export default function Home () {
   return (
     <PageTemplate classes='page-home'>
-      <h1 className='page-heading'>Latest products</h1>
+      <h1 className='page-heading'>Our latest products</h1>
 
       <div className="latest-product-list">
         {products.map(product => <ProductCard key={product.id} productData={product} />)}

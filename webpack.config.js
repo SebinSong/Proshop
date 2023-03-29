@@ -12,11 +12,11 @@ const CopyPlugin = require('copy-webpack-plugin')
 // paths
 const resolvePath = relPath => path.resolve(__dirname, relPath)
 const paths = {
-  appSrc: resolvePath('src'),
-  appPublic: resolvePath('public'),
+  appSrc: resolvePath('frontend/src'),
+  appPublic: resolvePath('frontend/public'),
   appDist: resolvePath('dist'),
-  appSass: resolvePath('src/scss'),
-  appAssets: resolvePath('src/assets')
+  appSass: resolvePath('frontend/src/scss'),
+  appAssets: resolvePath('frontend/src/assets')
 }
 
 // alias definition
@@ -44,7 +44,7 @@ module.exports = (envSettings) => {
   const isDev = mode === 'development'
   
   const config = {
-    entry: './src/index.js',
+    entry: './frontend/src/index.js',
     output: {
       filename: isProd ? 'static/js/[name].[contenthash:8].js' :
         isDev ? 'static/js/[name].bundle.js' : '',
@@ -160,7 +160,7 @@ module.exports = (envSettings) => {
     plugins: [
       new CleanWebpackPlugin(), // empty the /dist folder on each build
       new HtmlWebpackPlugin({
-        template: './public/index.html',
+        template: './frontend/public/index.html',
         filename: 'index.html',
         minify: isProd
       }),
@@ -170,7 +170,7 @@ module.exports = (envSettings) => {
       }),
       new CopyPlugin({
         patterns: [
-          { from: 'public/images', to: 'images' }
+          { from: 'frontend/public/images', to: 'images' }
         ]
       })
     ].filter(Boolean),
