@@ -1,5 +1,7 @@
 // node core modules
+const webpack = require('webpack')
 const path = require('path')
+const packageJSON = require('./package.json')
 
 // dev-dependencies
 const svgToMiniDataURI = require('mini-svg-data-uri')
@@ -172,6 +174,9 @@ module.exports = (envSettings) => {
         patterns: [
           { from: 'frontend/public/images', to: 'images' }
         ]
+      }),
+      new webpack.DefinePlugin({
+        APP_MODE: JSON.stringify(mode)
       })
     ].filter(Boolean),
     resolve: {
@@ -207,7 +212,15 @@ module.exports = (envSettings) => {
             directory: paths.appDist
           },
           port: 3030,
-          historyApiFallback: true
+          historyApiFallback: true,
+          proxy: {
+            '/api': { // if this setting changes, the axios instance config in api-requests.js has to be updated too.
+              target: packageJSON.proxy,
+              pathRewrite: {
+                '^/api': ''
+              }
+            }
+          }
         }
       }
     )

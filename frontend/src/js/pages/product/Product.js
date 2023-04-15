@@ -1,16 +1,17 @@
 import React from 'react'
 import './Product.scss'
-import { useLoaderData, useNavigate } from 'react-router-dom'
-import products from '@frontend-utils/products.js'
+import { useLoaderData, useNavigate, useLocation } from 'react-router-dom'
+import { getProduct } from '@frontend-utils/api-requests.js'
 import Rating from '@components/rating/Rating.js'
 
 const { PageTemplate } = React.Global
 
-export async function loader ({ params }) {
-  const found = products.find(p => p.id === params.id)
+export async function loader (loaderArgs) {
+  const found = await getProduct(loaderArgs.params.id)
+
   if (!found) {
     throw new Response("", {
-      status: 404, statusText: 'Not found'
+      status: 404, statusText: 'Not found.'
     })
   }
   return found
