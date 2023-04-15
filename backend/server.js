@@ -2,6 +2,7 @@ const path = require('path')
 const dotenv = require('dotenv')
 const express = require('express')
 const productsJSON = require('./data/products.json')
+const { connectDB } = require('./db.js')
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -9,6 +10,15 @@ const {
   API_PORT = 5000,
   NODE_ENV = 'development'
 } = process.env
+
+// connnect to DB
+connectDB((err) => {
+  if (err) {
+    console.error('error ocurred while connecting to DB: ', err)
+    process.exit(1)
+  }
+})
+
 const app = express()
 
 app.get('/', (req, res) => {
