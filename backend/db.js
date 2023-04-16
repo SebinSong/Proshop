@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const colors = require('colors')
 
 exports.connectDB = async (cb) => {
   try {
@@ -7,7 +8,7 @@ exports.connectDB = async (cb) => {
       useNewUrlParser: true
     })
 
-    console.log(`MongoDB Connected: ${connection.host}`)
+    console.log(`MongoDB Connected: ${connection.host}`.bold.cyan)
     cb()
   } catch (err) {
     // catches the error from initial connection

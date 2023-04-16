@@ -1,7 +1,8 @@
 const path = require('path')
+const colors = require('colors')
 const dotenv = require('dotenv')
 const express = require('express')
-const productsJSON = require('./data/products.json')
+const productsJSON = require('./data/products')
 const { connectDB } = require('./db.js')
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
@@ -14,7 +15,7 @@ const {
 // connnect to DB
 connectDB((err) => {
   if (err) {
-    console.error('error ocurred while connecting to DB: ', err)
+    console.error('error ocurred while connecting to DB: '.underline.bold.red, err)
     process.exit(1)
   }
 })
@@ -37,4 +38,4 @@ app.get('/product/:id', (req, res) => {
   else { res.status(404).send(' you are looking for was not found.') }
 })
 
-app.listen(API_PORT, () => { console.log(`Server running in ${NODE_ENV} mode on port ${API_PORT}.`) })
+app.listen(API_PORT, () => { console.log(`Server running in ${NODE_ENV} mode on port ${API_PORT}.`.bold.yellow) })
