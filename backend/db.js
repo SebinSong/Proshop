@@ -1,13 +1,12 @@
 const mongoose = require('mongoose')
 const colors = require('colors')
-const { DataBaseStartupError } = require('./errors.js')
 
 exports.connectDB = async (cb) => {
   try {
     const { connection } = await mongoose.connect(process.env.DB_CONNECTION_URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      dbName: ''
+      dbName: process.env.DB_NAME
     })
 
     // register event handlers for DB connection.
@@ -20,10 +19,10 @@ exports.connectDB = async (cb) => {
       console.error('::: DB operation error: ', err)
       process.exit(1)
     })
-    cb()
+    cb && cb()
   } catch (err) {
     // catches the error from initial connection
-    console.error('::: DB startup error: ', error)
-    cb(err)
+    console.error('::: DB startup error: ', err)
+    cb && cb(err)
   }
 }
