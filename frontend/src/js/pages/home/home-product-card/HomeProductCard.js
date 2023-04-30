@@ -9,13 +9,13 @@ export default function HomeProductCard ({ productData }) {
 
   const nav = useNavigate()
   const {
-    name, description, filename,
-    price, rating, numReviews, brand, id
+    name, description, image: filename,
+    price, rating, numReviews, brand, _id
   } = productData
   const imgPath = `images/products/${filename}`
 
   return (
-    <div className="home-product-card" onClick={() => nav(`product/${id}`)}>
+    <div className="home-product-card" onClick={() => nav(`product/${_id}`)}>
       <img src={imgPath} alt={name} />
 
       <p className="product-info">

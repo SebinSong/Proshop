@@ -22,7 +22,7 @@ export default function Home () {
       <h1 className='page-heading'>Our latest products</h1>
 
       <div className="latest-product-list">
-        {products.map(product => <ProductCard key={product.id} productData={product} />)}
+        {products.map(product => <ProductCard key={product._id} productData={product} />)}
       </div>
     </PageTemplate>
   )

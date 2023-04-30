@@ -19,7 +19,7 @@ export async function loader (loaderArgs) {
 
 export default function Product () {
   const {
-    filename, name, brand, rating,
+    image: filename, name, brand, rating,
     numReviews, price, description,
     countInStock
   } = useLoaderData()
