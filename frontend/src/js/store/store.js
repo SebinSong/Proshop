@@ -1,8 +1,10 @@
 import * as toolkit from '@reduxjs/toolkit'
+import { productListReducer } from './features/productsSlice.js'
 
-console.log('all: ', toolkit)
 const store = toolkit.configureStore({
-  reducer: {}
+  reducer: {
+    productList: productListReducer
+  }
 })
 
 export default store
