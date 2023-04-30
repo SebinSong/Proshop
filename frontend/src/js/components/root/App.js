@@ -1,5 +1,7 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import { Outlet } from 'react-router-dom'
+import store from '@store/store.js'
 
 // children components
 import AppStyles from '../app-styles/AppStyles.js'
@@ -8,18 +10,20 @@ import Header from '@components/header'
 
 function App (props) {
   return (
-    <>
-      <AppStyles />
-      <div className="app-container app-layout">
-        <Header />
-        <main className="l-page">
-          <Outlet />
+    <Provider store={store}>
+      <>
+        <AppStyles />
+        <div className="app-container app-layout">
+          <Header />
+          <main className="l-page">
+            <Outlet />
 
-          <Footer />
-        </main>
+            <Footer />
+          </main>
 
-      </div>
-    </>
+        </div>
+      </>
+    </Provider>
   )
 }
 

@@ -29,7 +29,8 @@ const aliasDefs = {
   '@hooks':  path.join(paths.appSrc, 'js/hooks'),
   '@frontend-utils': path.join(paths.appSrc, 'js/utils'),
   '@utilities': path.join(paths.appSrc, 'js/utils/utilities.js'),
-  '@pages': path.join(paths.appSrc, 'js/pages')
+  '@pages': path.join(paths.appSrc, 'js/pages'),
+  '@store': path.join(paths.appSrc, 'js/store')
 }
 
 // regExps
@@ -38,6 +39,7 @@ const imageRegex = [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/]
 const svgRegex = /\.svg$/
 const rawAssetRegex = [/\.txt$/]
 const jsRegex = /\.js$/
+const mjsRegex = /\.mjs$/
 const scssRegex = /\.scss$/
 
 module.exports = (envSettings) => {
@@ -96,6 +98,11 @@ module.exports = (envSettings) => {
               // anything that needs to be read as a raw data
               test: rawAssetRegex,
               type: 'asset/source'
+            },
+            {
+              test: mjsRegex,
+              include: /node_modules/,
+              type: 'javascript/esm'
             },
             {
               test: jsRegex,
