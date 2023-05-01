@@ -1,6 +1,5 @@
-import * as toolkit from '@reduxjs/toolkit'
+import { createSlice } from '@redux-api'
 import { getProducts } from '@frontend-utils/api-requests.js'
-const { createSlice } = toolkit
 
 // define slice
 export const productListSlice = createSlice({
@@ -45,6 +44,9 @@ export const listProducts = () => async (dispatch) => {
     dispatch(requestFailed(error))
   }
 }
+
+// selectors
+export const selectProductList = state => state.productList || []
 
 // slice-reducer
 export const productListReducer = productListSlice.reducer

@@ -1,7 +1,7 @@
-import * as toolkit from '@reduxjs/toolkit'
+import { configureStore } from '@redux-api'
 import { productListReducer } from './features/productsSlice.js'
 
-const store = toolkit.configureStore({
+const store = configureStore({
   reducer: {
     productList: productListReducer
   }

@@ -29,6 +29,7 @@ const aliasDefs = {
   '@hooks':  path.join(paths.appSrc, 'js/hooks'),
   '@frontend-utils': path.join(paths.appSrc, 'js/utils'),
   '@utilities': path.join(paths.appSrc, 'js/utils/utilities.js'),
+  '@redux-api': path.join(paths.appSrc, 'js/utils/redux-toolkit-reexport.js'),
   '@pages': path.join(paths.appSrc, 'js/pages'),
   '@store': path.join(paths.appSrc, 'js/store')
 }
