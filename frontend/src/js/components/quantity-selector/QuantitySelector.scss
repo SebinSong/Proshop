@@ -1,0 +1,10 @@
+.quantity-selector {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  &__decrement-btn,
+  &__increment-btn {
+    border-radius: 50%;
+  }
+}
