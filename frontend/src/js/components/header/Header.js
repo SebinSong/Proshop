@@ -15,13 +15,13 @@ const Header = () => {
   const location = useLocation()
 
   // methods
-  const navigateTo = to => nav(to)
+  const navigateTo = to => () => nav(to)
   const isActiveWithPath = path => location.pathname === path ? 'is-active' : ''
 
   return (
     <header className="l-toolbar app-header">
       <div className="app-header__content">
-        <div className="app-header__branding">
+        <div className="app-header__branding" onClick={navigateTo('/')}>
           <img className="app-header__logo"
             src="images/logo.svg"
             alt="A tiny shop logo" />
@@ -33,7 +33,7 @@ const Header = () => {
 
         <div className="app-header__menu-container">
           <button className={`app-header__menu-btn ${isActiveWithPath('/cart')}`}
-            onClick={() => navigateTo('/cart')}>
+            onClick={navigateTo('/cart')}>
             <span className="menu-btn__wrap">
               <span className="text">Cart</span>
               <Icon tag="i" name="cart" />
@@ -41,7 +41,7 @@ const Header = () => {
           </button>
 
           <button className={`app-header__menu-btn ${isActiveWithPath('/login')}`}
-            onClick={() => navigateTo('/login')}>
+            onClick={navigateTo('/login')}>
             <span className="menu-btn__wrap">
               <span className="text">Sign in</span>
               <Icon tag="i" name="sign-in" classes="sign-in-icon" />

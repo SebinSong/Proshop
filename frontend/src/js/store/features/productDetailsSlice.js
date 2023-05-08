@@ -42,7 +42,6 @@ export const loadProductDetails = id => async (dispatch, getState) => {
     const cachedData = data.find(item => item._id === id)
 
     if (cachedData) {
-      console.log('found cached data: ', cachedData)
       dispatch(requestSucceeded(cachedData))
     } else {
       const productDetailsData = await getProduct(id)
