@@ -19,7 +19,7 @@ export default function HomeProductCard ({ productData }) {
       <img src={imgPath} alt={name} />
 
       <p className="product-info">
-        <span className="product-info-name is-title-5 mb-20">{name}</span>
+        <span className="product-info-name has-yeseva">{name}</span>
         <span className="product-info-desc">{description}</span>
         <span className="product-info-brand">
           <span>Brand: </span>

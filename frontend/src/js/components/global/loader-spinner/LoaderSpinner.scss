@@ -1,0 +1,65 @@
+.loader-spinner {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__animation {
+    position: relative;
+    width: 2.8rem;
+    height: 2.8rem;
+    border: 1px solid $text_1;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: loader-rotation 1s linear infinite;
+
+    &::after {
+      content: '';  
+      box-sizing: border-box;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: $primary_0;
+      width: 0.8rem;
+      height: 0.8rem;
+      transform: translate(-40%, 50%);
+      border-radius: 50%;
+    }
+
+    @include tablet {
+      width: 3.6rem;
+      height: 3.6rem;
+
+      &::after {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
+
+  &__text {
+    position: relative;
+    font-size: $size_6;
+    max-width: 12.6rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: $text_0;
+    text-align: center;
+    margin-top: 0.8rem;
+
+    @include tablet {
+      font-size: $size_5;
+      margin-top: 2rem;
+    }
+  }
+}
+    
+@keyframes loader-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,36 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Product.scss'
-import { useLoaderData, useNavigate, useLocation } from 'react-router-dom'
-import { getProduct } from '@frontend-utils/api-requests.js'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from '@redux-api'
+import { loadProductDetails, selectProductDetails } from '@store/features/productDetailsSlice.js'
 import Rating from '@components/rating/Rating.js'
 
-const { PageTemplate } = React.Global
-
-export async function loader (loaderArgs) {
-  const found = await getProduct(loaderArgs.params.id)
-
-  if (!found) {
-    throw new Response("", {
-      status: 404, statusText: 'Not found.'
-    })
-  }
-  return found
-}
+const { PageTemplate, LoaderSpinner } = React.Global
 
 export default function Product () {
+  // state
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { id: productId } = useParams()
+  const { data, loading } = useSelector(selectProductDetails)
+
+  // effects
+  useEffect(() => {
+    dispatch(loadProductDetails(productId))
+  }, [])
+
+  // render
+  if (loading || !data) {
+    return (
+      <LoaderSpinner classes='page-home__loader-spinner'>
+        <span>Loading<br />Product details..</span>
+      </LoaderSpinner>
+    )
+  }
+
   const {
     image: filename, name, brand, rating,
     numReviews, price, description,
     countInStock
-  } = useLoaderData()
-  const navigate = useNavigate()
+  } = (data || {})
   const imgPath = `images/products/${filename}`
 
   return (
     <PageTemplate classes='page-product'>
       <div className="back-btn-container">
         <button className="has-text is-outline back-btn"
-          onClick={() => navigate(-1)}>
+          onClick={() => navigate('/')}>
           <i className="fa-arrow-left is-prefix" />
           <span>Back</span>
         </button>

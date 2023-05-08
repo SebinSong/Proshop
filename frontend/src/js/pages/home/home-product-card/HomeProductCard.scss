@@ -6,13 +6,17 @@
   justify-content: flex-start;
   background-color: $background_0;
   width: auto;
-  max-width: 30rem;
+  max-width: 24.8rem;
   overflow: hidden;
   border-radius: 1.2rem;
   border: 1px solid var(--home-product-card-border_normal);
   box-shadow: 0px 0px 12px 2px var(--home-product-card-shadow_normal);
   cursor: pointer;
   transform-origin: 50% 50%;
+
+  @include tablet {
+    max-width: 30rem;
+  }
 
   &:hover,
   &:active {
@@ -33,9 +37,23 @@
   }
 
   .product-info {
-    padding: 0 1.6rem 1.4rem;
+    padding: 0 1.2rem 0.4rem;
 
     > * { display: block; }
+
+    @include tablet {
+      padding: 0 1.6rem 1.4rem;
+    }
+  }
+
+  .product-info-name {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+
+    @include tablet {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 
   .product-info-desc,
@@ -61,8 +79,13 @@
 
   .product-price {
     padding: 0 1.6rem;
-    font-size: 2.8rem;
+    font-size: 2.25rem;
     color: $text_1;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1rem;
+
+    @include tablet {
+      font-size: 2.8rem;
+      margin-bottom: 1.6rem;
+    }
   }
 }

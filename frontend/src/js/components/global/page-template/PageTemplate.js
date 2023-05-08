@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Container from '../container/Container.js'
+import './PageTemplate.scss'
 
 export default function PageTemplate ({ classes = '', children = null }) {
   return (

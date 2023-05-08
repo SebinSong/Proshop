@@ -5,7 +5,7 @@ import './Home.scss'
 
 // components
 import ProductCard from './home-product-card/HomeProductCard.js'
-const { PageTemplate } = React.Global
+const { PageTemplate, LoaderSpinner } = React.Global
 
 export default function Home () {
   const dispatch = useDispatch()
@@ -18,20 +18,25 @@ export default function Home () {
   }, [])
 
   const statusFeedBackEl = loading
-    ? <h3>Loading products...</h3>
+    ? <LoaderSpinner classes='page-home__loader-spinner'>
+        <span>Loading<br />Product data..</span>
+      </LoaderSpinner>
     : error
       ? <p>{ error }</p>
       : null
 
   return (
     <PageTemplate classes='page-home'>
-      <h1 className='page-heading'>Our latest products</h1>
-
       {
-        statusFeedBackEl ||
-        <div className="latest-product-list">
-          {products.map(product => <ProductCard key={product._id} productData={product} />)}
-        </div>
+        statusFeedBackEl || (
+          <>
+            <h1 className='page-template__page-heading'>Our latest products</h1>
+
+            <div className="latest-product-list">
+              {products.map(product => <ProductCard key={product._id} productData={product} />)}
+            </div>
+          </>
+        )
       }
     </PageTemplate>
   )
