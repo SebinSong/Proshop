@@ -48,7 +48,8 @@ export const loadProductDetails = id => async (dispatch, getState) => {
       dispatch(requestSucceeded(productDetailsData))
     }
   } catch (err) {
-    dispatch(requestFailed(err))
+    console.error(err)
+    dispatch(requestFailed({ message: 'Failed to load the product details.' }))
   }
 }
 

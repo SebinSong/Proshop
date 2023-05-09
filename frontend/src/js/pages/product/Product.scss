@@ -19,6 +19,17 @@ $border_solid: 1px solid $text_1;
 }
 
 .page-product {
+  .loader-spinner {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @include tablet {
+      top: 20%;
+    }
+  }
+
   .product-details {
     // grid specification
     position: relative;

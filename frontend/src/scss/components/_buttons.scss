@@ -31,6 +31,16 @@ button,
   > i.is-prefix { margin-right: 0.6rem; }
   > i.is-postfix { margin-left: 0.6rem; }
 
+  &[disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
+
+    &:hover,
+    &:active {
+      box-shadow: none;
+    }
+  }
+
   &.icon {
     border-radius: 0;
     padding: 0;

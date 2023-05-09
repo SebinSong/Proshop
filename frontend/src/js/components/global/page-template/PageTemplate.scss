@@ -1,4 +1,6 @@
 .page-template {
+  min-height: 100%;
+
   &__page-heading {
     @include phone {
       font-size: 2.4rem;
