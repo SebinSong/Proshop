@@ -22,7 +22,7 @@ export default function Product () {
   }, [])
 
   // methods
-  const handleSubmit = () => {}
+  const handleSubmit = () => { navigate(`/cart/${productId}?qty=${quantity}`) }
 
   // render
   const statusFeedbackEl = (loading && !data)

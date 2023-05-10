@@ -48,7 +48,7 @@ export const loadProductDetails = id => async (dispatch, getState) => {
       dispatch(requestSucceeded(productDetailsData))
     }
   } catch (err) {
-    console.error(err)
+    console.error(`Error in loadProductDetails thunk for item - ${id}`, err)
     dispatch(requestFailed({ message: 'Failed to load the product details.' }))
   }
 }

@@ -47,7 +47,7 @@ export const listProducts = () => async (dispatch) => {
 
 // selectors
 export const selectProductList = state => state.productList
-export const findProductById = state => state.productList.data
+export const selectProductById = (state, id) => state.productList.data.find(x => x._id === id)
 
 // slice-reducer
 export const productListReducer = productListSlice.reducer
