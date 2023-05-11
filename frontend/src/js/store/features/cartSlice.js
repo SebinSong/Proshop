@@ -13,7 +13,7 @@ const getItemsFromLocalStorage = () => {
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    items: getItemsFromLocalStorage() ?? []
+    items: [] // getItemsFromLocalStorage() ?? []
   },
   reducers: {
     addItemToCartList (state, action) {

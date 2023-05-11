@@ -28,8 +28,14 @@ button,
 
   > * { display: inline-block; }
 
-  > i.is-prefix { margin-right: 0.6rem; }
-  > i.is-postfix { margin-left: 0.6rem; }
+  > i.is-prefix { 
+    margin-right: 0.4rem;
+    font-size: 1.4em;
+  }
+  > i.is-postfix {
+    font-size: 1.4em;
+    margin-left: 0.4rem;
+  }
 
   &[disabled] {
     opacity: 0.65;

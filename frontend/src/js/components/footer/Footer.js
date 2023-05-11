@@ -8,7 +8,7 @@ const iconList = [
     url: 'https://github.com/SebinSong' 
   },
   { 
-    name: 'heart', 
+    name: 'linkedin', 
     url: 'https://www.linkedin.com/in/sebinsong/' 
   }
 ]

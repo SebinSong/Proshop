@@ -30,7 +30,10 @@ export default function Cart () {
 
   return (
     <PageTemplate classes='page-cart'>
-      <h1 className="page-template__page-heading">Cart</h1>
+      <h1 className="page-template__page-heading">
+        <i className='icon-cart prefix-icon'></i>
+        <span>Cart</span>
+      </h1>
 
       <QuantitySelector min={0} max={10} value={fakeQty} onChange={setFakeQty} />
     </PageTemplate>

@@ -2,8 +2,20 @@
   min-height: 100%;
 
   &__page-heading {
+    display: flex;
+    align-items: center;
+    font-size: 2.4rem;
+
+    .prefix-icon {
+      display: inline-block;
+      font-size: 1.2em;
+      margin-right: 0.6rem;
+      margin-top: -0.2rem;
+      color: $neautral_dark;
+    }
+
     @include phone {
-      font-size: 2.4rem;
+      font-size: 2rem;
     }
   }
 }

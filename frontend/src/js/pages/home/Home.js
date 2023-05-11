@@ -30,7 +30,10 @@ export default function Home () {
       {
         statusFeedBackEl || (
           <>
-            <h1 className='page-template__page-heading'>Our latest products</h1>
+            <h1 className='page-template__page-heading'>
+              <i className='icon-handbag prefix-icon'></i>
+              <span>Our latest products</span>
+            </h1>
 
             <div className="latest-product-list">
               {products.map(product => <ProductCard key={product._id} productData={product} />)}

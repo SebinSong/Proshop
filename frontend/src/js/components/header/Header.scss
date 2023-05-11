@@ -38,6 +38,7 @@
       display: flex;
       align-items: flex-end;
       padding: 2.4rem 0 1.6rem;
+      width: max-content;
       cursor: pointer;
 
       .app-header__logo {
@@ -104,16 +105,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9em;
-            margin-left: 0.4rem;
+            margin-left: 0.2rem;
+            font-size: 1.25em;
             border-radius: 50%;
             width: 3.6rem;
             height: 3.6rem;
             border: 1px solid currentColor;
-
-            &.sign-in-icon {
-              font-size: 1.1em;
-            }
           }
         }
 

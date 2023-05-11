@@ -11,7 +11,7 @@ export default function Rating ({ rate = 0, text = '', color = '', classes = '' 
       <span className="rating-stars">
         {
           starArr.map((type, index) => <i key={index} 
-            className={`fa-star${type === 'half' ? '-half' : ''}`}
+            className={`icon-star${type === 'half' ? '-half' : ''}`}
             style={color ? { color } : {}}
             ></i>)
         }

@@ -1,42 +1,43 @@
-$fa-icons: (
+$proshop-icons: (
   // search icons to use -> https://fontawesome.com/search?o=r&m=free&s=solid
   /*
     usage e.g. : <Icon tag="span" name="search" /> -> <span class="fa-search" />
     refer to Icon.js global component
   */
-  cart: \f07a,
-  sign-in: \f2bb,
-  search: \f002,
-  heart: \f004,
-  instagram: \f030,
-  facebook: \f2fe,
-  github: \e572,
-  youtube: \e131,
-  star: \f005,
-  star-half: \f5c0,
-  arrow-left: \f060,
-  arrow-right: \f061,
-  arrow-up: \f062,
-  arrow-down: \f063,
-  circle-plus: \f055,
-  hamburger: \f0c9,
-  gear: \f013,
+  cart: \ec55,
+  sign-in: \ecf7,
+  search: \eb83,
+  heart: \eb3b,
+  instagram: \eb54,
+  facebook: \ea9c,
+  github: \eb14,
+  youtube: \ed21,
+  linkedin: \eb6c,
+  star: \ec8f,
+  star-half: \ec91,
+  arrow-left: \e932,
+  arrow-right: \e933,
+  arrow-up: \e934,
+  arrow-down: \e92f,
+  circle-plus: \ec0d,
+  hamburger: \eb72,
+  gear: \eb05,
+  handbag: \eb29
 );
 
 @font-face {
-  font-family: 'Font Awesome 6 Free';
+  font-family: "Proshop Icons";
   font-style: normal;
-  font-weight: 900;
-  font-display: block;
-  src: url(../assets/fonts/fa-solid-900.woff2) format('woff2');
+  font-weight: 600;
+  src: url("../assets/fonts/proshop-icons.woff") format("woff");
 }
 
-[class^="fa-"] {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
+[class^="icon-"] {
+  font-family: 'Proshop Icons';
+  font-weight: 600;
   font-style: normal;
 }
 
-@each $name, $unicode in $fa-icons {
-  .fa-#{$name}::before { content: "#{$unicode}"; }
+@each $name, $unicode in $proshop-icons {
+  .icon-#{$name}::before { content: "#{$unicode}"; }
 }

@@ -50,7 +50,7 @@ export default function Product () {
             <div className="back-btn-container">
               <button className="has-text is-outline back-btn"
                 onClick={() => navigate('/')}>
-                <i className="fa-arrow-left is-prefix" />
+                <i className="icon-arrow-left is-prefix" />
                 <span>Back</span>
               </button>
             </div>
@@ -105,7 +105,7 @@ export default function Product () {
                       type='button'
                       onClick={handleSubmit}>
                       <span>Add to cart</span>
-                      <i className="fa-circle-plus is-postfix"></i>
+                      <i className="icon-circle-plus is-postfix"></i>
                     </button>
                   </div>
                 </div>

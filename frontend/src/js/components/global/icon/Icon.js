@@ -10,7 +10,7 @@ const Icon = ({
   return React.createElement(
     tag,
     {
-      className: `fa-${name} ${classes}`
+      className: `icon-${name} ${classes}`
     },
     children
   )
