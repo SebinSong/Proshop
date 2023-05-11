@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
 import { addToCart, selectCartItems } from '@store/features/cartSlice.js'
 import { parseQueryString } from '@utilities'
+import './Cart.scss'
 
 const { PageTemplate } = React.Global
 
 export default function Cart () {
   // states
-  const [fakeQty, setFakeQty] = useState(0)
   const dispatch = useDispatch()
   const location = useLocation()
-  const cartItems = useSelector(selectCartItems)
   const { id: productId = '' } = useParams()
 
-  console.log('cartItems: ', cartItems)
+  const cartItems = (useSelector(selectCartItems) || [])
+  const isCartEmpty = cartItems.length === 0
+
   // effects
   useEffect(() => {
     if (!productId) return
@@ -35,7 +35,13 @@ export default function Cart () {
         <span>Cart</span>
       </h1>
 
-      <QuantitySelector min={0} max={10} value={fakeQty} onChange={setFakeQty} />
+      {
+        isCartEmpty &&
+        <div className='cart-is-empty'>
+          <i className='icon-bathtub'></i>
+          <p className='cart-is-empty__text'>The cart is empty. Go check out the <Link to='/'>latest products</Link>.</p>
+        </div>
+      }
     </PageTemplate>
   )
 }

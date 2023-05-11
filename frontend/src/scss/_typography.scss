@@ -70,3 +70,15 @@ $heading_sizes: 2.8rem, 2.6rem, 2.4rem, 2.25rem, 2rem;
 .has-text-neau-dark-1 {
   color: $neautral_dark_1;
 }
+
+a,
+.link {
+  color: $blue_sea;
+  transition: color 200ms;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $neautral_dark_1;
+  }
+}

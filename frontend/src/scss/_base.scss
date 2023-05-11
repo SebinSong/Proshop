@@ -17,14 +17,3 @@ body {
 body {
   background-color: $secondary_0;
 }
-
-a,
-.link {
-  color: currentColor;
-  text-decoration: none;
-
-  &:hover,
-  &:active {
-    text-decoration: underline;
-  }
-}

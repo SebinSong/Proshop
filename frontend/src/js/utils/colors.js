@@ -16,8 +16,9 @@ export default {
       'neautral_dark_1': '#667479',
       'neautral_dark_2': '#99A2A5',
       'green_light': '#34C759',
-      'orange_shine': '#FF912C',
-      'blue_sea': '#00A7E7'
+      'orange_shine': '#f56e20',
+      'blue_sea': '#035ea3',
+      'blue_sea_dark': '#015491'
     }
   },
   'dark': {
@@ -37,8 +38,9 @@ export default {
       'neautral_dark_1': '#667479',
       'neautral_dark_2': '#99A2A5',
       'green_light': '#34C759',
-      'orange_shine': '#FF912C',
-      'blue_sea': '#00A7E7'
+      'orange_shine': '#f56e20',
+      'blue_sea': '#035ea3',
+      'blue_sea_dark': '#015491'
     }
   }
 }
