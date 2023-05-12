@@ -10,6 +10,7 @@ const getItemsFromLocalStorage = () => {
   return fromStorage ? JSON.parse(fromStorage) : null
 }
 
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -19,11 +20,18 @@ const cartSlice = createSlice({
     addItemToCartList (state, action) {
       const item = action.payload
       const index = state.items.findIndex(x => x._id === item._id)
+      const {
+        _id, image, name, brand, category,
+        countInStock, qty, price, rating, description = ''
+      } = item
 
       if (index >= 0) {
         state.items.splice(index, 1, item)
       } else {
-        state.items.push(item)
+        state.items.push({
+          _id, image, name, brand, category,
+          countInStock, qty, price, rating, description
+        })
       }
     },
     unloadCart (state) {
