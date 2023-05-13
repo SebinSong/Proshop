@@ -1,20 +1,85 @@
 .cart-item {
   position: relative;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas: "c-info" "c-actions";
+  border-bottom: 1px solid var(--divider-color);
+  padding: 2rem 0;
+  width: 100%;
+  padding-left: 1.6rem;
+  padding-right: 5.6rem;
+
+  @include from (620px) {
+    grid-template-columns: 36rem auto;
+    grid-template-rows: auto;
+    grid-template-areas: "c-info c-actions";
+    padding-right: 8.2rem;
+    padding-left: 0;
+  }
+
+  @include tablet {
+    grid-template-columns: 42rem auto;
+    padding-right: 0;
+    width: max-content;
+  }
+
+  &__info-block {
+    grid-area: c-info;
+    display: flex;
+    align-items: flex-start;
+    padding-right: 2.6rem;
+
+    @include from (620px) {
+      align-items: center;
+    }
+  }
+
+  &__action-block {
+    grid-area: c-actions;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 9.2rem;
+    margin-top: 0.6rem;
+
+    @include smallphone {
+      padding-left: 7.2rem;
+    }
+
+    @include from (620px) {
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      padding-left: 0;
+      margin-top: 0;
+    }
+
+    @include tablet {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
 
   &__img {
     display: inline-block;
+    object-fit: cover;
     width: 8.2rem;
     height: 8.2rem;
-    object-fit: cover;
     border-radius: 0.8rem;
-    margin-right: 1rem;
+    border: 1px solid $neautral_dark_1;
+    margin-right: 1.2rem;
+
+    @include smallphone {
+      width: 6.2rem;
+      height: 6.2rem;
+    }
 
     @include tablet {
       width: 10.8rem;
       height: 10.8rem;
-      margin-right: 2.6rem;
+      margin-right: 1.6rem;
     }
   }
   
@@ -22,11 +87,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
-    @include tablet {
-      width: 28rem;
-      margin-right: 2rem;
-    }
   }
 
   &__brand-and-category {
@@ -44,10 +104,14 @@
   }
 
   &__product-name {
-    font-size: $size_4;
+    font-size: $size_5;
     line-height: 1.15;
     margin-bottom: 0.6rem;
     color: $text_1;
+
+    @include tablet {
+      font-size: $size_4;
+    }
   }
 
   &__price {
@@ -56,17 +120,64 @@
   }
 
   &__qty {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    
+    margin-right: 1.6rem;
+
+    @include from (620px) {
+      justify-content: center;
+      width: 11.5rem;
+      margin-bottom: 1rem;
+      margin-right: 0;
+    }
+
     @include tablet {
-      width: 16rem;
+      margin-bottom: 0;
     }
   }
 
   &__total-price {
     color: $text_1;
-    font-size: $size_1;
+    font-size: 2.2rem;
+
+    @include from (620px) {
+      width: 13.6rem;
+      text-align: center;
+    }
+  }
+
+  button.cart-item__remove-btn {
+    position: absolute;
+    top: 2rem;
+    right: 1.4rem;
+    width: 3.4rem;
+    height: 3.4rem;
+    font-size: 2rem;
+    border-radius: 50%;
+    margin: 0;
+    background-color: rgba(255, 86, 79, 0.785);
+    border: 1px solid $warning;
+    color: $text_0;
+
+    @include from (620px) {
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+    }
+
+    @include tablet {
+      position: relative;
+      transform: none;
+      right: unset;
+      top: unset;
+      margin: 0 2.4rem 0 1.6rem;
+    }
+
+    &:hover,
+    &:focus {
+      border: 1px solid var(--divider-color);
+    }
+
+    &:active {
+      border: 1px solid $text_1;
+    }
   }
 }

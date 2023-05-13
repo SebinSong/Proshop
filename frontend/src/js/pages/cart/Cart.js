@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useLocation, useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, selectCartItems } from '@store/features/cartSlice.js'
-import { parseQueryString } from '@utilities'
+import { addToCart, selectCartItems, selectCartTotalAmount } from '@store/features/cartSlice.js'
+import { parseQueryString, formatMoney } from '@utilities'
 import CartItem from './cart-item/CartItem.js'
 import './Cart.scss'
 
@@ -14,9 +14,10 @@ export default function Cart () {
   const location = useLocation()
   const { id: productId = '' } = useParams()
 
-  const cartItems = (useSelector(selectCartItems) || [])
-  console.log('cartItems: ', cartItems)
-  const isCartEmpty = cartItems.length === 0
+  const cartItems = useSelector(selectCartItems)
+  const subTotal = useSelector(selectCartTotalAmount)
+  const totalQuantities = cartItems.reduce((accu, item) => accu + item.qty, 0)
+  const isCartEmpty = totalQuantities === 0
 
   // effects
   useEffect(() => {
@@ -44,9 +45,18 @@ export default function Cart () {
             <p className='cart-is-empty__text'>The cart is empty. Go check out the <Link to='/'>latest products</Link>.</p>
           </div>
         : <ul className='cart-items-list'>
+            <li className='cart-items-list__headings'>
+              <span className='heading__product'>product</span>
+              <span className='heading__quantity'>qty</span>
+              <span className='heading__amount'>amount</span>
+            </li>
             {
               cartItems.map(item => <CartItem key={item._id} {...item} />)
             }
+            <li className='cart-items-list__subtotal'>
+              <span className='cart-subtotal-qty'>Subtotal ( {totalQuantities} items ): </span>
+              <span className='cart-subtotal-amount has-yeseva'>{formatMoney(subTotal)}</span>
+            </li>
           </ul>
       }
     </PageTemplate>

@@ -26,12 +26,20 @@ const cartSlice = createSlice({
       } = item
 
       if (index >= 0) {
+        // if the item already exists, replace it with the new payload
         state.items.splice(index, 1, item)
       } else {
         state.items.push({
           _id, image, name, brand, category,
           countInStock, qty, price, rating, description
         })
+      }
+    },
+    removeCartItem (state, action) {
+      const index = state.items.findIndex(item => item._id === action.payload)
+
+      if (index >= 0) {
+        state.items.splice(index, 1)
       }
     },
     unloadCart (state) {
@@ -43,9 +51,12 @@ const cartSlice = createSlice({
 // selectors
 export const selectCartItems = state => state.cart.items
 export const selectCartItemById = (state, id) => state.cart.items.find(item => item._id === id)
+export const selectCartTotalAmount = state => state.cart.items.reduce(
+  (accu, item) => accu + (item.price * item.qty), 0
+)
 
 // action creators
-export const { addItemToCartList, unloadCart } = cartSlice.actions
+export const { addItemToCartList, removeCartItem, unloadCart } = cartSlice.actions
 
 // thunk creators
 export const addToCart = (id, qty) => async (dispatch, getState) => {

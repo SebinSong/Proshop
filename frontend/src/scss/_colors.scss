@@ -50,7 +50,10 @@ $colorVars: (
   home-product-card-shadow_normal: (rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
   home-product-card-shadow_hover: (rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
   home-product-card-border_normal: (rgba(204, 209, 210, 0.25), rgba(204, 209, 210, 0.25)),
-  home-product-card-border_hover: (#{$text_1}, #{$text_1})
+  home-product-card-border_hover: (#{$text_1}, #{$text_1}),
+
+  /* miscellaneous */
+  divider-color: (rgba(36, 43, 51, 0.25), rgba(36, 43, 51, 0.25))
 );
 
 :root {

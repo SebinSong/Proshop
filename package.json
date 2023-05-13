@@ -17,6 +17,9 @@
   },
   "author": "Sebin Song",
   "license": "MIT",
+  "nodemonConfig": {
+    "ignore": ["./frontend/**"]
+  },
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/plugin-proposal-class-properties": "^7.14.5",

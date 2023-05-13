@@ -3,6 +3,7 @@ import './Product.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from '@redux-api'
 import { loadProductDetails, selectProductDetails } from '@store/features/productDetailsSlice.js'
+import { selectCartItemById } from '@store/features/cartSlice.js'
 import Rating from '@components/rating/Rating.js'
 import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
 
@@ -14,7 +15,8 @@ export default function Product () {
   const navigate = useNavigate()
   const { id: productId } = useParams()
   const { data, loading, error } = useSelector(selectProductDetails)
-  const [quantity, SetQuantity] = useState(0)
+  const inCartData = useSelector(state => selectCartItemById(state, productId))
+  const [quantity, SetQuantity] = useState(inCartData?.qty || 0)
 
   // effects
   useEffect(() => {
@@ -104,7 +106,7 @@ export default function Product () {
                       disabled={quantity === 0}
                       type='button'
                       onClick={handleSubmit}>
-                      <span>Add to cart</span>
+                      <span>{inCartData ? 'Go to cart' : 'Add to cart'}</span>
                       <i className="icon-circle-plus is-postfix"></i>
                     </button>
                   </div>

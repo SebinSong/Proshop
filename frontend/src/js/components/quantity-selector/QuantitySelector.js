@@ -3,7 +3,7 @@ import './QuantitySelector.scss'
 
 export default function QuantitySelector ({
   min = 0, max = 100, value = null,
-  onChange = null
+  onChange = null, classes = ''
 }) {
   // state
   const [qty, setQty] = useState(value || min)
@@ -23,7 +23,7 @@ export default function QuantitySelector ({
   }, [qty])
   
   return (
-    <div className='quantity-selector'>
+    <div className={`quantity-selector ${classes}`}>
       <button className='quantity-selector__decrement-btn'
         type='button' onClick={decrement}>-</button>
       <span className='quantity-selector__qty'>{qty}</span>
