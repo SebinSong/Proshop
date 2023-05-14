@@ -50,7 +50,7 @@ export default function Product () {
         statusFeedbackEl || (
           <>
             <div className="back-btn-container">
-              <button className="has-text is-outline back-btn"
+              <button className="is-outline back-btn"
                 onClick={() => navigate('/')}>
                 <i className="icon-arrow-left is-prefix" />
                 <span>Back</span>

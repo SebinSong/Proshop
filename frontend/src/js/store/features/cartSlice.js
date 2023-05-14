@@ -81,5 +81,12 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
   }
 }
 
+export const removeFromCart = (id) => (dispatch, getState) => {
+  dispatch(removeCartItem(id))
+  saveItemsToLocalStorage(
+    selectCartItems(getState())
+  )
+}
+
 // slice-reducer
 export const cartReducer = cartSlice.reducer

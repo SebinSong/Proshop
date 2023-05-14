@@ -7,7 +7,6 @@
   border-bottom: 1px solid var(--divider-color);
   padding: 2rem 0;
   width: 100%;
-  padding-left: 1.6rem;
   padding-right: 5.6rem;
 
   @include from (620px) {
@@ -15,7 +14,6 @@
     grid-template-rows: auto;
     grid-template-areas: "c-info c-actions";
     padding-right: 8.2rem;
-    padding-left: 0;
   }
 
   @include tablet {
@@ -108,6 +106,13 @@
     line-height: 1.15;
     margin-bottom: 0.6rem;
     color: $text_1;
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: underline;
+    }
 
     @include tablet {
       font-size: $size_4;

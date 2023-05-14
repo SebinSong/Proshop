@@ -1,13 +1,15 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { formatMoney } from '@utilities'
-import { addItemToCartList, removeCartItem } from '@store/features/cartSlice.js'
+import { addItemToCartList, removeFromCart } from '@store/features/cartSlice.js'
 import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
 import './CartItem.scss'
 
 export default function CartItem (props) {
   // local states
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {
     image: imgFileName = '', name, brand, category,
     countInStock, qty, price, _id
@@ -16,7 +18,7 @@ export default function CartItem (props) {
 
   // methods
   const onQuantityChange = (val) => { dispatch(addItemToCartList({ ...props, qty: val })) }
-  const handleRemoveFromCart = () => { dispatch(removeCartItem(_id)) }
+  const handleRemoveFromCart = () => { dispatch(removeFromCart(_id)) }
 
   return (
     <li className='cart-item'>
@@ -24,7 +26,8 @@ export default function CartItem (props) {
         <img className='cart-item__img' src={imgPath} />
 
         <div className='cart-item__product-details'>
-          <h4 className='cart-item__product-name'>{name}</h4>
+          <h4 className='cart-item__product-name'
+            onClick={() => navigate(`/product/${_id}`)}>{name}</h4>
 
           <div className='cart-item__brand-and-category'>
             <span className='item-brand'>{brand}</span>

@@ -29,16 +29,37 @@
     }
   }
 
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 3.6rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include tablet {
+      width: max-content;
+    }
+
+    @include from (1210px) {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
   .cart-items-list {
     position: relative;
     margin-top: 3rem;
     border-top: 1px solid var(--divider-color);
-    width: calc(100% + 4rem);
-    margin-left: -2rem;
+    width: 100%;
 
-    @include from (620px) {
+    @include tablet {
       width: fit-content;
-      margin-left: 0;
+      margin-top: 0;
     }
 
     &__headings {
@@ -46,11 +67,6 @@
       align-items: center;
       justify-content: flex-start;
       border-bottom: 1px solid var(--divider-color);
-      padding-left: 1.6rem;
-
-      @include from (620px) {
-        padding-left: 0;
-      }
 
       > * {
         display: none;
@@ -86,31 +102,58 @@
         }
       }
     }
+  }
 
-    &__subtotal {
+  .page-cart__cart-summary {
+    position: relative;
+    border: 1px solid $text_1;
+    width: 100%;
+    max-width: 42rem;
+    margin-top: 6.4rem;
+
+    @include from (1210px) {
+      margin-top: 0;
+      margin-left: 7.2rem;
+      max-width: 34rem;
+    }
+
+    .cart-summary__row {
       display: flex;
-      align-items: flex-end;
-      justify-content: flex-end;
-      padding: 2.8rem 1.6rem 1.6rem;
-      border-bottom: 1px solid var(--divider-color);
-      font-weight: bold;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.6rem 2.2rem;
 
-      .cart-subtotal-qty {
-        display: inline-block;
-        color: $text_1;
-        font-size: $size_5;
-
-        @include tablet {
-          font-size: $size_4;
-        }
+      &:not(:first-child) {
+        border-top: 1px solid $text_1;
       }
 
-      .cart-subtotal-amount {
+      label {
         display: inline-block;
-        font-size: $size_2;
-        color: $blue_sea;
-        margin-left: 1rem;
-        transform: translateY(2px);
+        font-weight: bold;
+        text-transform: capitalize;
+        letter-spacing: 1.5px;
+      }
+    }
+
+    .subtotal__amount {
+      font-size: $size_2;
+      color: $blue_sea;
+    }
+
+    .subtotal__qty > *:first-child {
+      display: inline-block;
+      color: $blue_sea;
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.15em;
+      margin-right: 0.2rem;
+    }
+
+    .checkout-btn {
+      padding-top: 4.6rem;
+
+      > button {
+        width: 100%;
       }
     }
   }
