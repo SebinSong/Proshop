@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useLocation, useNavigate, useParams, Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '@redux-api'
 import { addToCart, selectCartItems, selectCartTotalAmount } from '@store/features/cartSlice.js'
 import { parseQueryString, formatMoney } from '@utilities'
 import CartItem from './cart-item/CartItem.js'

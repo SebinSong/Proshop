@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from '@redux-api'
 import { useNavigate } from 'react-router-dom'
 import { formatMoney } from '@utilities'
 import { addItemToCartList, removeFromCart } from '@store/features/cartSlice.js'

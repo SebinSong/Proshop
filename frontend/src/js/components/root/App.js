@@ -1,5 +1,5 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+import { Provider } from '@redux-api'
 import { Outlet } from 'react-router-dom'
 import store from '@store/store.js'
 

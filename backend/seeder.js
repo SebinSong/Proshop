@@ -26,7 +26,7 @@ const importData = async () => {
     const sampleProducts = products.map(product => {
       return {
         ...product,
-        user: adminUser
+        user: adminUser._id
       }
     })
 
@@ -57,7 +57,8 @@ const destroyData = async () => {
 connectDB(() => {
   console.log('- DB successfully connected'.brightYellow.underline)
 }).then(() => {
-  if (process.argv[2] === '-d') {
+  if (process.argv.slice(2).includes('-d')) {
+    // passing -d option flag only clears the database.
     destroyData()
   } else {
     importData()
