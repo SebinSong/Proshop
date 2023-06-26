@@ -1,14 +1,14 @@
 import { configureStore } from '@redux-api'
-import { productListReducer } from './features/productsSlice.js'
-import { productDetailsReducer } from './features/productDetailsSlice.js'
 import { cartReducer } from './features/cartSlice.js'
+import { apiSlice } from './features/apiSlice.js'
 
 const store = configureStore({
   reducer: {
-    productList: productListReducer,
-    productDetails: productDetailsReducer,
-    cart: cartReducer
-  }
+    cart: cartReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer
+  },
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: process.env.NODE_ENV !== 'production'
 })
 
 export default store

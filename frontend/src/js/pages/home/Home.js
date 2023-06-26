@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from '@redux-api'
-import { listProducts, selectProductList } from '@store/features/productsSlice.js'
+import React from 'react'
+import { useGetProductsQuery } from '@store-slice/productsSlice.js'
 import './Home.scss'
 
 // components
@@ -8,20 +7,18 @@ import ProductCard from './home-product-card/HomeProductCard.js'
 const { PageTemplate, LoaderSpinner } = React.Global
 
 export default function Home () {
-  const dispatch = useDispatch()
-  // state
-  const { data: products, loading, error } = useSelector(selectProductList)
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+    error
+  } = useGetProductsQuery()
 
-  // effects
-  useEffect(() => {
-    dispatch(listProducts())
-  }, [])
-
-  const statusFeedBackEl = loading
+  const statusFeedBackEl = isLoading
     ? <LoaderSpinner classes='page-home__loader-spinner'>
         <span>Loading<br />Product data..</span>
       </LoaderSpinner>
-    : error
+    : isError
       ? <p>{ error }</p>
       : null
 

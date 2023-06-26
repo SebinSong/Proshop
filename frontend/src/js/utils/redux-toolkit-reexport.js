@@ -2,7 +2,8 @@
 // I just want to be able to get them from a single point of import which is '@redux-api'.
 
 import * as toolkit from '@reduxjs/toolkit'
+import * as queryToolkit from '@reduxjs/toolkit/query/react'
 export { useDispatch, useSelector, Provider } from 'react-redux'
 
-export const configureStore = toolkit.configureStore
-export const createSlice = toolkit.createSlice
+export const { configureStore, createSlice } = toolkit
+export const { createApi, fetchBaseQuery } = queryToolkit

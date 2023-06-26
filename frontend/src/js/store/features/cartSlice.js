@@ -1,6 +1,5 @@
 import { createSlice } from '@redux-api'
 import { getProduct } from '@frontend-utils/api-requests.js'
-import { selectProductById } from './productsSlice.js'
 
 const LOCAL_STORAGE_CART_ITEMS_KEY = 'proshop.cart-items'
 const saveItemsToLocalStorage = (data) => window.localStorage.setItem(LOCAL_STORAGE_CART_ITEMS_KEY, JSON.stringify(data))
@@ -62,7 +61,7 @@ export const { addItemToCartList, removeCartItem, unloadCart } = cartSlice.actio
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const rootState = getState()
 
-  const itemFromCache = selectCartItemById(rootState, id) || selectProductById(rootState, id)
+  const itemFromCache = selectCartItemById(rootState, id)
   
   if (itemFromCache) {
     return dispatch(addItemToCartList({ ...itemFromCache, qty }))

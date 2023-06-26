@@ -31,7 +31,8 @@ const aliasDefs = {
   '@utilities': path.join(paths.appSrc, 'js/utils/utilities.js'),
   '@redux-api': path.join(paths.appSrc, 'js/utils/redux-toolkit-reexport.js'),
   '@pages': path.join(paths.appSrc, 'js/pages'),
-  '@store': path.join(paths.appSrc, 'js/store')
+  '@store': path.join(paths.appSrc, 'js/store'),
+  '@store-slice': path.join(paths.appSrc, 'js/store/features')
 }
 
 // regExps
