@@ -1,5 +1,6 @@
-import { createSlice } from '@redux-api'
+import { createSlice, createSelector } from '@redux-api'
 import { getProduct } from '@frontend-utils/api-requests.js'
+import { addDecimals } from '@utilities'
 
 const LOCAL_STORAGE_CART_ITEMS_KEY = 'proshop.cart-items'
 const saveItemsToLocalStorage = (data) => window.localStorage.setItem(LOCAL_STORAGE_CART_ITEMS_KEY, JSON.stringify(data))
@@ -24,6 +25,7 @@ const cartSlice = createSlice({
         countInStock, qty, price, rating, description = ''
       } = item
 
+      // #1. update to state.items array
       if (index >= 0) {
         // if the item already exists, replace it with the new payload
         state.items.splice(index, 1, item)
@@ -49,10 +51,35 @@ const cartSlice = createSlice({
 
 // selectors
 export const selectCartItems = state => state.cart.items
-export const selectCartItemById = (state, id) => state.cart.items.find(item => item._id === id)
-export const selectCartTotalAmount = state => state.cart.items.reduce(
-  (accu, item) => accu + (item.price * item.qty), 0
+export const selectCartTotalQuantities = state => {
+  const items = state.cart.items || []
+  return items.reduce((accu, item) => accu + item.qty, 0)
+}
+export const selectCartItemById = createSelector(
+  [
+    state => state.cart.items || [],
+    (state, id) => id
+  ],
+  (cartItems, id) => cartItems.find(x => x._id === id)
 )
+export const selectCartPrices = state => {
+  const items = state.cart.items || []
+  // #1. Items price -  items * the price
+  const itemsPrice = items.reduce((accu, item) => accu + (Number(item.price) * item.qty), 0)
+  // #2. Shipping price - If order is over $100 then it's free, else $10 for shipping
+  const shippingPrice = itemsPrice > 100 ? 0 : 10
+  // #3. Tax price (15% of the items price)
+  const taxPrice = 0.15 * itemsPrice
+  // #4. total Price - summation of 1., 2., 3.
+  const totalPrice = itemsPrice + shippingPrice + taxPrice
+
+  return {
+    itemsPrice: addDecimals(itemsPrice),
+    shippingPrice: addDecimals(shippingPrice),
+    taxPrice: addDecimals(taxPrice),
+    totalPrice: addDecimals(totalPrice)
+  }
+}
 
 // action creators
 export const { addItemToCartList, removeCartItem, unloadCart } = cartSlice.actions

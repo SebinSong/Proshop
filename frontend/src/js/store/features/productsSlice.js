@@ -1,7 +1,8 @@
 import { PRODUCTS_URL, SINGLE_PRODUCT_URL } from '@frontend-utils/constants.js'
-import { injectEndpoints } from './apiSlice.js'
+import { apiSlice } from './apiSlice.js'
+import { createSelector } from '@redux-api'
 
-export const productsApiSlice = injectEndpoints({
+export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     getProducts: builder.query({
       query: () => ({
@@ -10,7 +11,7 @@ export const productsApiSlice = injectEndpoints({
         keepUnusedDataFor: 30 // seconds
       })
     }),
-    getSingleProduct: builder.query({
+    getProductDetails: builder.query({
       query: productId => ({
         method: 'GET',
         url: `${SINGLE_PRODUCT_URL}/${productId}`,
@@ -22,5 +23,20 @@ export const productsApiSlice = injectEndpoints({
 
 export const {
   useGetProductsQuery,
-  useGetSingleProductQuery
+  useGetProductDetailsQuery
  } = productsApiSlice
+
+ // define selectors
+export const selectAllProducts = state => {
+  const cache = apiSlice.endpoints.getProducts.select()(state)
+
+  return cache?.data || []
+}
+export const selectProductById = createSelector(
+  selectAllProducts,
+  (state, userId) => userId,
+  (allProducts, userId) => {
+    console.log('@@ allProducts: ', allProducts)
+    return allProducts.length ? allProducts.find(x => x._id === userId) : null
+  }
+)

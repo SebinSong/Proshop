@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { useGetSingleProductQuery } from '@store-slice/productsSlice.js'
+import { useGetProductDetailsQuery, selectProductById } from '@store-slice/productsSlice.js'
+import { addToCart } from '@store/features/cartSlice.js'
 import './Product.scss'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useSelector } from '@redux-api'
+import { useSelector, useDispatch } from '@redux-api'
 import { selectCartItemById } from '@store/features/cartSlice.js'
 import Rating from '@components/rating/Rating.js'
 import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
@@ -12,19 +13,25 @@ const { PageTemplate, LoaderSpinner } = React.Global
 export default function Product () {
   // state
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { id: productId } = useParams()
   const inCartData = useSelector(state => selectCartItemById(state, productId))
   const [quantity, SetQuantity] = useState(inCartData?.qty || 0)
+  const [submitted ,SetSubmitted] = useState(false)
   const {
     data,
     isLoading,
     isFetching,
     isError,
     error
-  } = useGetSingleProductQuery(productId)
+  } = useGetProductDetailsQuery(productId)
 
   // methods
-  const handleSubmit = () => { navigate(`/cart/${productId}?qty=${quantity}`) }
+  const handleSubmit = async () => {
+    SetSubmitted(true)
+    await dispatch(addToCart(productId, quantity))
+    navigate(`/cart`)
+  }
 
   // render
   const statusFeedbackEl = (isLoading || isFetching)
@@ -91,28 +98,38 @@ export default function Product () {
                 <div className="summary-row product-status">
                   <label className="has-text-bold">status:</label>
                   <span className="summary-value">
-                    <span className="stock-count">{countInStock}</span>
-                    items in stock
+                    {
+                      countInStock > 0
+                        ? <>
+                            <span className="stock-count">{countInStock}</span>
+                            <span>items in stock</span>
+                          </>
+                        : <span className="out-of-stock">Out of stock</span>
+                    }
                   </span>
                 </div>
+                {
+                  countInStock > 0 &&
+                  <>
+                    <div className="summary-row product-status">
+                      <label className="has-text-bold">quantity:</label>
+                      <span className="summary-value">
+                        <QuantitySelector min={0} max={countInStock}
+                          value={quantity} onChange={SetQuantity} />
+                      </span>
+                    </div>
 
-                <div className="summary-row product-status">
-                  <label className="has-text-bold">quantity:</label>
-                  <span className="summary-value">
-                    <QuantitySelector min={0} max={countInStock}
-                      value={quantity} onChange={SetQuantity} />
-                  </span>
-                </div>
-
-                <div className="summary-row button-container">
-                  <button className="is-text-btn is-primary add-to-cart-btn"
-                    disabled={quantity === 0}
-                    type='button'
-                    onClick={handleSubmit}>
-                    <span>{inCartData ? 'Go to cart' : 'Add to cart'}</span>
-                    <i className="icon-circle-plus is-postfix"></i>
-                  </button>
-                </div>
+                    <div className="summary-row button-container">
+                      <button className="is-text-btn is-primary add-to-cart-btn"
+                        disabled={submitted}
+                        type='button'
+                        onClick={handleSubmit}>
+                        <span>{inCartData ? 'Go to cart' : 'Add to cart'}</span>
+                        <i className="icon-circle-plus is-postfix"></i>
+                      </button>
+                    </div>
+                  </>
+                }
               </div>
             </div>
           </div>

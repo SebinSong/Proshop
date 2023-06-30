@@ -24,5 +24,9 @@ export function parseQueryString (str = '') {
 }
 
 export function formatMoney (amount) {
-  return `$ ${amount.toFixed(2)}`
+  return `$ ${Number(amount).toFixed(2)}`
+}
+
+export function addDecimals (num) {
+  return (Math.round(num * 100) / 100).toFixed(2)
 }

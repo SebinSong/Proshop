@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useSelector } from '@redux-api'
+import { selectCartTotalQuantities } from '@store/features/cartSlice.js'
 import './Header.scss'
 // child components
 import HeaderSearchBar from './header-search-bar'
@@ -8,11 +10,14 @@ import useMQ from '@hooks/media-queries'
 const { Icon, Mq } = React.Global
 
 const Header = () => {
+  // local state
   const searchBarQueryString = '(max-width: 600px)'
   const isSmallDevice = useMQ(null, searchBarQueryString)
   const [showSearchBarInSmallDevice, setShowSearchBar] = useState(false)
+  const currCartQuantities = useSelector(selectCartTotalQuantities)
   const nav = useNavigate()
   const location = useLocation()
+  const showCartBadge = !location.pathname.startsWith('/cart') && currCartQuantities > 0
 
   // methods
   const navigateTo = to => () => nav(to)
@@ -34,7 +39,7 @@ const Header = () => {
         <div className="app-header__menu-container">
           <button className={`app-header__menu-btn ${isActiveWithPath('/cart')}`}
             onClick={navigateTo('/cart')}>
-            <span className="menu-btn__wrap">
+            <span className={`menu-btn__wrap ${showCartBadge ? 'has-badge' : ''}`}>
               <span className="text">Cart</span>
               <Icon tag="i" name="cart" />
             </span>

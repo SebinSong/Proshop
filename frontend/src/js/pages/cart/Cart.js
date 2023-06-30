@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useLocation, useNavigate, useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from '@redux-api'
-import { addToCart, selectCartItems, selectCartTotalAmount } from '@store/features/cartSlice.js'
+import { addToCart, selectCartItems, selectCartPrices } from '@store/features/cartSlice.js'
 import { parseQueryString, formatMoney } from '@utilities'
 import CartItem from './cart-item/CartItem.js'
 import './Cart.scss'
@@ -13,27 +13,15 @@ export default function Cart () {
   const dispatch = useDispatch()
   const location = useLocation()
   const navigate = useNavigate()
-  const { id: productId = '' } = useParams()
+const { id: productId = '' } = useParams()
 
   const cartItems = useSelector(selectCartItems)
-  const subTotal = useSelector(selectCartTotalAmount)
+  const { itemsPrice: subTotal } = useSelector(selectCartPrices)
   const totalQuantities = cartItems.reduce((accu, item) => accu + item.qty, 0)
   const isCartEmpty = totalQuantities === 0
 
   // methods
   const navToShipping = () => { navigate('/login?redirect=shipping') }
-
-  // effects
-  useEffect(() => {
-    if (!productId) return
-
-    const queries = parseQueryString(location.search)
-    const quantity = queries.qty ? parseInt(queries.qty) : null
-
-    if (quantity !== null) {
-      dispatch(addToCart(productId, quantity))
-    }
-  }, [productId])
 
   return (
     <PageTemplate classes='page-cart'>

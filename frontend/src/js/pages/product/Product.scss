@@ -183,6 +183,12 @@ $border_solid: 1px solid $text_1;
         margin-right: 0.4rem;
         text-decoration: underline;
       }
+
+      .out-of-stock {
+        color: $warning;
+        text-decoration: underline;
+        font-weight: bold;
+      }
     }
   }
 }

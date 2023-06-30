@@ -3,7 +3,8 @@ import './QuantitySelector.scss'
 
 export default function QuantitySelector ({
   min = 0, max = 100, value = null,
-  onChange = null, classes = ''
+  onChange = null, classes = '',
+  disabled = false
 }) {
   // state
   const [qty, setQty] = useState(value || min)

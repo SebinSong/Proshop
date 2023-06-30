@@ -5,5 +5,5 @@ import * as toolkit from '@reduxjs/toolkit'
 import * as queryToolkit from '@reduxjs/toolkit/query/react'
 export { useDispatch, useSelector, Provider } from 'react-redux'
 
-export const { configureStore, createSlice } = toolkit
+export const { configureStore, createSlice, createSelector } = toolkit
 export const { createApi, fetchBaseQuery } = queryToolkit
