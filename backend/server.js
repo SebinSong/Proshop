@@ -1,11 +1,13 @@
 const path = require('path')
 const colors = require('colors')
 const dotenv = require('dotenv')
+const logger = require('morgan')
 const express = require('express')
 const { connectDB } = require('./db.js')
 
 // import routes
 const productRouter = require('./routes/productRoutes.js')
+const userRouter = require('./routes/userRoutes.js')
 
 // import middlewares
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware.js')
@@ -19,13 +21,16 @@ const {
 
 const app = express()
 
+// Body parser middlewares
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 // register routes
 app.get('/', (req, res) => {
   res.send('API is running')
 })
-
-// products API
-app.use('/product(s)?', productRouter)
+app.use('/product(s)?', productRouter) // products API
+app.use('/users', userRouter)
 
 // error handler
 app.use(notFound)
