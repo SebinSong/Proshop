@@ -1,6 +1,11 @@
 const User = require('../models/userModel')
 const asyncHandler = require('../middlewares/asyncHandler')
 const { hashPassword } = require('../utils/encrypt-utils')
+const { DAYS_MILLIS } = require('../utils/time-utils')
+const jwt = require('jsonwebtoken')
+
+const isEnvProduction = process.env.NODE_ENV === 'production'
+
 // @desc Get all users 
 // @route GET /users
 // @access Private/Admin
@@ -26,7 +31,21 @@ const authUser = asyncHandler(async (req, res, next) => {
   if (user && 
     (await user.matchPassword(password))
   ) {
-    // TODO: send auth token!
+    const token = jwt.sign(
+      { userId: user._id }, // payload
+      process.env.JWT_SECRET, // secret
+      { // options (reference: https://www.npmjs.com/package/jsonwebtoken)
+        expiresIn: '30d'
+      }
+    )
+
+    // set JWT as a http-only cookie
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      secure: isEnvProduction,
+      sameSite: 'strict',
+      maxAge: DAYS_MILLIS * 30 // 30d
+    })
     res.json({
       _id: user._id,
       name: user.name,

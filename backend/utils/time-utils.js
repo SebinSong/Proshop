@@ -1,0 +1,13 @@
+'use strict'
+
+const MINS_MILLIS = 60 * 1000
+const HOURS_MILLIS = 60 * MINS_MILLIS
+const DAYS_MILLIS = 24 * HOURS_MILLIS
+const MONTHS_MILLIS = 30 * DAYS_MILLIS
+
+module.exports = {
+  MINS_MILLIS,
+  HOURS_MILLIS,
+  DAYS_MILLIS,
+  MONTHS_MILLIS
+}
