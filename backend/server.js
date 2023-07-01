@@ -1,7 +1,7 @@
 const path = require('path')
 const colors = require('colors')
 const dotenv = require('dotenv')
-const logger = require('morgan')
+const cookieParser = require('cookie-parser')
 const express = require('express')
 const { connectDB } = require('./db.js')
 
@@ -21,7 +21,8 @@ const {
 
 const app = express()
 
-// Body parser middlewares
+// request parser middlewares
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
