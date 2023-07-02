@@ -11,6 +11,7 @@ const sendClientErr = (res, msg) => {
   res.status(400)
   throw new Error(msg)
 }
+
 const generateAndSendToken = (user, res) => {
   const token = jwt.sign(
     { userId: user._id || user.id }, // payload
@@ -27,7 +28,7 @@ const generateAndSendToken = (user, res) => {
     sameSite: 'strict',
     maxAge: DAYS_MILLIS * 30 // 30d
   })
-  res.json({
+  res.status(200).json({
     _id: user._id,
     name: user.name,
     isAdmin: user.isAdmin,
@@ -95,22 +96,41 @@ const logoutUser = asyncHandler(async (req, res, next) => {
     httpOnly: true,
     expires: new Date(0)
   })
-  res.status(200)
-  res.json({ message: 'Logged out successfully' })
+  res.status(200).json({ message: 'Logged out successfully' })
 })
 
 // @desc Get user profile 
 // @route GET /users/profile
 // @access Private
 const getUserProfile = asyncHandler(async (req, res, next) => {
-  res.send('Get user profile!')
+  const { _id, name, email, isAdmin } = req.user
+  res.status(200).json({
+    _id, name, email, isAdmin
+  })
 })
 
 // @desc Update user profile 
 // @route PUT /users/profile
 // @access Private
 const updateUserProfile = asyncHandler(async (req, res, next) => {
-  res.send('Update user profile!')
+  const user = await User.findById(req.user._id)
+  const { email, name, password } = req.body
+
+  user.email = email || user.email
+  user.name = name || user.name
+
+  if (password) {
+    user.password = password
+  }
+
+  const updatedUser = await user.save()
+
+  res.status(200).json({
+    _id: req.user._id,
+    name: updatedUser.name,
+    email: updatedUser.email,
+    isAdmin: updatedUser.isAdmin
+  })
 })
 
 // @desc Get user by id
