@@ -30,3 +30,13 @@ export function formatMoney (amount) {
 export function addDecimals (num) {
   return (Math.round(num * 100) / 100).toFixed(2)
 }
+
+export function checkAndParseFromLocalStorage (key) {
+  const fetched = window.localStorage.getItem(key)
+
+  return fetched ? JSON.parse(fetched) : null
+}
+
+export function saveToLocalStorage (key, value) {
+  return window.localStorage.setItem(key, JSON.stringify(value))
+}

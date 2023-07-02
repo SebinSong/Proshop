@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetProductsQuery } from '@store-slice/productsSlice.js'
+import { useGetProductsQuery } from '@store-slice/productsApiSlice.js'
 import './Home.scss'
 
 // components
