@@ -13,6 +13,7 @@ import App from '@components/root/App.js'
 import Home from '@pages/home/Home.js'
 import Product from '@pages/product/Product.js'
 import Login from '@pages/login/Login.js'
+import SignUp from '@pages/sign-up/SignUp.js'
 import Cart from '@pages/cart/Cart.js'
 import NotFound from '@pages/not-found/NotFound.js'
 
@@ -41,6 +42,10 @@ const router = createHashRouter([
       {
         path: 'login',
         element: <Login />
+      },
+      {
+        path: 'register',
+        element: <SignUp />
       }
     ]
   }
