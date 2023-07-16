@@ -13,7 +13,7 @@ export default function SignUp () {
         <h1 className="page-template__page-heading signup-page-heading mb-50">Sign Up</h1>
 
         <div className='form-field mb-30'>
-          <label for='name-input'>Name</label>
+          <label htmlFor='name-input'>Name</label>
           <input className='custom-input'
             id='name-input'
             placeholder='Enter a user name'
@@ -21,7 +21,7 @@ export default function SignUp () {
         </div>
 
         <div className='form-field mb-30'>
-          <label for='email-input'>Email Address</label>
+          <label htmlFor='email-input'>Email Address</label>
           <input className='custom-input'
             id='email-input'
             placeholder='Enter email address'
@@ -29,7 +29,7 @@ export default function SignUp () {
         </div>
 
         <div className='form-field mb-30'>
-          <label for='password-input'>Password</label>
+          <label htmlFor='password-input'>Password</label>
           <input className='custom-input'
             id='password-input'
             type='password'
@@ -37,7 +37,7 @@ export default function SignUp () {
         </div>
 
         <div className='form-field mb-40'>
-          <label for='confirm-password-input'>Confirm Password</label>
+          <label htmlFor='confirm-password-input'>Confirm Password</label>
           <input className='custom-input'
             id='confirm-password-input'
             type='password'
@@ -47,7 +47,7 @@ export default function SignUp () {
         <div className='signup-cta-container'>
           <button className='is-primary register-btn' type='submit'>Register</button>
           <p className='to-login'>Already have an account? 
-            <span className='link has-underline' onClick={() => navigate('/login')}>Login</span>
+            <span className='link has-underline' tabindex='0' onClick={() => navigate('/login')}>Login</span>
           </p>
         </div>
       </form>

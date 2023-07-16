@@ -1,8 +1,5 @@
 import { createApi, fetchBaseQuery } from '@redux-api'
-import {
-  BASE_URL,
-  PRODUCTS_URL
-} from '@frontend-utils/constants.js'
+import { BASE_URL } from '@frontend-utils/constants.js'
 
 export const apiSlice = createApi({
   reducerPath: 'api',

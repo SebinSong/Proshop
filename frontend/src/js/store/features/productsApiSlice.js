@@ -36,7 +36,6 @@ export const selectProductById = createSelector(
   selectAllProducts,
   (state, userId) => userId,
   (allProducts, userId) => {
-    console.log('@@ allProducts: ', allProducts)
     return allProducts.length ? allProducts.find(x => x._id === userId) : null
   }
 )

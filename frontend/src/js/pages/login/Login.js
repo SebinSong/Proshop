@@ -1,38 +1,85 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from '@redux-api'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useLogin } from '@store/features/usersApiSlice.js'
+import { setCredentials, selectUserInfo } from '@store/features/authSlice'
 import './Login.scss'
 
 const { PageTemplate } = React.Global
 
 export default function Login () {
+  // local state
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const userInfo = useSelector(selectUserInfo)
+  const [login, { isLoading }] = useLogin()
+
+  // react-router hooks
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const redirectPath = searchParams.get('redirect') || '/'
+
+  // effects
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirectPath)
+    }
+  }, [userInfo])
+
+  // methods
+  const submitHandler = async (e) => {
+    e.preventDefault()
+
+    try {
+      const res = await login({ email, password }).unwrap()
+      dispatch(setCredentials(res))
+      navigate(redirectPath)
+    } catch (err) {
+      console.error('error while logging in: ', err)
+    }
+  }
 
   return (
     <PageTemplate classes='page-login'>
-      <form className='login-container' >
+      <form className='login-container' onSubmit={submitHandler}>
         <h1 className="page-template__page-heading login-page-heading mb-50">Sign In</h1>
 
         <div className='form-field mb-30'>
-          <label for='email-input'>Email Address</label>
+          <label htmlFor='email-input'>Email Address</label>
           <input className='custom-input'
             id='email-input'
             placeholder='Enter email address'
-            type='email' />
+            type='email'
+            value={email}
+            onInput={e => setEmail(e.target.value)} />
         </div>
 
         <div className='form-field mb-40'>
-          <label for='password-input'>Password</label>
+          <label htmlFor='password-input'>Password</label>
           <input className='custom-input'
             id='password-input'
             type='password'
-            placeholder='Enter password' />
+            placeholder='Enter password'
+            value={email}
+            onInput={e => setEmail(e.target.value)} />
         </div>
 
         <div className='login-cta-container'>
-          <button className='is-primary sign-in-btn' type='submit'>Sign in</button>
+          <button className='is-primary sign-in-btn'
+            type='submit'
+            disabled={isLoading}>Sign in</button>
+          
           <p className='to-register'>
             New customer? 
-            <span className='link has-underline' onClick={() => navigate('/register')}>Register</span>
+            <span tabIndex='0'
+              className='link has-underline'
+              onClick={() => navigate(
+                redirectPath.length > 1
+                  ? `/register?redirect=${redirectPath}`
+                  : '/register'
+              )}
+            >Register</span>
           </p>
         </div>
       </form>

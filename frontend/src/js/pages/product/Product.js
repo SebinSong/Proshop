@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useGetProductDetailsQuery, selectProductById } from '@store-slice/productsApiSlice.js'
+import { useGetProductDetailsQuery } from '@store-slice/productsApiSlice.js'
 import { addToCart } from '@store/features/cartSlice.js'
 import './Product.scss'
 import { useNavigate, useParams } from 'react-router-dom'

@@ -85,11 +85,17 @@ a,
   color: $blue_sea;
   transition: color 200ms;
   cursor: pointer;
+  outline: none;
 
   &:hover,
   &:active,
   &:focus {
     color: $neautral_dark_1;
+  }
+
+  &:focus {
+    border: 1px solid $blue_sea;
+    border-radius: 0.4rem;
   }
 
   &.has-underline {

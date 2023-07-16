@@ -20,5 +20,8 @@ const authSlice = createSlice({
 // action creators
 export const { setCredentials } = authSlice.actions
 
+// selectors
+export const selectUserInfo = state => state.auth.userInfo || null
+
 // slice-reducer
 export const authReducer = authSlice.reducer
