@@ -1,0 +1,22 @@
+.app-container {
+  position: relative;
+
+  .toast-container {
+    position: absolute;
+    z-index: $zindex_toast;
+    left: 50%;
+    bottom: 1.6rem;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 42rem;
+    height: max-content;
+    max-height: 50vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1.5rem;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 1.2rem;
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react'
+import Toast from '@components/toast/Toast.js'
 import './Footer.scss'
 
 const { Icon, Container } = React.Global

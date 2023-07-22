@@ -30,6 +30,7 @@ export default function Product () {
   const handleSubmit = async () => {
     SetSubmitted(true)
     await dispatch(addToCart(productId, quantity))
+  
     navigate(`/cart`)
   }
 
@@ -121,7 +122,7 @@ export default function Product () {
 
                     <div className="summary-row button-container">
                       <button className="is-text-btn is-primary add-to-cart-btn"
-                        disabled={submitted}
+                        disabled={quantity === 0 || submitted}
                         type='button'
                         onClick={handleSubmit}>
                         <span>{inCartData ? 'Go to cart' : 'Add to cart'}</span>

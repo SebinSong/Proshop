@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Provider } from '@redux-api'
 import { Outlet } from 'react-router-dom'
 import store from '@store/store.js'
@@ -7,22 +7,33 @@ import store from '@store/store.js'
 import AppStyles from '../app-styles/AppStyles.js'
 import Footer from '@components/footer'
 import Header from '@components/header'
+import ToastContainer from '../toast/ToastContainer.js'
+
+// hooks
+import { useToast, ToastContext } from '@hooks/use-toast.js'
+
+import './App.scss'
 
 function App (props) {
+  const toastUtils = useToast()
+
   return (
     <Provider store={store}>
-      <>
-        <AppStyles />
-        <div className="app-container app-layout">
-          <Header />
-          <main className="l-page">
-            <Outlet />
+      <ToastContext.Provider value={toastUtils}>
+        <>
+          <AppStyles />
+          <div className="app-container app-layout">
+            <Header />
+            <main className="l-page">
+              <Outlet />
 
-            <Footer />
-          </main>
+              <Footer />
+            </main>
 
-        </div>
-      </>
+            <ToastContainer />
+          </div>
+        </>
+      </ToastContext.Provider>
     </Provider>
   )
 }
