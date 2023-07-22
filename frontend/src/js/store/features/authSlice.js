@@ -1,9 +1,21 @@
 import { createSlice } from '@redux-api'
-import { checkAndParseFromLocalStorage, saveToLocalStorage } from '@utilities'
+import {
+  DAYS_MILLIS,
+  checkAndParseFromLocalStorage,
+  saveToLocalStorage
+} from '@utilities'
 
 const LOCAL_STORAGE_USERINFO_KEY = 'proshop.userInfo'
+const initUserInfo = () => {
+  const dataFromStorage = checkAndParseFromLocalStorage(LOCAL_STORAGE_USERINFO_KEY)
+
+  if (dataFromStorage && dataFromStorage.expiresAfter > Date.now()) {
+    dataFromStorage.expiresAfter = Date.now() + DAYS_MILLIS // reset the expiration time.
+    return dataFromStorage
+  } else { return null }
+}
 const initialState = {
-  userInfo: null
+  userInfo: initUserInfo()
 }
 
 const authSlice = createSlice({
@@ -11,8 +23,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials (state, action) {
-      state.userInfo = action.payload
-      saveToLocalStorage(LOCAL_STORAGE_USERINFO_KEY, action.payload)
+      const data = {
+        ...action.payload,
+        expiresAfter: Date.now() + DAYS_MILLIS
+      }
+      state.userInfo = data
+      saveToLocalStorage(LOCAL_STORAGE_USERINFO_KEY, data)
     }
   }
 })

@@ -27,28 +27,31 @@ const Header = () => {
   // methods
   const navigateTo = to => () => nav(to)
   const isActiveWithPath = path => location.pathname === path ? 'is-active' : ''
-  const onLogOutClick = () => { alert('TODO: Implement log out!') }
+  const onProfileClick = () => { alert('TODO: Creat the user-profile page!') }
 
   const buttonEls = isUserLoggedIn
     ? [
         <button className="app-header__menu-btn"
-          onClick={onLogOutClick}>
+          onClick={onProfileClick}
+          key='profile'>
           <span className="menu-btn__wrap">
-            <span className="text">Log out</span>
-            <Icon tag="i" name="close" />
+            <span className="text">My profile</span>
+            <Icon tag="i" name="user" />
           </span>
         </button>,
 
         isActiveWithPath('/cart') 
           ? <button className="app-header__menu-btn"
-              onClick={navigateTo('/')}>
+              onClick={navigateTo('/')}
+              key='products'>
               <span className="menu-btn__wrap">
                 <span className="text">Products</span>
                 <Icon tag="i" name="handbag" />
               </span>
             </button>
           : <button className="app-header__menu-btn"
-              onClick={navigateTo('/cart')}>
+              onClick={navigateTo('/cart')}
+              key='cart'>
               <span className={`menu-btn__wrap ${showCartBadge ? 'has-badge' : ''}`}>
                 <span className="text">Cart</span>
                 <Icon tag="i" name="cart" />
@@ -58,7 +61,8 @@ const Header = () => {
     : [
         !isActiveWithPath('/login') &&
         <button className="app-header__menu-btn"
-          onClick={navigateTo('/login')}>
+          onClick={navigateTo('/login')}
+          key='login'>
           <span className="menu-btn__wrap">
             <span className="text">Sign in</span>
             <Icon tag="i" name="sign-in" classes="sign-in-icon" />

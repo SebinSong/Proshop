@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useSelector, useDispatch } from '@redux-api'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { validateEmail } from '@utilities'
 import { useLogin } from '@store/features/usersApiSlice.js'
 import { ToastContext } from '@hooks/use-toast'
 import { setCredentials, selectUserInfo } from '@store/features/authSlice'
@@ -18,8 +19,11 @@ export default function Login () {
   // react-router hooks
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const redirectPath = searchParams.get('redirect') || '/'
+  const disableLoginButton = isLoading ||
+    !validateEmail(email) ||
+    password.length < 3
 
   // context
   const { addToastItem } = useContext(ToastContext)
@@ -40,12 +44,12 @@ export default function Login () {
       dispatch(setCredentials(res))
       navigate(redirectPath)
     } catch (err) {
-      console.error('::: error while logging in: ', err)
 
       addToastItem({
         heading: 'Login Failed!',
-        type: 'warning',
-        content: err?.data?.message || 'Something went wrong while trying to log you in.'
+        type: 'success',
+        content: err?.data?.message || 'Something went wrong while trying to log you in.',
+        delay: 6 * 1000
       })
     }
   }
@@ -78,7 +82,8 @@ export default function Login () {
         <div className='login-cta-container'>
           <button className='is-primary sign-in-btn'
             type='submit'
-            disabled={isLoading}>Sign in</button>
+            disabled={disableLoginButton}
+          >Sign in</button>
           
           <p className='to-register'>
             New customer? 

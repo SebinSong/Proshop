@@ -2,9 +2,9 @@ import React from 'react'
 import './Toast.scss'
 
 const TYPE_TO_ICON_MAP = {
-  'info': 'gear',
-  'success': 'gear',
-  'warning': 'circle-close'
+  'info': 'info',
+  'success': 'circle-check',
+  'warning': 'warning'
 }
 
 const Toast = ({ 

@@ -40,3 +40,8 @@ export function checkAndParseFromLocalStorage (key) {
 export function saveToLocalStorage (key, value) {
   return window.localStorage.setItem(key, JSON.stringify(value))
 }
+
+export function validateEmail (str) {
+  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+  return emailRegExp.test(str)
+}
