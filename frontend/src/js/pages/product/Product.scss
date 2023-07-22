@@ -191,4 +191,17 @@ $border_solid: 1px solid $text_1;
       }
     }
   }
+
+  .sign-in-to-purchase {
+    display: flex;
+    align-items: center;
+    color: $text_1;
+    font-size: $size_5;
+
+    .link {
+      font-size: 1.125em;
+      font-weight: 600;
+      margin-right: 0.4rem;
+    }
+  }
 }

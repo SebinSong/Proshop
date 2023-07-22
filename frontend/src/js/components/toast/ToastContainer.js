@@ -14,4 +14,4 @@ const ToastContainer = () => {
   )
 }
 
-export default ToastContainer
+export default React.memo(ToastContainer)

@@ -1,16 +1,14 @@
 import { createContext, useState } from 'react'
 import { genId } from '@utilities'
 
-export const ToastContext = createContext([])
+export const ToastContext = createContext({})
 export const TOAST_DEFAULT_DURATION = 5000
 
-export function useToast () {
-  const [toastList, setToastList] = useState([])
+export function useToast (initList = []) {
+  const [toastList, setToastList] = useState(initList)
 
   const removeToastItem = (id) => {
-    const copy = toastList.slice()
-
-    setToastList(copy.filter(item => item.id !== id))
+    setToastList(toastList.slice().filter(item => item.id !== id))
   }
   const addToastItem = ({
     type = 'info',
@@ -20,8 +18,7 @@ export function useToast () {
     delay = null
   }) => {
     const itemid = genId()
-
-    setToastList([
+    const newList = [
       ...toastList,
       {
         id: itemid,
@@ -30,7 +27,10 @@ export function useToast () {
         content,
         hideClose
       }
-    ])
+    ]
+
+    const prevList = toastList
+    setToastList(newList)
 
     setTimeout(() => {
       removeToastItem(itemid) 

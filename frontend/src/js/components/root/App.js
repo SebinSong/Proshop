@@ -15,14 +15,14 @@ import { useToast, ToastContext } from '@hooks/use-toast.js'
 import './App.scss'
 
 function App (props) {
-  const toastUtils = useToast()
+  const toastUtils = useToast([])
 
   return (
     <Provider store={store}>
-      <ToastContext.Provider value={toastUtils}>
-        <>
-          <AppStyles />
-          <div className="app-container app-layout">
+      <>
+        <AppStyles />
+        <div className="app-container app-layout">
+          <ToastContext.Provider value={toastUtils}>
             <Header />
             <main className="l-page">
               <Outlet />
@@ -31,9 +31,9 @@ function App (props) {
             </main>
 
             <ToastContainer />
-          </div>
-        </>
-      </ToastContext.Provider>
+          </ToastContext.Provider>
+        </div>
+      </>
     </Provider>
   )
 }

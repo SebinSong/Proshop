@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useSelector, useDispatch } from '@redux-api'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useLogin } from '@store/features/usersApiSlice.js'
+import { ToastContext } from '@hooks/use-toast'
 import { setCredentials, selectUserInfo } from '@store/features/authSlice'
 import './Login.scss'
 
@@ -20,6 +21,9 @@ export default function Login () {
   const [searchParams, setSearchParams] = useSearchParams()
   const redirectPath = searchParams.get('redirect') || '/'
 
+  // context
+  const { addToastItem } = useContext(ToastContext)
+
   // effects
   useEffect(() => {
     if (userInfo) {
@@ -36,7 +40,13 @@ export default function Login () {
       dispatch(setCredentials(res))
       navigate(redirectPath)
     } catch (err) {
-      console.error('error while logging in: ', err)
+      console.error('::: error while logging in: ', err)
+
+      addToastItem({
+        heading: 'Login Failed!',
+        type: 'warning',
+        content: err?.data?.message || 'Something went wrong while trying to log you in.'
+      })
     }
   }
 
@@ -61,8 +71,8 @@ export default function Login () {
             id='password-input'
             type='password'
             placeholder='Enter password'
-            value={email}
-            onInput={e => setEmail(e.target.value)} />
+            value={password}
+            onInput={e => setPassword(e.target.value)} />
         </div>
 
         <div className='login-cta-container'>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useGetProductDetailsQuery } from '@store-slice/productsApiSlice.js'
-import { addToCart } from '@store/features/cartSlice.js'
+import { addToCart, selectCartItemById } from '@store/features/cartSlice.js'
+import { isUserAuthenticated } from '@store/features/authSlice.js'
 import './Product.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from '@redux-api'
-import { selectCartItemById } from '@store/features/cartSlice.js'
 import Rating from '@components/rating/Rating.js'
 import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
 
@@ -16,6 +16,7 @@ export default function Product () {
   const dispatch = useDispatch()
   const { id: productId } = useParams()
   const inCartData = useSelector(state => selectCartItemById(state, productId))
+  const isUserLoggedIn = useSelector(isUserAuthenticated)
   const [quantity, SetQuantity] = useState(inCartData?.qty || 0)
   const [submitted ,SetSubmitted] = useState(false)
   const {
@@ -121,13 +122,25 @@ export default function Product () {
                     </div>
 
                     <div className="summary-row button-container">
-                      <button className="is-text-btn is-primary add-to-cart-btn"
-                        disabled={quantity === 0 || submitted}
-                        type='button'
-                        onClick={handleSubmit}>
-                        <span>{inCartData ? 'Go to cart' : 'Add to cart'}</span>
-                        <i className="icon-circle-plus is-postfix"></i>
-                      </button>
+                      {
+                        isUserLoggedIn
+                          ? <button className="is-text-btn is-primary add-to-cart-btn"
+                              disabled={quantity === 0 || submitted}
+                              type='button'
+                              onClick={handleSubmit}>
+                              <span>{inCartData ? 'Go to cart' : 'Add to cart'}</span>
+                              <i className="icon-circle-plus is-postfix"></i>
+                            </button>
+                          : (
+                            <p className='sign-in-to-purchase'>
+                              <span tabIndex='0'
+                                className='link has-underline'
+                                onClick={() => navigate(`/login?redirect=/product/${productId}`)}
+                              >Sign in</span>
+                              to purchase this product.
+                            </p>
+                          )
+                      }
                     </div>
                   </>
                 }
