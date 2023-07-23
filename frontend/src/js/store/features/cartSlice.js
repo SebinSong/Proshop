@@ -88,6 +88,7 @@ export const selectCartPrices = state => {
     totalPrice: addDecimals(totalPrice)
   }
 }
+export const selectShippingAddress = state => state.cart.shippingAddress
 
 // action creators
 export const {

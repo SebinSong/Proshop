@@ -55,7 +55,7 @@ export default function Login () {
 
   return (
     <PageTemplate classes='page-login'>
-      <form className='login-container' onSubmit={submitHandler}>
+      <form className='page-form-container' onSubmit={submitHandler}>
         <h1 className="page-template__page-heading is-underlined mb-50">Sign In</h1>
 
         <div className='form-field mb-30'>

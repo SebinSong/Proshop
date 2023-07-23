@@ -1,17 +1,6 @@
 .page-profile {
   position: relative;
 
-  .profile-container {
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 52rem;
-
-    @include tablet {
-      padding: 0 1.5rem;
-    }
-  }
-
   .profile-header {
     position: relative;
     display: flex;

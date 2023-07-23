@@ -39,11 +39,10 @@ export default function SignUp () {
       })
 
       if (formError && formError.errKey === key) {
-        setFormError(null)
+        setFormError(null) // unload the error
       }
     }
   }
-  const unloadError = () => { setFormError(null) }
   const validateForm = () => {
     const validationList = [
       {
@@ -101,7 +100,7 @@ export default function SignUp () {
 
   return (
     <PageTemplate classes='page-signup'>
-      <form className='signup-container' onSubmit={submitHandler}>
+      <form className='page-form-container' onSubmit={submitHandler}>
         <h1 className="page-template__page-heading signup-page-heading mb-50">Sign Up</h1>
 
         <div className='form-field mb-30'>

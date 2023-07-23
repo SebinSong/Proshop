@@ -34,7 +34,7 @@ export default function Profile () {
 
   return (
     <PageTemplate classes='page-profile'>
-      <form className='profile-container' onSubmit={e => { e.preventDefault() }}>
+      <form className='page-form-container' onSubmit={e => { e.preventDefault() }}>
         <div className='profile-header mb-30'>
           <h1 className="page-template__page-heading is-underlined">My profile</h1>
 

@@ -1,17 +1,6 @@
 .page-signup {
   position: relative;
 
-  .signup-container {
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 52rem;
-    
-    @include tablet {
-      padding: 0 1.5rem;
-    }
-  }
-
   .signup-page-heading {
     width: max-content;
     border-bottom: 2px solid $text_1;

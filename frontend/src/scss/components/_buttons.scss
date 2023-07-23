@@ -80,3 +80,18 @@ button,
     }
   }
 }
+
+.buttons-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+
+  &.is-column {
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: unset;
+  }
+}

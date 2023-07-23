@@ -25,4 +25,31 @@
       font-size: 2rem;
     }
   }
+
+  .page-description {
+    display: block;
+    font-size: $size_5;
+    margin-top: 0.8rem;
+    color: $neautral_dark_1;
+
+    &::before {
+      @include has-icon;
+      content: "\eb53";
+      display: inline-block;
+      margin-right: 0.4rem;
+      font-size: 1.25em;
+      transform: translateY(0.2rem);
+    }
+  }
+
+  .page-form-container {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 52rem;
+    
+    @include tablet {
+      padding: 0 1.5rem;
+    }
+  }
 }

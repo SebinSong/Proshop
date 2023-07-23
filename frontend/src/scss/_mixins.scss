@@ -97,6 +97,12 @@
   border: 1px dashed $color;
 }
 
+@mixin has-icon {
+  font-family: 'Proshop Icons';
+  font-weight: 600;
+  font-style: normal;
+}
+
 %unselectable {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
