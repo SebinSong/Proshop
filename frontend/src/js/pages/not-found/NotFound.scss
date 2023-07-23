@@ -1,0 +1,27 @@
+$page-bg: #F7DBA7;
+$text-color: #003459;
+
+.page-404 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background-color: $page-bg;
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  align-items: center;
+  justify-content: center;
+
+  .err-title {
+    margin-bottom: 3.4rem;
+    color: inherit;
+  }
+
+  .err-desc {
+    margin-bottom: 0.4rem;
+  }
+}
