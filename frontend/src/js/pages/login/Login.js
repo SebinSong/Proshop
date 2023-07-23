@@ -44,10 +44,9 @@ export default function Login () {
       dispatch(setCredentials(res))
       navigate(redirectPath)
     } catch (err) {
-
       addToastItem({
         heading: 'Login Failed!',
-        type: 'success',
+        type: 'warning',
         content: err?.data?.message || 'Something went wrong while trying to log you in.',
         delay: 6 * 1000
       })
