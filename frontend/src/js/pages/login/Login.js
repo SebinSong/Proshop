@@ -57,7 +57,7 @@ export default function Login () {
   return (
     <PageTemplate classes='page-login'>
       <form className='login-container' onSubmit={submitHandler}>
-        <h1 className="page-template__page-heading login-page-heading mb-50">Sign In</h1>
+        <h1 className="page-template__page-heading is-underlined mb-50">Sign In</h1>
 
         <div className='form-field mb-30'>
           <label htmlFor='email-input'>Email Address</label>

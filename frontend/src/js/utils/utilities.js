@@ -41,6 +41,13 @@ export function saveToLocalStorage (key, value) {
   return window.localStorage.setItem(key, JSON.stringify(value))
 }
 
+export function removeFromLocalStorage (key) {
+  console.log('removing a key from local-storage: ', key)
+  if (localStorage.getItem(key)) {
+    return localStorage.removeItem(key)
+  }
+}
+
 export function validateEmail (str) {
   const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
   return emailRegExp.test(str)

@@ -1,8 +1,9 @@
 import { createSlice } from '@redux-api'
 import {
   DAYS_MILLIS,
-  checkAndParseFromLocalStorage,
-  saveToLocalStorage
+checkAndParseFromLocalStorage,
+  saveToLocalStorage,
+  removeFromLocalStorage
 } from '@utilities'
 
 const LOCAL_STORAGE_USERINFO_KEY = 'proshop.userInfo'
@@ -29,12 +30,17 @@ const authSlice = createSlice({
       }
       state.userInfo = data
       saveToLocalStorage(LOCAL_STORAGE_USERINFO_KEY, data)
+    },
+    clearCredentials (state) {
+      console.log('clearing credentials')
+      state.userInfo = null,
+      removeFromLocalStorage(LOCAL_STORAGE_USERINFO_KEY)
     }
   }
 })
 
 // action creators
-export const { setCredentials } = authSlice.actions
+export const { setCredentials, clearCredentials } = authSlice.actions
 
 // selectors
 export const selectUserInfo = state => state.auth.userInfo || null

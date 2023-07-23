@@ -15,6 +15,7 @@ import Product from '@pages/product/Product.js'
 import Login from '@pages/login/Login.js'
 import SignUp from '@pages/sign-up/SignUp.js'
 import Cart from '@pages/cart/Cart.js'
+import Profile from '@pages/profile/Profile.js'
 import NotFound from '@pages/not-found/NotFound.js'
 
 // global styles
@@ -46,6 +47,10 @@ const router = createHashRouter([
       {
         path: 'register',
         element: <SignUp />
+      },
+      {
+        path: 'profile',
+        element: <Profile />
       }
     ]
   }

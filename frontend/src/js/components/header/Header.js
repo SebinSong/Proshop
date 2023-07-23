@@ -27,12 +27,11 @@ const Header = () => {
   // methods
   const navigateTo = to => () => nav(to)
   const isActiveWithPath = path => location.pathname === path ? 'is-active' : ''
-  const onProfileClick = () => { alert('TODO: Creat the user-profile page!') }
 
   const buttonEls = isUserLoggedIn
     ? [
         <button className="app-header__menu-btn"
-          onClick={onProfileClick}
+          onClick={navigateTo('/profile')}
           key='profile'>
           <span className="menu-btn__wrap">
             <span className="text">My profile</span>
