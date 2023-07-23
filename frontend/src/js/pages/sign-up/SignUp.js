@@ -89,7 +89,6 @@ export default function SignUp () {
         dispatch(setCredentials(res)) // login user upon registration success.
         navigate(redirectPath)
       } catch (err) {
-        console.log('err!!!: ', err)
         addToastItem({
           heading: 'Sign-up Failed!',
           type: 'warning',

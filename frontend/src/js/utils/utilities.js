@@ -42,7 +42,6 @@ export function saveToLocalStorage (key, value) {
 }
 
 export function removeFromLocalStorage (key) {
-  console.log('removing a key from local-storage: ', key)
   if (localStorage.getItem(key)) {
     return localStorage.removeItem(key)
   }

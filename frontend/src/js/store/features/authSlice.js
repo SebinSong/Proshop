@@ -32,7 +32,6 @@ const authSlice = createSlice({
       saveToLocalStorage(LOCAL_STORAGE_USERINFO_KEY, data)
     },
     clearCredentials (state) {
-      console.log('clearing credentials')
       state.userInfo = null,
       removeFromLocalStorage(LOCAL_STORAGE_USERINFO_KEY)
     }

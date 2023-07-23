@@ -14,7 +14,9 @@ const getItemsFromLocalStorage = () => {
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    items: [] // getItemsFromLocalStorage() ?? []
+    items: [], // getItemsFromLocalStorage() ?? []
+    shippingAddress: {},
+    paymentMethod: 'PayPal'
   },
   reducers: {
     addItemToCartList (state, action) {
@@ -45,6 +47,12 @@ const cartSlice = createSlice({
     },
     unloadCart (state) {
       state.items = []
+    },
+    saveShippingAddress (state, action) {
+      state.shippingAddress = action.payload
+    },
+    unloadShippingAddress (state) {
+      state.shippingAddress = {}
     }
   }
 })
@@ -82,7 +90,13 @@ export const selectCartPrices = state => {
 }
 
 // action creators
-export const { addItemToCartList, removeCartItem, unloadCart } = cartSlice.actions
+export const {
+  addItemToCartList,
+  removeCartItem,
+  unloadCart,
+  saveShippingAddress,
+  unloadShippingAddress
+} = cartSlice.actions
 
 // thunk creators
 export const addToCart = (id, qty) => async (dispatch, getState) => {
