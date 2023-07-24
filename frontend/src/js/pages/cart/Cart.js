@@ -21,7 +21,7 @@ const { id: productId = '' } = useParams()
   const isCartEmpty = totalQuantities === 0
 
   // methods
-  const navToShipping = () => { navigate('/login?redirect=shipping') }
+  const navToShipping = () => { navigate('/login?redirect=/shipping') }
 
   return (
     <PageTemplate classes='page-cart'>

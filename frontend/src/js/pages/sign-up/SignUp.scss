@@ -8,21 +8,8 @@
   }
 
   .signup-form-err {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    color: $warning;
-    font-size: $size_5;
     margin-bottom: 3rem;
     margin-top: -2rem;
-    padding-left: 0.4rem;
-
-    .pre-icon {
-      display: inline-block;
-      margin-right: 0.4rem;
-      font-size: 1.15em;
-      font-weight: 600;
-    }
   }
 
   .signup-cta-container {

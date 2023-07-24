@@ -49,7 +49,10 @@ const cartSlice = createSlice({
       state.items = []
     },
     saveShippingAddress (state, action) {
-      state.shippingAddress = action.payload
+      state.shippingAddress = {
+        ...(state.shippingAddress || {}),
+        ...action.payload
+      }
     },
     unloadShippingAddress (state) {
       state.shippingAddress = {}
@@ -88,7 +91,7 @@ export const selectCartPrices = state => {
     totalPrice: addDecimals(totalPrice)
   }
 }
-export const selectShippingAddress = state => state.cart.shippingAddress
+export const selectShippingAddress = state => (state.cart.shippingAddress || {})
 
 // action creators
 export const {

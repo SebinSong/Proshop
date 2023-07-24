@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useSignup } from '@store/features/usersApiSlice.js'
 import { setCredentials } from '@store/features/authSlice'
 import { ToastContext } from '@hooks/use-toast'
+import { useValidation } from '@hooks/use-validation'
 import './SignUp.scss'
 
 const { PageTemplate } = React.Global
@@ -21,7 +22,30 @@ export default function SignUp () {
     password: '',
     confirmPassword: ''
   })
-  const [formError, setFormError] = useState(null) 
+  const {
+    formError,
+    validateAll,
+    clearFormError
+  } = useValidation(
+    details, 
+    [
+      {
+        key: 'email',
+        check: val => validateEmail(val),
+        errMsg: 'Please enter a valid email format.'
+      },
+      {
+        key: 'password',
+        check: val => val.length >= 6,
+        errMsg: 'Password has to be at least 6 characters long.'
+      },
+      {
+        key: 'confirmPassword',
+        check: (val, state) => val === state.password,
+        errMsg: 'Confirm password field has to be the same as the password you entered.'
+      }
+    ]
+  )
 
   // computed state
   const enableSubmitBtn = Object.values(details).every(val => val.length >= 3)
@@ -39,45 +63,15 @@ export default function SignUp () {
       })
 
       if (formError && formError.errKey === key) {
-        setFormError(null) // unload the error
+        clearFormError()
       }
     }
   }
-  const validateForm = () => {
-    const validationList = [
-      {
-        key: 'email',
-        check: val => validateEmail(val),
-        errMsg: 'Please enter a valid email format.'
-      },
-      {
-        key: 'password',
-        check: val => val.length >= 6,
-        errMsg: 'Password has to be at least 6 characters long.'
-      },
-      {
-        key: 'confirmPassword',
-        check: val => val === details.password,
-        errMsg: 'Confirm password field has to be the same as the password you entered.'
-      }
-    ]
 
-    for (const { key, check, errMsg } of validationList) {
-      if (!check(details[key])) {
-        setFormError({ errKey: key, errMsg })
-        const inputEl = document.querySelector(`#${key}-input`)
-        inputEl && inputEl.focus()
-
-        return false
-      }
-    }
-
-    return true
-  }
   const submitHandler = async (e) => {
     e.preventDefault()
 
-    if (validateForm()) {
+    if (validateAll()) {
       try {
         const res = await signup({
           name: details.name,
@@ -143,10 +137,10 @@ export default function SignUp () {
             placeholder='Confirm password' />
         </div>
 
-        { formError &&
-          <p className='signup-form-err'>
-            <i className='icon-warning pre-icon'></i>
-            <span>{formError.errMsg}</span>
+        { 
+          formError &&
+          <p className='form-error-msg signup-form-err'>
+            {formError.errMsg}
           </p>
         }
 

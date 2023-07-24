@@ -17,6 +17,7 @@ import SignUp from '@pages/sign-up/SignUp.js'
 import Cart from '@pages/cart/Cart.js'
 import Profile from '@pages/profile/Profile.js'
 import Shipping from '@pages/shipping/Shipping.js'
+import Payment from '@pages/payment/Payment.js'
 import NotFound from '@pages/not-found/NotFound.js'
 
 // global styles
@@ -56,6 +57,10 @@ const router = createHashRouter([
       {
         path: 'shipping',
         element: <Shipping />
+      },
+      {
+        path: 'payment',
+        element: <Payment />
       }
     ]
   }

@@ -24,6 +24,7 @@
 
   &.invalid {
     border: 1px solid $warning;
+    color: $warning;
   }
 
   @include placeholder {
@@ -48,5 +49,23 @@
     color: $text_1;
     margin-left: 0.4rem;
     margin-bottom: 0.8rem;
+  }
+}
+
+.form-error-msg {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  color: $warning;
+  font-size: $size_5;
+  padding-left: 0.4rem;
+
+  &::before {
+    @include has-icon;
+    content: "\ed1e";
+    display: inline-block;
+    margin-right: 0.4rem;
+    font-size: 1.15em;
+    transform: translateY(-0.2rem);
   }
 }
