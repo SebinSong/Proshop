@@ -6,12 +6,11 @@ export const DAYS_MILLIS = 24 * HOURS_MILLIS
 export const MONTHS_MILLIS = 30 * DAYS_MILLIS
 
 export const PRODUCT_CHECKOUT_STEPS = [
-  { order: 1, name: 'Sign in' },
-  { order: 2, name: 'Shipping' },
-  { order: 3, name: 'Payment' },
-  { order: 4, name: 'Place order' }
+  { order: 1, name: 'Sign in', linkTo: '/login' },
+  { order: 2, name: 'Shipping', linkTo: '/shipping' },
+  { order: 3, name: 'Payment', linkTo: '/payment' },
+  { order: 4, name: 'Place order', linkTo: '/order' }
 ]
-
 
 export function genId () {
   const random = () => Math.random().toString(20).slice(2)

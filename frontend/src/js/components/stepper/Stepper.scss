@@ -29,6 +29,17 @@ $circle-diameter: 2.4rem;
   display: block;
   width: max-content;
   height: max-content;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  &.is-none {
+    pointer-events: none;
+  }
 
   &__name {
     position: absolute;
@@ -41,6 +52,7 @@ $circle-diameter: 2.4rem;
     font-size: $size_6;
     line-height: 1.1;
     text-align: center;
+    text-decoration: inherit;
   }
 }
 
@@ -57,12 +69,12 @@ $circle-diameter: 2.4rem;
   border-color: currentColor;
   background-color: $secondary_0;
 
-  &.is-visited,
-  &.is-active {
+  .is-visited &,
+  .is-active & {
     color: $text_1;
   }
 
-  &.is-visited {
+  .is-visited & {
     background-color: $text_1;
   }
 

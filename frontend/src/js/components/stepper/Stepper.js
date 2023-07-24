@@ -1,14 +1,24 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { classNames as cn } from '@utilities'
 import './Stepper.scss'
 
 const StepUnit = ({ 
   name = '', 
-  status = 'none' // enum of ['none', 'active', 'visited']
+  status = 'none', // enum of ['none', 'active', 'visited']
+  linkTo = ''
 }) => {
+  const navigate = useNavigate()
+  const clickHandler = () => {
+    if (status !== 'none' && linkTo) {
+      navigate(linkTo) 
+    }
+  }
   return (
-    <li className='stepper-unit'>
-      <div className={cn('stepper-unit__circle', `is-${status}`)}>
+    <li className={cn('stepper-unit', `is-${status}`)}
+      tabIndex='0'
+      onClick={clickHandler}>
+      <div className='stepper-unit__circle'>
         {
           status === 'visited'
             ? <i className='icon-check stepper-unit__circle-check'></i>
@@ -41,7 +51,8 @@ function Stepper ({
         { 
           list.map(entry => <StepUnit 
             name={entry.name} 
-            status={getStatus(entry.order)} 
+            status={getStatus(entry.order)}
+            linkTo={entry.linkTo}
             key={entry.order} />)
         }
       </ul>
