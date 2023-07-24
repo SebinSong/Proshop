@@ -1,0 +1,88 @@
+$circle-diameter: 2.4rem;
+
+.stepper-container {
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  height: max-content;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4rem;
+
+  .stepper__track {
+    position: absolute;
+    display: block;
+  }
+
+  .stepper-list {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.stepper-unit {
+  position: relative;
+  display: block;
+  width: max-content;
+  height: max-content;
+
+  &__name {
+    position: absolute;
+    width: max-content;
+    max-width: 2.5 * $circle-diameter;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0.6rem);
+    color: $text_1;
+    font-size: $size_6;
+    line-height: 1.1;
+    text-align: center;
+  }
+}
+
+.stepper-unit__circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $circle-diameter;
+  height: $circle-diameter;
+  border-radius: $circle-diameter;
+  border-width: 2px;
+  border-style: solid;
+  color: $neautral_dark_2;
+  border-color: currentColor;
+  background-color: $secondary_0;
+
+  &.is-visited,
+  &.is-active {
+    color: $text_1;
+  }
+
+  &.is-visited {
+    background-color: $text_1;
+  }
+
+  &-btn,
+  &-check {
+    display: inline-block;
+  }
+
+  &-btn {
+    $side: $circle-diameter / 2;
+    width: $side;
+    height: $side;
+    border-radius: $side;
+    color: inherit;
+    background-color: currentColor;
+  }
+
+  &-check {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $background_0;
+  }
+}

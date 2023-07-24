@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useImmer } from 'use-immer'
 import { useSelector, useDispatch } from '@redux-api'
-import { classNames as cn } from '@utilities'
+import { PRODUCT_CHECKOUT_STEPS, classNames as cn } from '@utilities'
+import Stepper from '@components/stepper/Stepper'
 import {
   selectShippingAddress,
   saveShippingAddress
@@ -86,6 +87,8 @@ export default function Shipping () {
     <ProtectedPage>
       <PageTemplate classes='page-shipping'>
         <form className='page-form-container' onSubmit={submitHandler}>
+          <Stepper list={PRODUCT_CHECKOUT_STEPS} current={2} />
+
           <h1 className="page-template__page-heading">Shipping</h1>
           <p className='page-description mb-40'>Please fill out your shipping details.</p>
 
