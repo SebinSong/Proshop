@@ -15,7 +15,7 @@ const StepUnit = ({
     }
   }
   return (
-    <li className={cn('stepper-unit', `is-${status}`)}
+    <li className={cn('stepper-unit', `is-${status}`, { 'no-link': !linkTo })}
       tabIndex='0'
       onClick={clickHandler}>
       <div className='stepper-unit__circle'>
@@ -33,8 +33,12 @@ const StepUnit = ({
 
 function Stepper ({
   list = [], // format: { order: number, name: string }
-  current = 1
+  current = 1,
+  classes = ''
 }) {
+  if (!Array.isArray(list) || list.length < 2) { return null }
+
+  const progressBarWidth = (current - 1) / (list.length - 1) * 100
   const getStatus = (order) => {
     return order === current ? 'active'
       : order < current ? 'visited'
@@ -42,9 +46,9 @@ function Stepper ({
   }
 
   return (
-    <div className='stepper-container'>
+    <div className={`stepper-container ${classes}`}>
       <div className='stepper-track'>
-        <span className='stepper-track__bar'></span>
+        <span className='stepper-track__bar' style={{ width: `${progressBarWidth}%` }}></span>
       </div>
 
       <ul className='stepper-list'>

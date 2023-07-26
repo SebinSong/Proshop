@@ -6,7 +6,7 @@ export const DAYS_MILLIS = 24 * HOURS_MILLIS
 export const MONTHS_MILLIS = 30 * DAYS_MILLIS
 
 export const PRODUCT_CHECKOUT_STEPS = [
-  { order: 1, name: 'Sign in', linkTo: '/login' },
+  { order: 1, name: 'Sign in' },
   { order: 2, name: 'Shipping', linkTo: '/shipping' },
   { order: 3, name: 'Payment', linkTo: '/payment' },
   { order: 4, name: 'Place order', linkTo: '/order' }
