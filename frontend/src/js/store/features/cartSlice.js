@@ -16,7 +16,7 @@ const cartSlice = createSlice({
   initialState: {
     items: [], // getItemsFromLocalStorage() ?? []
     shippingAddress: {},
-    paymentMethod: 'PayPal'
+    paymentMethod: ''
   },
   reducers: {
     addItemToCartList (state, action) {
@@ -56,6 +56,9 @@ const cartSlice = createSlice({
     },
     unloadShippingAddress (state) {
       state.shippingAddress = {}
+    },
+    savePaymentMethod (state, action) {
+      state.paymentMethod = action.payload
     }
   }
 })
@@ -92,6 +95,7 @@ export const selectCartPrices = state => {
   }
 }
 export const selectShippingAddress = state => (state.cart.shippingAddress || {})
+export const selectPaymentMethod = state => (state.cart.paymentMethod)
 
 // action creators
 export const {
@@ -99,7 +103,8 @@ export const {
   removeCartItem,
   unloadCart,
   saveShippingAddress,
-  unloadShippingAddress
+  unloadShippingAddress,
+  savePaymentMethod
 } = cartSlice.actions
 
 // thunk creators

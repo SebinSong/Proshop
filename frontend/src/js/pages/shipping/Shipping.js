@@ -10,7 +10,6 @@ import {
 } from '@store/features/cartSlice.js'
 import { ToastContext } from '@hooks/use-toast'
 import { useValidation } from '@hooks/use-validation'
-import './Shipping.scss'
 
 const { ProtectedPage, PageTemplate } = React.Global
 
@@ -87,7 +86,7 @@ export default function Shipping () {
     <ProtectedPage>
       <PageTemplate classes='page-shipping'>
         <form className='page-form-container' onSubmit={submitHandler}>
-          <Stepper classes='page-stepper mb-50' list={PRODUCT_CHECKOUT_STEPS} current={2} />
+          <Stepper classes='page-stepper' list={PRODUCT_CHECKOUT_STEPS} current={2} />
 
           <h1 className="page-template__page-heading">Shipping</h1>
           <p className='page-description mb-40'>Please fill out your shipping details.</p>

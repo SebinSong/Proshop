@@ -52,4 +52,10 @@
       padding: 0 1.5rem;
     }
   }
+
+  .page-stepper {
+    position: relative;
+    width: calc(100% - 2rem);
+    margin-bottom: 5rem;
+  }
 }
