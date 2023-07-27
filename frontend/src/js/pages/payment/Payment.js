@@ -6,7 +6,6 @@ import { savePaymentMethod, selectPaymentMethod, selectShippingAddress } from '@
 import { PRODUCT_CHECKOUT_STEPS } from '@utilities'
 
 import './Payment.scss'
-import { _ } from 'core-js'
 
 const { ProtectedPage, PageTemplate } = React.Global
 

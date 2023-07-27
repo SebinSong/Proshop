@@ -8,6 +8,7 @@ const { connectDB } = require('./db.js')
 // import routes
 const productRouter = require('./routes/productRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
+const orderRouter = require('./routes/orderRoutes.js')
 
 // import middlewares
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware.js')
@@ -32,6 +33,7 @@ app.get('/', (req, res) => {
 })
 app.use('/product(s)?', productRouter) // products API
 app.use('/users', userRouter)
+app.use('/orders', orderRouter)
 
 // error handler
 app.use(notFound)
