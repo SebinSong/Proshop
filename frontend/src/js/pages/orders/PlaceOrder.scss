@@ -1,0 +1,12 @@
+.page-place-order {
+  position: relative;
+
+  &__container {
+    position: relative;
+    display: block;
+
+    @include tablet {
+      padding: 0 1.5rem;
+    }
+  }
+}

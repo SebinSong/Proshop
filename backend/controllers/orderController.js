@@ -7,7 +7,7 @@ const asyncHandler = require('../middlewares/asyncHandler')
 // @access Private/Admin
 const getAllOrders = asyncHandler(async (req, res) => {
   const allOrders = await Order.find({})
-  res.status(200)json(allOrders)
+  res.status(200).json(allOrders)
 })
 
 // @desc Create new order

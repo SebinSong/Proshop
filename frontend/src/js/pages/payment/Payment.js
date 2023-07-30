@@ -27,7 +27,7 @@ export default function Payment () {
     e.preventDefault()
 
     dispatch(savePaymentMethod(paymentMethod))
-    navigate('/order')
+    navigate('/place-order')
   }
   const onRadioChange = e => { setPaymentMethod(e.target.value) }
 

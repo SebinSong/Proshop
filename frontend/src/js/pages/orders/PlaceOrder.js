@@ -16,19 +16,25 @@ export default function PlaceOrder () {
 
   // effects
   useEffect(() => {
-    if (Object.keys(shippingAddress || {}).length < 4) {
-      navigate('/shipping')
-    }
+    // if (Object.keys(shippingAddress || {}).length < 4) {
+    //   navigate('/shipping')
+    // }
 
-    if (paymentMethod) {
-      navigate('/payment')
-    }
+    // if (!paymentMethod) {
+    //   navigate('/payment')
+    // }
   }, [])
 
   return (
     <ProtectedPage>
       <PageTemplate classes='page-place-order'>
-        <h1 className="page-template__page-heading">Place your order</h1>
+        <div className='page-width-constraints'>
+          <Stepper classes='page-stepper' list={PRODUCT_CHECKOUT_STEPS} current={4} />
+        </div>
+
+        <div className='page-place-order__container'>
+          <h1 className="page-template__page-heading">Place your order</h1>
+        </div>
       </PageTemplate>
     </ProtectedPage>
   )

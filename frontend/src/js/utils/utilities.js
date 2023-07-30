@@ -9,7 +9,7 @@ export const PRODUCT_CHECKOUT_STEPS = [
   { order: 1, name: 'Sign in' },
   { order: 2, name: 'Shipping', linkTo: '/shipping' },
   { order: 3, name: 'Payment', linkTo: '/payment' },
-  { order: 4, name: 'Place order', linkTo: '/order' }
+  { order: 4, name: 'Place order', linkTo: '/place-order' }
 ]
 
 export function genId () {
