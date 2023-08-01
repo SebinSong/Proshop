@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useSelector } from '@redux-api'
+import { useSelector, useDispatch } from '@redux-api'
 import { useNavigate } from 'react-router-dom'
 import Stepper from '@components/stepper/Stepper'
 import { PRODUCT_CHECKOUT_STEPS, formatMoney } from '@utilities'
@@ -7,8 +7,10 @@ import {
   selectShippingAddress,
   selectCombinedShippingAddress,
   selectPaymentMethod,
-  selectCartItems
+  selectCartItems,
+  selectCartPrices
 } from '@store/features/cartSlice.js'
+import { useCreateOrders } from '@store/features/ordersApiSlice.js'
 
 import './PlaceOrder.scss'
 
@@ -19,17 +21,34 @@ export default function PlaceOrder () {
   const shippingAddressCombined = Object.values(shippingAddress || {}).join(', ')
   const paymentMethod = useSelector(selectPaymentMethod)
   const cartItems = useSelector(selectCartItems)
+  const {
+    itemsPrice: subTotal,
+    shippingPrice,
+    taxPrice,
+    totalPrice
+  } = useSelector(selectCartPrices)
+  const [createOrders, { isLoading }] = useCreateOrders() 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  // methods
+  const onPlaceHolderClick = async () => {
+    try {
+      alert('TODO: Implement!')
+    } catch (err) {
+
+    }
+  }
 
   // effects
   useEffect(() => {
-    // if (Object.keys(shippingAddress || {}).length < 4) {
-    //   navigate('/shipping')
-    // }
+    if (Object.keys(shippingAddress || {}).length < 4) {
+      navigate('/shipping')
+    }
 
-    // if (!paymentMethod) {
-    //   navigate('/payment')
-    // }
+    if (!paymentMethod) {
+      navigate('/payment')
+    }
   }, [])
 
   return (
@@ -85,7 +104,36 @@ export default function PlaceOrder () {
             </div>
 
             <div className='payment-summary-container'>
-              <h3 className='is-title-5 sub-heading is-payment'>Payment summary</h3>
+              <h3 className='is-title-5 sub-heading is-payment'>Price summary</h3>
+
+              <ul className='price-summary-table'>
+                  <li className='price-summary-item'>
+                    <label>Items :</label>
+                    <span className='price-summary-item__value'>{formatMoney(subTotal)}</span>
+                  </li>
+
+                  <li className='price-summary-item'>
+                    <label>Shipping fee :</label>
+                    <span className='price-summary-item__value'>{formatMoney(shippingPrice)}</span>
+                  </li>
+
+                  <li className='price-summary-item'>
+                    <label>Tax :</label>
+                    <span className='price-summary-item__value'>{formatMoney(taxPrice)}</span>
+                  </li>
+
+                  <li className='price-summary-item for-total-price'>
+                    <label className='has-text-blue-sea'>Total :</label>
+                    <span className='price-summary-item__value'>{formatMoney(totalPrice)}</span>
+                  </li>
+
+                  <li className='price-summary-item for-button'>
+                    <button className='is-primary' type='button' onClick={onPlaceHolderClick}>
+                      <span>Place Order</span>
+                      <i className='icon-arrow-right is-postfix'></i>
+                    </button>
+                  </li>
+              </ul>
             </div>
           </div>
         </div>

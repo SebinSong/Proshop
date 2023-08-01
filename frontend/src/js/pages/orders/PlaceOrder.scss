@@ -54,7 +54,7 @@ $custom-bp: 820px;
   .order-details-field {
     position: relative;
     display: block;
-    padding: 1.2rem 1.6rem 1.8rem;
+    padding: 1rem 1.6rem 1.8rem;
     border: 1px solid var(--divider-color);
 
     &:not(:last-of-type) {
@@ -191,6 +191,62 @@ $custom-bp: 820px;
             margin-left: 0.6rem;
           }
         }
+      }
+    }
+  }
+
+  .price-summary-table {
+    position: relative;
+    display: block;
+    width: 100%;
+    border: 1px solid $text_1;
+
+    @include from ($custom-bp) {
+      min-width: 36rem;
+    }
+  }
+
+  .price-summary-item {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 1.2rem 2rem;
+
+    label {
+      display: inline-block;
+      margin-right: 0.8rem;
+      color: $text_1;
+      font-weight: normal;
+      font-size: $size_5;
+      text-transform: capitalize;
+      text-decoration: underline;
+    }
+
+    .price-summary-item__value {
+      font-family: "Yeseva";
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $text_1;
+    }
+
+    &.for-button {
+      flex-direction: column;
+      align-items: stretch;
+      padding-top: 4.6rem;
+    }
+
+    &.for-total-price {
+      padding: 1.4rem 2rem;
+
+      label {
+        font-weight: 600;
+        font-size: $size_4;
+      }
+
+      .price-summary-item__value {
+        font-size: $size_2;
+        color: $blue_sea;
       }
     }
   }
