@@ -1,12 +1,197 @@
+$custom-bp: 820px;
+
 .page-place-order {
   position: relative;
 
   &__container {
     position: relative;
-    display: block;
+    margin: 0 auto;
+    max-width: 88rem;
+
+    @include until ($custom-bp) {
+      max-width: 52rem;
+    }
+
+    .place-order__content {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "order-details"
+        "payment-summary";  
+      gap: 3.2rem;
+      margin-top: 3.6rem;
+
+      @include from($custom-bp) {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: 1fr;
+        gap: 4.8rem;
+        grid-template-areas: "order-details payment-summary";  
+      }
+    }
+
+    .order-details-container,
+    .payment-summary-container {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .order-details-container {
+      grid-area: order-details;
+    }
+
+    .payment-summary-container {
+      grid-area: payment-summary;
+    }
 
     @include tablet {
       padding: 0 1.5rem;
+    }
+  }
+
+  .order-details-field {
+    position: relative;
+    display: block;
+    padding: 1.2rem 1.6rem 1.8rem;
+    border: 1px solid var(--divider-color);
+
+    &:not(:last-of-type) {
+      border-bottom: none;
+    }
+
+    .label {
+      display: block;
+      line-height: 1.4;
+      margin-bottom: 0.4rem;
+      margin-left: 0;
+      text-transform: capitalize;
+
+      &::before {
+        @include has-icon;
+        content: '\ea11';
+        display: inline-block;
+        font-size: 1.5em;
+        margin-right: 0.4rem;
+        transform: translateY(0.4rem);
+      }
+
+      &::after {
+        content: ':';
+        display: inline-block;
+        margin-left: 0.2rem;
+      }
+    }
+
+    .details-value {
+      display: block;
+      color: $neautral_dark_1;
+      padding-left: 2.4rem;
+    }
+  }
+
+  .sub-heading {
+    font-size: 1.6rem;
+    margin-bottom: 3.2rem;
+
+    &::before {
+      @include has-icon;
+      display: inline-block;
+      margin-right: 0.4rem;
+      font-size: 1.6em;
+      transform: translateY(0.6rem);
+    }
+
+    &.is-order-details::before {
+      content: '\eb53';
+    }
+    &.is-payment::before {
+      content: '\ea51';
+    }
+  }
+
+  .order-items-list {
+    position: relative;
+
+    &__item {
+      display: flex;
+      align-items: center;
+
+      &:first-child {
+        margin-top: 2.6rem;
+      }
+
+      &:not(:last-child) {
+        padding-bottom: 1.8rem;
+        margin-bottom: 1.8rem;
+        border-bottom: 1px solid var(--divider-color);
+      }
+
+      .product-image {
+        display: inline-block;
+        width: 6.2rem;
+        height: 6.2rem;
+        object-fit: cover;
+        border-radius: 0.6rem;
+        border: 1px solid var(--divider-color);
+        overflow: hidden;
+        margin-right: 1.6rem;
+        flex-shrink: 0;
+
+        @include smallphone {
+          width: 5.2rem;
+          height: 5.2rem;
+          margin-right: 0.8rem;
+        }
+      }
+
+      .product-name {
+        font-size: $size_5;
+        line-height: 1.15;
+        flex-grow: 1;
+        text-decoration: underline;
+        margin-right: 1.2rem;
+
+        @include from($custom-bp) {
+          max-width: 38rem;
+          font-size: $size_4;
+        }
+      }
+
+      .product-amount {
+        display: inline-flex;
+        align-items: center;
+
+        > span {
+          display: inline-block;
+          line-height: 1.5;
+          font-size: $size_3;
+
+          @include smallphone {
+            font-size: $size_4;
+          }
+        }
+
+        .product-qty {
+          margin-right: 1.4rem;
+          font-weight: 600;
+
+          @include smallphone {
+            margin-right: 0.6rem;
+          }
+        }
+
+        .product-price {
+          margin-left: 1.4rem;
+          width: max-content;
+          color: $blue_sea;
+
+          @include smallphone {
+            margin-left: 0.6rem;
+          }
+        }
+      }
     }
   }
 }

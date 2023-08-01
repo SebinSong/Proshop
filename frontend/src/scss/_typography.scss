@@ -48,6 +48,11 @@ $heading_sizes: 2.8rem, 2.6rem, 2.4rem, 2.25rem, 2rem;
     font-size: $size;
     letter-spacing: 1px;
     color: $text_1;
+
+    &.has-underline {
+      width: max-content;
+      border-bottom: 1px solid currentColor;
+    }
   }
 }
 

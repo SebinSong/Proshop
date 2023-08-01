@@ -41,15 +41,16 @@
 .form-field {
   position: relative;
   width: 100%;
+}
 
-  label {
-    display: block;
-    font-weight: 600;
-    font-size: $size_5;
-    color: $text_1;
-    margin-left: 0.4rem;
-    margin-bottom: 0.8rem;
-  }
+.form-field label,
+.label {
+  display: block;
+  font-weight: 600;
+  font-size: $size_5;
+  color: $text_1;
+  margin-left: 0.4rem;
+  margin-bottom: 0.8rem;
 }
 
 .form-error-msg {
