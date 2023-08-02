@@ -78,3 +78,14 @@ export function classNames (...args) {
       }
     }).join(' ')
 }
+
+export function combineShippingAddress (obj) {
+  // This util function ensures the address displayed in the order that makes sense
+  const { address = '', city = '', postalCode = '', country = '' } = obj
+
+  return [ address, city, postalCode, country ].filter(Boolean).join(', ')
+}
+
+export function copyTextToClipboard (str) {
+  return navigator.clipboard.writeText(str)
+}

@@ -1,0 +1,130 @@
+.order-details-field {
+  position: relative;
+  display: block;
+  padding: 1rem 1.6rem 1.8rem;
+  border: 1px solid var(--divider-color);
+
+  &.is-small {
+    font-size: $size_5;
+    padding: 0.4rem 1.2rem 1rem;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: none;
+  }
+
+  .label {
+    display: block;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+    margin-left: 0;
+    text-transform: capitalize;
+
+    &::before {
+      @include has-icon;
+      content: '\eb64';
+      display: inline-block;
+      font-size: 1.5em;
+      margin-right: 0.4rem;
+      transform: translateY(0.4rem);
+    }
+
+    &::after {
+      content: ':';
+      display: inline-block;
+      margin-left: 0.2rem;
+    }
+  }
+
+  .details-value {
+    display: block;
+    color: $neautral_dark_1;
+    padding-left: 2.4rem;
+  }
+
+  .sub-details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    &:not(:last-of-type) {
+      margin-bottom: 0.6rem;
+    }
+
+    label {
+      font-size: inherit;
+      font-weight: 600;
+      margin-right: 0.8rem;
+      color: $text_1;
+    }
+
+    .value {
+      color: $neautral_dark_1;
+    }
+  }
+}
+
+.item-status {
+  font-weight: 600;
+
+  &.is-not-completed {
+    color: $warning !important;
+  }
+
+  &.is-completed {
+    color: $green_light !important;
+  }
+}
+
+.price-summary-table {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 1px solid var(--divider-color);
+}
+
+.price-summary-item {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+
+  label {
+    display: inline-block;
+    margin-right: 0.8rem;
+    color: $text_1;
+    font-weight: normal;
+    font-size: $size_5;
+    text-transform: capitalize;
+    text-decoration: underline;
+  }
+
+  .price-summary-item__value {
+    font-family: "Yeseva";
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--divider-color);
+  }
+
+  &.for-button {
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 4.6rem;
+  }
+
+  &.for-total-price {
+    padding: 1.4rem 2rem;
+
+    label {
+      font-weight: 600;
+      font-size: $size_4;
+    }
+
+    .price-summary-item__value {
+      font-size: $size_2;
+      color: $blue_sea;
+    }
+  }
+}

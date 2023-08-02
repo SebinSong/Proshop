@@ -19,6 +19,7 @@ import Profile from '@pages/profile/Profile.js'
 import Shipping from '@pages/shipping/Shipping.js'
 import Payment from '@pages/payment/Payment.js'
 import PlaceOrder from '@pages/orders/PlaceOrder.js'
+import OrderDetails from '@pages/orders/OrderDetails.js'
 import NotFound from '@pages/not-found/NotFound.js'
 
 // global styles
@@ -66,11 +67,14 @@ const router = createHashRouter([
       {
         path: 'place-order',
         element: <PlaceOrder />
+      },
+      {
+        path: 'order-details/:id',
+        element: <OrderDetails />
       }
     ]
   }
 ])
-
 
 const root = createRoot(document.querySelector('#root'))
 

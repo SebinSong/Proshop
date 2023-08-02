@@ -51,46 +51,6 @@ $custom-bp: 820px;
     }
   }
 
-  .order-details-field {
-    position: relative;
-    display: block;
-    padding: 1rem 1.6rem 1.8rem;
-    border: 1px solid var(--divider-color);
-
-    &:not(:last-of-type) {
-      border-bottom: none;
-    }
-
-    .label {
-      display: block;
-      line-height: 1.4;
-      margin-bottom: 0.4rem;
-      margin-left: 0;
-      text-transform: capitalize;
-
-      &::before {
-        @include has-icon;
-        content: '\ea11';
-        display: inline-block;
-        font-size: 1.5em;
-        margin-right: 0.4rem;
-        transform: translateY(0.4rem);
-      }
-
-      &::after {
-        content: ':';
-        display: inline-block;
-        margin-left: 0.2rem;
-      }
-    }
-
-    .details-value {
-      display: block;
-      color: $neautral_dark_1;
-      padding-left: 2.4rem;
-    }
-  }
-
   .sub-heading {
     font-size: 1.6rem;
     margin-bottom: 3.2rem;
@@ -104,150 +64,16 @@ $custom-bp: 820px;
     }
 
     &.is-order-details::before {
-      content: '\eb53';
+      content: '\eb74';
     }
     &.is-payment::before {
       content: '\ea51';
     }
   }
 
-  .order-items-list {
-    position: relative;
-
-    &__item {
-      display: flex;
-      align-items: center;
-
-      &:first-child {
-        margin-top: 2.6rem;
-      }
-
-      &:not(:last-child) {
-        padding-bottom: 1.8rem;
-        margin-bottom: 1.8rem;
-        border-bottom: 1px solid var(--divider-color);
-      }
-
-      .product-image {
-        display: inline-block;
-        width: 6.2rem;
-        height: 6.2rem;
-        object-fit: cover;
-        border-radius: 0.6rem;
-        border: 1px solid var(--divider-color);
-        overflow: hidden;
-        margin-right: 1.6rem;
-        flex-shrink: 0;
-
-        @include smallphone {
-          width: 5.2rem;
-          height: 5.2rem;
-          margin-right: 0.8rem;
-        }
-      }
-
-      .product-name {
-        font-size: $size_5;
-        line-height: 1.15;
-        flex-grow: 1;
-        text-decoration: underline;
-        margin-right: 1.2rem;
-
-        @include from($custom-bp) {
-          max-width: 38rem;
-          font-size: $size_4;
-        }
-      }
-
-      .product-amount {
-        display: inline-flex;
-        align-items: center;
-
-        > span {
-          display: inline-block;
-          line-height: 1.5;
-          font-size: $size_3;
-
-          @include smallphone {
-            font-size: $size_4;
-          }
-        }
-
-        .product-qty {
-          margin-right: 1.4rem;
-          font-weight: 600;
-
-          @include smallphone {
-            margin-right: 0.6rem;
-          }
-        }
-
-        .product-price {
-          margin-left: 1.4rem;
-          width: max-content;
-          color: $blue_sea;
-
-          @include smallphone {
-            margin-left: 0.6rem;
-          }
-        }
-      }
-    }
-  }
-
   .price-summary-table {
-    position: relative;
-    display: block;
-    width: 100%;
-    border: 1px solid $text_1;
-
     @include from ($custom-bp) {
       min-width: 36rem;
-    }
-  }
-
-  .price-summary-item {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: 1.2rem 2rem;
-
-    label {
-      display: inline-block;
-      margin-right: 0.8rem;
-      color: $text_1;
-      font-weight: normal;
-      font-size: $size_5;
-      text-transform: capitalize;
-      text-decoration: underline;
-    }
-
-    .price-summary-item__value {
-      font-family: "Yeseva";
-    }
-
-    &:not(:last-of-type) {
-      border-bottom: 1px solid $text_1;
-    }
-
-    &.for-button {
-      flex-direction: column;
-      align-items: stretch;
-      padding-top: 4.6rem;
-    }
-
-    &.for-total-price {
-      padding: 1.4rem 2rem;
-
-      label {
-        font-weight: 600;
-        font-size: $size_4;
-      }
-
-      .price-summary-item__value {
-        font-size: $size_2;
-        color: $blue_sea;
-      }
     }
   }
 }

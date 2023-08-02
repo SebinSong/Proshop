@@ -15,6 +15,7 @@ const { ProtectedPage, PageTemplate } = React.Global
 
 export default function Shipping () {
   const dataInStore = useSelector(selectShippingAddress)
+  const hasDataInStore = Object.values(dataInStore || {}).some(val => val.length > 3)
   const [details, setDetails] = useImmer({
     address: dataInStore.address || '',
     city: dataInStore.city || '',
@@ -55,12 +56,28 @@ export default function Shipping () {
       }
     }
   }
+  const dataBeenUpdated = () => {
+    for (const key in details) {
+      const val = details[key]
+      const valStore = dataInStore[key] || {}
+
+      if (valStore !== val) {
+        return true
+      }
+    }
+
+    return false
+  }
 
   const submitHandler = e => {
     e.preventDefault()
 
     if (validateAll()) {
       try {
+        if (hasDataInStore && !dataBeenUpdated()) {
+          return navigate('/payment')
+        }
+
         dispatch(saveShippingAddress(details))
         addToastItem({
           heading: 'Saved!',

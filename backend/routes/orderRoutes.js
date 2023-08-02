@@ -6,7 +6,8 @@ const {
   getMyOrders,
   getOrderById,
   UpdateOrderToPaid,
-  UpdateOrderToDelivered
+  UpdateOrderToDelivered,
+  UndoUpdateOrderAction
 } = require('../controllers/orderController')
 const { admin, protect } = require('../middlewares/authMiddleWare.js')
 
@@ -18,8 +19,9 @@ router.route('/')
   .post(protect, addOrderItems)
 
 router.route('/mine').get(protect, getMyOrders)
-router.route('/:id').get(protect, admin, getOrderById)
+router.route('/:id').get(protect, getOrderById)
 router.route('/:id/pay').put(protect, UpdateOrderToPaid)
 router.route('/:id/deliver').put(protect, admin, UpdateOrderToDelivered)
+router.route('/:id/undo', UndoUpdateOrderAction)
 
 module.exports = router

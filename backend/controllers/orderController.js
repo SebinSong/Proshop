@@ -2,6 +2,18 @@ const Order = require('../models/orderModel')
 const Product = require('../models/productModel')
 const asyncHandler = require('../middlewares/asyncHandler')
 
+// utils
+const findOrderItemById = async (id, res) => {
+  const order = await Order.findById(id)
+
+  if (!order) {
+    res.status(404)
+    throw new Error(`Order item for the ID - ${id} is not found.`)
+  }
+
+  return order
+}
+
 // @desc Get all orders
 // @route GET /orders
 // @access Private/Admin
@@ -47,7 +59,10 @@ const addOrderItems = asyncHandler(async (req, res) => {
     })
 
     const createdOrder = await order.save()
-    res.status(201).json({ ...createdOrder })
+    res.status(201).json({
+      message: 'order created successfully',
+      _id: order._id
+    })
   }
 
 })
@@ -66,22 +81,29 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @route GET /orders/:id
 // @access Private
 const getOrderById = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id)
+  const order = await findOrderItemById(req.params.id, res)
     .populate('user', 'name email')
 
-  if (order) {
-    res.status(200).json(order)
-  } else {
-    res.status(404)
-    throw new Error(`Order for the id - ${req.params.id} not found`)
-  }
+  res.status(200).json(order)
 })
 
 // @desc Update order to paid
 // @route PUT /orders/:id/pay
 // @access Private
 const UpdateOrderToPaid = asyncHandler(async (req, res) => {
-  res.send('Update order to paid!')
+  const { id = '', status = '', update_time = '', email_address = '' } = req.body
+  const order = await findOrderItemById(req.params.id, res)
+
+  order.isPaid = true
+  order.paidAt = Date.now()
+  order.paymentResult = { id, status, update_time, email_address }
+
+  await order.save()
+
+  res.status(200).json({
+    message: 'order has been sunccessfully updated for the payment completion.',
+    order
+  })
 })
 
 // @desc Update order to delivered
@@ -91,11 +113,39 @@ const UpdateOrderToDelivered = asyncHandler(async (req, res) => {
   res.send('Update order to delivered!')
 })
 
+// @desc Undo various actions related to an order
+// @route PUT /orders/:id/undo?action=string
+const UndoUpdateOrderAction = asyncHandler(async (req, res) => {
+  const orderId = req.params.id || ''
+  const { action = '' } = req.query || {}
+
+  if (!action || !['delivered', 'paid'].includes(action)) {
+    res.status(400)
+    throw new Error('Either action query is required or it is not valid.')
+  }
+
+  const order = await findOrderItemById(orderId, res)
+
+  switch (action) {
+    case 'delivered': {
+      // TODO!!
+    }
+    case 'paid': {
+      order.isPaid = false
+      order.paymentResult = { id: '', status: '', update_time: '', email_address: '' }
+      delete order.paidAt
+    }
+  }
+
+  await order.save()
+})
+
 module.exports = {
   getAllOrders,
   addOrderItems,
   getMyOrders,
   getOrderById,
   UpdateOrderToPaid,
-  UpdateOrderToDelivered
+  UpdateOrderToDelivered,
+  UndoUpdateOrderAction
 }

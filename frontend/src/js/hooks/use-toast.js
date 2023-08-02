@@ -8,6 +8,8 @@ export function useToast (initList = []) {
   const [toastList, setToastList] = useState(initList)
   const timeoutIdMap = useRef({})
 
+  const isToastActive = () => toastList.length > 0
+
   const removeToastItem = (id) => {
     setToastList(
       prevList => prevList.filter(item => item.id !== id)
@@ -18,6 +20,11 @@ export function useToast (initList = []) {
       clearTimeout(timeoutId)
       delete timeoutIdMap.current[id]
     }
+  }
+
+  const unloadAllToast = () => {
+    const ids = (toastList || []).map(entry => entry.id)
+    ids.forEach(id => removeToastItem(id))
   }
 
   const addToastItem = ({
@@ -46,13 +53,16 @@ export function useToast (initList = []) {
       () => { removeToastItem(itemid) },
       (typeof delay === 'number') ? delay : TOAST_DEFAULT_DURATION
     )
-
+  
     timeoutIdMap.current[itemid] = timeoutId
+    return itemid
   }
 
   return {
     toastList,
+    isToastActive,
     addToastItem,
-    removeToastItem
+    removeToastItem,
+    unloadAllToast
   }
 }

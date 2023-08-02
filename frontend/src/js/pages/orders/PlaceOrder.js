@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useSelector, useDispatch } from '@redux-api'
 import { useNavigate } from 'react-router-dom'
 import Stepper from '@components/stepper/Stepper'
-import { PRODUCT_CHECKOUT_STEPS, formatMoney } from '@utilities'
+import OrderItemsList from './order-items-list/OrderItemsList.js'
+import { ToastContext } from '@hooks/use-toast'
+import { PRODUCT_CHECKOUT_STEPS, formatMoney, combineShippingAddress } from '@utilities'
 import {
   selectShippingAddress,
-  selectCombinedShippingAddress,
   selectPaymentMethod,
   selectCartItems,
-  selectCartPrices
+  selectCartPrices,
+  unloadCart
 } from '@store/features/cartSlice.js'
 import { useCreateOrders } from '@store/features/ordersApiSlice.js'
 
@@ -18,7 +20,6 @@ const { ProtectedPage, PageTemplate } = React.Global
 
 export default function PlaceOrder () {
   const shippingAddress = useSelector(selectShippingAddress)
-  const shippingAddressCombined = Object.values(shippingAddress || {}).join(', ')
   const paymentMethod = useSelector(selectPaymentMethod)
   const cartItems = useSelector(selectCartItems)
   const {
@@ -27,16 +28,44 @@ export default function PlaceOrder () {
     taxPrice,
     totalPrice
   } = useSelector(selectCartPrices)
-  const [createOrders, { isLoading }] = useCreateOrders() 
+  const [createOrders, { isLoading, error }] = useCreateOrders() 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  // methods
-  const onPlaceHolderClick = async () => {
-    try {
-      alert('TODO: Implement!')
-    } catch (err) {
+  // context
+  const { addToastItem, unloadAllToast, isToastActive } = useContext(ToastContext)
 
+  // methods
+  const placeOrderHandler = async () => {
+    try {
+      if (isToastActive()) {
+        unloadAllToast()
+      }
+
+      const res = await createOrders({
+        orderItems: cartItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice: subTotal,
+        shippingPrice,
+        taxPrice,
+        totalPrice
+      }).unwrap()
+
+      dispatch(unloadCart())
+      navigate(`/order-details/${res._id}`)
+      addToastItem({
+        heading: 'Order submitted!',
+        type: 'success',
+        delay: 5 * 1000
+      })
+    } catch (err) {
+      addToastItem({
+        heading: 'Failed to process your order!',
+        type: 'warning',
+        content: err?.data?.message || err.error || 'Something went wrong. please try again',
+        delay: 5 * 1000
+      })
     }
   }
 
@@ -68,7 +97,7 @@ export default function PlaceOrder () {
               <ul>
                 <li className='order-details-field'>
                   <span className='label'>Shipping address</span>
-                  <span className='details-value'>{shippingAddressCombined}</span>
+                  <span className='details-value'>{combineShippingAddress(shippingAddress)}</span>
                 </li>
 
                 <li className='order-details-field'>
@@ -78,27 +107,7 @@ export default function PlaceOrder () {
 
                 <li className='order-details-field'>
                   <span className='label'>Order items</span>
-                  <ul className='order-items-list'>
-                    {
-                      cartItems.map(
-                        item => (
-                          <li className='order-items-list__item' key={item._id}>
-                            <img className='product-image'
-                              src={`images/products/${item.image}`}
-                              alt={item.name} />
-                            
-                            <h4 className='product-name'>{item.name}</h4>
-
-                            <span className='product-amount'>
-                              <span className='product-qty'>{item.qty}</span>
-                              x
-                              <span className='product-price has-yeseva'>{formatMoney(item.price)}</span>
-                            </span>
-                          </li>
-                        )
-                      )
-                    }
-                  </ul>
+                  <OrderItemsList items={cartItems} />
                 </li>
               </ul>
             </div>
@@ -128,7 +137,11 @@ export default function PlaceOrder () {
                   </li>
 
                   <li className='price-summary-item for-button'>
-                    <button className='is-primary' type='button' onClick={onPlaceHolderClick}>
+                    <button className='is-primary'
+                      type='button'
+                      onClick={placeOrderHandler}
+                      disabled={isLoading}
+                    >
                       <span>Place Order</span>
                       <i className='icon-arrow-right is-postfix'></i>
                     </button>

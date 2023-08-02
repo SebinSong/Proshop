@@ -1,0 +1,85 @@
+$custom-bp: 820px;
+
+.order-items-list {
+  position: relative;
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    &:first-child {
+      margin-top: 2.6rem;
+    }
+
+    &:not(:last-child) {
+      padding-bottom: 1.8rem;
+      margin-bottom: 1.8rem;
+      border-bottom: 1px solid var(--divider-color);
+    }
+
+    .product-image {
+      display: inline-block;
+      width: 6.2rem;
+      height: 6.2rem;
+      object-fit: cover;
+      border-radius: 0.6rem;
+      border: 1px solid var(--divider-color);
+      overflow: hidden;
+      margin-right: 1.6rem;
+      flex-shrink: 0;
+
+      @include smallphone {
+        width: 5.2rem;
+        height: 5.2rem;
+        margin-right: 0.8rem;
+      }
+    }
+
+    .product-name {
+      font-size: $size_5;
+      line-height: 1.15;
+      flex-grow: 1;
+      text-decoration: underline;
+      margin-right: 1.2rem;
+
+      @include from($custom-bp) {
+        max-width: 38rem;
+        font-size: $size_4;
+      }
+    }
+
+    .product-amount {
+      display: inline-flex;
+      align-items: center;
+
+      > span {
+        display: inline-block;
+        line-height: 1.5;
+        font-size: $size_3;
+
+        @include smallphone {
+          font-size: $size_4;
+        }
+      }
+
+      .product-qty {
+        margin-right: 1.4rem;
+        font-weight: 600;
+
+        @include smallphone {
+          margin-right: 0.6rem;
+        }
+      }
+
+      .product-price {
+        margin-left: 1.4rem;
+        width: max-content;
+        color: $blue_sea;
+
+        @include smallphone {
+          margin-left: 0.6rem;
+        }
+      }
+    }
+  }
+}
