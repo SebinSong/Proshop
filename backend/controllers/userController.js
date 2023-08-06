@@ -3,6 +3,7 @@ const asyncHandler = require('../middlewares/asyncHandler')
 const { hashPassword } = require('../utils/encrypt-utils')
 const { DAYS_MILLIS } = require('../utils/time-utils')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 const isEnvProduction = process.env.NODE_ENV === 'production'
 
@@ -10,6 +11,9 @@ const isEnvProduction = process.env.NODE_ENV === 'production'
 const sendClientErr = (res, msg) => {
   res.status(400)
   throw new Error(msg)
+}
+const passwordsMatch = async (pw1, pw2) => {
+  return await bcrypt.compare(pw1, pw2)
 }
 
 const generateAndSendToken = (user, res) => {
@@ -120,6 +124,13 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
   user.name = name || user.name
 
   if (password) {
+    const matches = await user.matchPassword(password)
+
+    if (matches) {
+      res.status(400)
+      throw new Error('password already exists.')
+    }
+
     user.password = password
   }
 

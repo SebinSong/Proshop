@@ -26,6 +26,32 @@
     }
   }
 
+  .sub-heading {
+    font-size: 1.6rem;
+    margin-bottom: 2.6rem;
+
+    &::before {
+      @include has-icon;
+      display: inline-block;
+      margin-right: 0.4rem;
+      font-size: 1.6em;
+      transform: translateY(0.6rem);
+    }
+
+    &.is-order-details::before {
+      content: '\eb74';
+    }
+    &.is-payment::before {
+      content: '\ea51';
+    }
+    &.is-update-profile::before {
+      content: '\ecef';
+    }
+    &.is-update-profile::before {
+      content: '\ecef';
+    }
+  }
+
   .page-description {
     display: block;
     font-size: $size_5;
@@ -58,5 +84,27 @@
     position: relative;
     width: calc(100% - 2rem);
     margin-bottom: 5rem;
+  }
+
+  .section-divider {
+    position: relative;
+    display: block;
+    border: none;
+    height: 1px;
+    background-color: $neautral_dark_1;
+    opacity: 0.625;
+    margin-top: 3.8rem;
+    margin-bottom: 3.8rem;
+
+    &.has-width-constraint {
+      width: 100%;
+      max-width: 52rem;
+      margin-left: auto;
+      margin-right: auto;
+
+      @include tablet {
+        max-width: 48rem;
+      }
+    }
   }
 }

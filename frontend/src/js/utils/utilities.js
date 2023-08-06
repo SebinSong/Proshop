@@ -82,7 +82,7 @@ export function classNames (...args) {
 export function ifElseComponent (...entryList) {
   for (const entry of entryList) {
     if (Array.isArray(entry)) {
-      if (entry[0]) { return entry[1] }
+      if (Boolean(entry[0])) { return entry[1] }
     } else {
       if (entry) { return entry }
     }

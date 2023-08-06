@@ -51,26 +51,6 @@ $custom-bp: 820px;
     }
   }
 
-  .sub-heading {
-    font-size: 1.6rem;
-    margin-bottom: 3.2rem;
-
-    &::before {
-      @include has-icon;
-      display: inline-block;
-      margin-right: 0.4rem;
-      font-size: 1.6em;
-      transform: translateY(0.6rem);
-    }
-
-    &.is-order-details::before {
-      content: '\eb74';
-    }
-    &.is-payment::before {
-      content: '\ea51';
-    }
-  }
-
   .price-summary-table {
     @include from ($custom-bp) {
       min-width: 36rem;

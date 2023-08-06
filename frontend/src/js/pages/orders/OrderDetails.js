@@ -282,11 +282,13 @@ export default function OrderDetails () {
                           <LoaderSpinner isSmall={true} key='loading-paypal'>Loading Paypal data..</LoaderSpinner>
                         ],
                         <>
-                          <button className='is-primary' type='button'
-                            onClick={onApproveTest}>
-                            <span>Test pay order</span>
-                            <i className='icon-arrow-right is-postfix'></i>
-                          </button>
+                          {/*
+                            <button className='is-primary' type='button'
+                              onClick={onApproveTest}>
+                              <span>Test pay order</span>
+                              <i className='icon-arrow-right is-postfix'></i>
+                            </button>
+                          */}
 
                           <div className='paypal-buttons-wrapper'>
                             <PayPalButtons

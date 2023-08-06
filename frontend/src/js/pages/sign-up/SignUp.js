@@ -128,7 +128,7 @@ export default function SignUp () {
         </div>
 
         <div className='form-field mb-40'>
-          <label htmlFor='confirm-password-input'>Confirm Password</label>
+          <label htmlFor='confirmPassword-input'>Confirm Password</label>
           <input className={cn('custom-input', { 'invalid': formError && formError.errKey === 'confirmPassword' })}
             id='confirmPassword-input'
             type='password'
