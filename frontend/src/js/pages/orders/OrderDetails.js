@@ -1,9 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
+import { useSelector } from '@redux-api'
 import OrderItemsList from './order-items-list/OrderItemsList.js'
-import { useParams } from 'react-router-dom'
-import { useGetOrderDetails } from '@store/features/ordersApiSlice.js'
-import { combineShippingAddress, copyTextToClipboard, formatMoney } from '@utilities'
+import { selectUserInfo } from '@store/features/authSlice'
 import { ToastContext } from '@hooks/use-toast'
+import { useParams } from 'react-router-dom'
+import {
+  useGetOrderDetails,
+  useGetPayPalClientId,
+  usePayOrder
+} from '@store/features/ordersApiSlice.js'
+import {
+  combineShippingAddress,
+  copyTextToClipboard,
+  formatMoney,
+  ifElseComponent,
+  humanDate
+} from '@utilities'
 // import css
 import './OrderDetails.scss'
 import './OrderShared.scss'
@@ -15,12 +28,20 @@ export default function OrderDetails () {
   const {
     data: orderDetails,
     isLoading,
-    refetch,
+    refetch: refetchOrderDetails,
     isFetching,
     isError,
     error
   } = useGetOrderDetails(orderId)
+  const userInfo = useSelector(selectUserInfo)
   const { addToastItem, unloadAllToast, isToastActive } = useContext(ToastContext)
+  const [payOrder, { isLoading: isPayOrderLoading }] = usePayOrder()
+  const [{ isPending }, paypalDispatch] =usePayPalScriptReducer()
+  const {
+    data: paypalData,
+    isLoading: isPaypalClientLoading,
+    error: paypalClientError
+  } = useGetPayPalClientId()
 
   // methods
   const copyOrderId = () => {
@@ -38,6 +59,104 @@ export default function OrderDetails () {
     })
   }
 
+  const loadPaypalScript = async () => {
+    await paypalDispatch({
+      type: 'resetOptions',
+      value: {
+        'client-id': paypalData.clientId,
+        currency: 'USD'
+      }
+    })
+
+    await paypalDispatch({
+      type: 'setLoadingStatus',
+      value: 'pending'
+    })
+  }
+
+  // paypal button methods
+  const onPaypalApprove = async (data, actions) => {
+    return actions.order.capture().then(async (details) => {
+      try {
+        await payOrder ({ orderId, details })
+
+        addToastItem({
+          type: 'success',
+          heading: 'Payment successful!',
+          content: 'Your purchase has been successfully processed.',
+          delay: 3 * 1000
+        })
+        refetchOrderDetails()
+      } catch (err) {
+        addToastItem({
+          heading: 'Payment Failed!',
+          type: 'warning',
+          content: err?.data?.message || 'Something went wrong while processing your payment. Please try it again',
+          delay: 5 * 1000
+        })
+      }
+    })
+  }
+  const onApproveTest = async () => {
+    try {
+      await payOrder ({
+        orderId,
+        details: {
+          payer: {}
+        }
+      })
+
+      addToastItem({
+        type: 'success',
+        heading: 'Payment successful!',
+        content: 'Your purchase has been successfully processed.',
+        delay: 3 * 1000
+      })
+      refetchOrderDetails()
+    } catch (err) {
+      addToastItem({
+        heading: 'Test payment Failed!',
+        type: 'warning',
+        content: err?.message || 'Something went wrong!',
+        delay: 5 * 1000
+      })
+    }
+  }
+  const onPaypalError = (err) => {
+    addToastItem({
+      heading: 'Test payment Failed!',
+      type: 'warning',
+      content: err?.message || 'Something went wrong while processing your payment!',
+      delay: 4 * 1000
+    })
+  }
+  const createPaypalOrder = (data, actions) => {
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: orderDetails.totalPrice
+        }
+      }]
+    }).then(orderId => orderId)
+  }
+
+  if (isError) {
+    console.log('error while fetching order-details: ', error)
+  }
+
+  useEffect(() => {
+    if (!paypalClientError &&
+      !isPaypalClientLoading &&
+      paypalData.clientId) {
+
+      if (orderDetails &&
+        !orderDetails.isPaid &&
+        !window.paypal) {
+        loadPaypalScript()
+      }
+    }
+  }, [paypalData, orderDetails])
+
   // render
   const queryStatusFeedback = (isLoading || isFetching)
     ? (
@@ -46,7 +165,7 @@ export default function OrderDetails () {
         </LoaderSpinner>
       )
     : isError
-      ? <p>{error?.message}</p>
+      ? <p>Error happend while loading the order details.</p>
       : null
 
   if (queryStatusFeedback) {
@@ -61,7 +180,8 @@ export default function OrderDetails () {
     itemsPrice,
     taxPrice,
     shippingPrice,
-    totalPrice
+    totalPrice,
+    paidAt
   } = orderDetails
 
   return (
@@ -113,7 +233,7 @@ export default function OrderDetails () {
 
                 <div className='sub-details'>
                   <label>status:</label>
-                  <span className='value item-status is-completed'>Paid</span>
+                  <span className='value item-status is-completed'>Paid on {humanDate(paidAt)}</span>
                 </div>
               </div>
             </li>
@@ -147,6 +267,40 @@ export default function OrderDetails () {
                 <label className='has-text-blue-sea'>Total :</label>
                 <span className='price-summary-item__value'>{formatMoney(totalPrice)}</span>
               </li>
+
+              { !orderDetails.isPaid && 
+                (
+                  <li className='price-summary-item is-centered pay-btn'>
+                    {
+                      ifElseComponent(
+                        [
+                          isPayOrderLoading,
+                          <LoaderSpinner isSmall={true} key='processing-payment'>Processing your payment..</LoaderSpinner>
+                        ],
+                        [
+                          isPending,
+                          <LoaderSpinner isSmall={true} key='loading-paypal'>Loading Paypal data..</LoaderSpinner>
+                        ],
+                        <>
+                          <button className='is-primary' type='button'
+                            onClick={onApproveTest}>
+                            <span>Test pay order</span>
+                            <i className='icon-arrow-right is-postfix'></i>
+                          </button>
+
+                          <div className='paypal-buttons-wrapper'>
+                            <PayPalButtons
+                              createOrder={createPaypalOrder}
+                              onApprove={onPaypalApprove}
+                              onError={onPaypalError}
+                            ></PayPalButtons>
+                          </div>
+                        </>
+                      )
+                    }
+                  </li>
+                )
+              }
             </ul>
           </div>
         </div>

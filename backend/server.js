@@ -17,7 +17,8 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 const {
   API_PORT = 5000,
-  NODE_ENV = 'development'
+  NODE_ENV = 'development',
+  PAYPAL_CLIENT_ID
 } = process.env
 
 const app = express()
@@ -26,6 +27,14 @@ const app = express()
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.get('/config/paypal', (req, res) => {
+  if (!PAYPAL_CLIENT_ID) {
+    res.status(503)
+    throw new Error('server could not find the available paypal client ID.')
+  } else {
+    res.status(200).json({ clientId: PAYPAL_CLIENT_ID })
+  }
+})
 
 // register routes
 app.get('/', (req, res) => {

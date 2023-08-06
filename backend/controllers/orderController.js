@@ -82,7 +82,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @access Private
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await findOrderItemById(req.params.id, res)
-    .populate('user', 'name email')
+  order.populate('user', 'name email')
 
   res.status(200).json(order)
 })
@@ -100,6 +100,7 @@ const UpdateOrderToPaid = asyncHandler(async (req, res) => {
 
   await order.save()
 
+  console.log('@@@ Updating the order [ PUT /orders/:id/pay ] : ', req.body)
   res.status(200).json({
     message: 'order has been sunccessfully updated for the payment completion.',
     order

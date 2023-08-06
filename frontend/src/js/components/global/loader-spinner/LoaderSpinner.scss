@@ -27,13 +27,25 @@
       border-radius: 50%;
     }
 
-    @include tablet {
-      width: 3.6rem;
-      height: 3.6rem;
+    &.is-small {
+      width: 2.2rem;
+      height: 2.2rem;
 
       &::after {
-        width: 1.2rem;
-        height: 1.2rem;
+        width: 0.6rem;
+        height: 0.6rem;
+      }
+    }
+
+    @include tablet {
+      &:not(.is-small) {
+        width: 3.6rem;
+        height: 3.6rem;
+
+        &::after {
+          width: 1.2rem;
+          height: 1.2rem;
+        }
       }
     }
   }
@@ -43,7 +55,7 @@
     font-size: $size_6;
     max-width: 12.6rem;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: $text_0;
     text-align: center;
     margin-top: 0.8rem;

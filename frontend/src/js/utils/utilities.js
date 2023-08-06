@@ -79,6 +79,18 @@ export function classNames (...args) {
     }).join(' ')
 }
 
+export function ifElseComponent (...entryList) {
+  for (const entry of entryList) {
+    if (Array.isArray(entry)) {
+      if (entry[0]) { return entry[1] }
+    } else {
+      if (entry) { return entry }
+    }
+  }
+
+  return null
+}
+
 export function combineShippingAddress (obj) {
   // This util function ensures the address displayed in the order that makes sense
   const { address = '', city = '', postalCode = '', country = '' } = obj
@@ -88,4 +100,14 @@ export function combineShippingAddress (obj) {
 
 export function copyTextToClipboard (str) {
   return navigator.clipboard.writeText(str)
+}
+
+export function humanDate (date, options = {
+  month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'
+}) {
+  const locale = typeof navigator === 'undefined'
+    ? 'en-US'
+    : navigator.languages || navigator.language
+
+  return new Date(date).toLocaleString(locale, options)
 }

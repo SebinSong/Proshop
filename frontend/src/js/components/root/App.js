@@ -7,6 +7,7 @@ import store from '@store/store.js'
 import AppStyles from '../app-styles/AppStyles.js'
 import Footer from '@components/footer'
 import Header from '@components/header'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import ToastContainer from '../toast/ToastContainer.js'
 
 // hooks
@@ -19,21 +20,22 @@ function App (props) {
 
   return (
     <Provider store={store}>
-      <>
-        <AppStyles />
-        <div className="app-container app-layout">
-          <ToastContext.Provider value={toastUtils}>
-            <Header />
-            <main className="l-page">
-              <Outlet />
+      <PayPalScriptProvider deferLoading={true} >
+        <>
+          <AppStyles />
+          <div className="app-container app-layout">
+            <ToastContext.Provider value={toastUtils}>
+              <Header />
+              <main className="l-page">
+                <Outlet />
+                <Footer />
+              </main>
 
-              <Footer />
-            </main>
-
-            <ToastContainer />
-          </ToastContext.Provider>
-        </div>
-      </>
+              <ToastContainer />
+            </ToastContext.Provider>
+          </div>
+        </>
+      </PayPalScriptProvider>
     </Provider>
   )
 }
