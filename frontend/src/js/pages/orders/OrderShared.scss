@@ -65,18 +65,6 @@
   }
 }
 
-.item-status {
-  font-weight: 600;
-
-  &.is-not-completed {
-    color: $warning !important;
-  }
-
-  &.is-completed {
-    color: $green_light !important;
-  }
-}
-
 .price-summary-table {
   position: relative;
   display: block;

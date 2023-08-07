@@ -82,8 +82,8 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @access Private
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await findOrderItemById(req.params.id, res)
-  order.populate('user', 'name email')
 
+  await order.populate('user', 'name email')
   res.status(200).json(order)
 })
 

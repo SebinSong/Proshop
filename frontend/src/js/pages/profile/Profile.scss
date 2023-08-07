@@ -7,4 +7,59 @@
     align-items: flex-end;
     justify-content: space-between;
   }
+
+  .my-orders-table {
+    position: relative;
+    display: block;
+    border: 1px solid var(--divider-color);
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      padding: 1.2rem 1.8rem;
+
+      @include smallphone {
+        padding: 1.2rem;
+      }
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid var(--divider-color);
+      }
+
+      .detail-line {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        font-size: $size_6;
+        margin-bottom: 0.4rem;
+
+        &.order-id {
+          padding: 0.4rem 0.8rem;
+          border-radius: 0.4rem;
+          border: 1px solid var(--divider-color); 
+          margin-bottom: 1rem;
+          width: max-content;
+          font-size: $size_5;
+        }
+
+        &.items-name {
+          margin-bottom: 2rem;
+          font-size: $size_5;
+        }
+
+        label {
+          display: inline-block;
+          letter-spacing: 1px;
+          font-weight: 600;
+          margin-right: 0.8rem;
+          color: $text_1;
+        }
+
+        .value {
+          display: inline-block;
+          color: $neautral_dark_1;
+        }
+      }
+    }
+  }
 }

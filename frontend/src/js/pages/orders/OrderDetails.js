@@ -15,7 +15,8 @@ import {
   copyTextToClipboard,
   formatMoney,
   ifElseComponent,
-  humanDate
+  humanDate,
+  classNames as cn
 } from '@utilities'
 // import css
 import './OrderDetails.scss'
@@ -181,7 +182,10 @@ export default function OrderDetails () {
     taxPrice,
     shippingPrice,
     totalPrice,
-    paidAt
+    isPaid,
+    isDelivered,
+    paidAt,
+    deliveredAt
   } = orderDetails
 
   return (
@@ -219,7 +223,13 @@ export default function OrderDetails () {
 
             <li className='order-details-field is-small'>
               <span className='label'>Delivery status</span>
-              <span className='details-value item-status is-not-completed'>Not delivered yet</span>
+              <span className={
+                cn('value', 'item-status', isDelivered ? 'is-completed' : 'is-not-completed')
+              }>
+                {
+                  isDelivered ? `Delivered on ${humanDate(deliveredAt)}` : 'Not delivered yet'
+                }
+              </span>
             </li>
 
             <li className='order-details-field is-small'>
@@ -233,7 +243,13 @@ export default function OrderDetails () {
 
                 <div className='sub-details'>
                   <label>status:</label>
-                  <span className='value item-status is-completed'>Paid on {humanDate(paidAt)}</span>
+                  <span className={
+                    cn('value', 'item-status', isPaid ? 'is-completed' : 'is-not-completed')
+                  }>
+                    {
+                      isPaid ? `Paid on ${humanDate(paidAt)}` : 'Not paid yet'
+                    }
+                  </span>
                 </div>
               </div>
             </li>
@@ -249,7 +265,7 @@ export default function OrderDetails () {
 
             <ul className='price-summary-table'>
               <li className='price-summary-item'>
-                <label>Items :</label>
+                <label>Items total:</label>
                 <span className='price-summary-item__value'>{formatMoney(itemsPrice)}</span>
               </li>
 

@@ -11,3 +11,15 @@
   .mt-#{$val} { margin-top: #{$n}rem !important; }
   .mb-#{$val} { margin-bottom: #{$n}rem !important; }
 }
+
+.item-status {
+  font-weight: 600;
+
+  &.is-not-completed {
+    color: $warning !important;
+  }
+
+  &.is-completed {
+    color: $green_light !important;
+  }
+}

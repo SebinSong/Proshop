@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from '@redux-api'
 import {
   validateEmail,
   ifElseComponent,
+  humanDate,
+  formatMoney,
   classNames as cn
 } from '@utilities'
 import { useLogout, useUpdateProfile } from '@store/features/usersApiSlice.js'
+import { useGetMyOrders } from '@store/features/ordersApiSlice.js'
 import { selectUserInfo } from '@store/features/authSlice'
 import { clearCredentials, setCredentials } from '@store/features/authSlice'
 import { useNavigate } from 'react-router-dom'
@@ -14,12 +17,20 @@ import { ToastContext } from '@hooks/use-toast'
 import { useValidation } from '@hooks/use-validation'
 import './Profile.scss'
 
-const { ProtectedPage, PageTemplate } = React.Global
+const { ProtectedPage, PageTemplate, LoaderSpinner } = React.Global
 
 export default function Profile () {
   const userInfo = useSelector(selectUserInfo)
   const [logout, { isLoading: isSigningOut }] = useLogout()
   const [updateProfile, { isLoading: isUpdatingProfile }] = useUpdateProfile()
+  const {
+    data: myOrders = [],
+    isLoading: isMyOrdersLoading,
+    isFetching: isFetchingMyOrders,
+    isError: isMyOrdersError,
+    errors: myOrdersErrors,
+    refetch: refetchMyOrders
+  } = useGetMyOrders()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -50,6 +61,9 @@ export default function Profile () {
       }
     ]
   )
+
+  // computed state
+  const isLoadingOrderHistory = isMyOrdersLoading || isFetchingMyOrders
 
   const isLongEnoughAndDiff = key => {
     const val = details[key].trim()
@@ -123,6 +137,10 @@ export default function Profile () {
         })
       }
     }
+  }
+
+  if (!myOrders?.length) {
+    console.log('My orders list: ', myOrders)
   }
 
   // render
@@ -201,6 +219,73 @@ export default function Profile () {
         </form>
 
         <hr className='section-divider has-width-constraint' />
+
+        <div className='page-width-constraints'>
+          <h3 className='is-title-5 sub-heading is-my-orders'>My order history</h3>
+
+          <ul className='my-orders-table'>
+            {
+              isLoadingOrderHistory &&
+                <LoaderSpinner isSmall={true}>Loading order history...</LoaderSpinner>
+            }
+
+            {
+              (!isLoadingOrderHistory) &&
+              ifElseComponent(
+                [
+                  !Boolean(myOrders) || myOrders.length === 0,
+                  <li className='my-orders-table__item no-history' key='no-history-item'>You have no previous order history.</li>
+                ],
+                [
+                  myOrders?.length,
+                  myOrders.map(order => 
+                    <li className='my-orders-table__item' key={order._id}>
+                      <div className='detail-line order-id'>
+                        <label># Order ID:</label>
+                        <span className='value'>{order._id}</span>
+                      </div>
+
+                      <div className='detail-line items-name'>
+                        <label>Items:</label>
+                        <span className='value has-yeseva'>
+                          { order.orderItems.map(item => item.name).join(', ') }
+                        </span>
+                      </div>
+
+                      <div className='detail-line'>
+                        <label>Total:</label>
+                        <span className='value has-text-bold'>
+                          { formatMoney(order.totalPrice) }
+                        </span>
+                      </div>
+
+                      <div className='detail-line'>
+                        <label>Created at:</label>
+                        <span className='value has-text-bold'>
+                          { humanDate(order.createdAt) }
+                        </span>
+                      </div>
+
+                      <div className='detail-line'>
+                        <label>Paid at:</label>
+                        <span className={cn('value', 'item-status', order.isPaid ? 'is-completed' : 'is-not-completed')}>
+                          { order.isPaid ? humanDate(order.paidAt) : 'Not paid' }
+                        </span>
+                      </div>
+
+                      <div className='detail-line'>
+                        <label>Delivered at:</label>
+                        <span className={cn('value', 'item-status', order.isDelivered ? 'is-completed' : 'is-not-completed')}>
+                          { order.isDelivered ? humanDate(order.deliveredAt) : 'Not delivered' }
+                        </span>
+                      </div>
+                    </li>
+                  )
+                ]
+              )
+            }
+          </ul>
+        </div>
       </PageTemplate>
     </ProtectedPage>
   )
