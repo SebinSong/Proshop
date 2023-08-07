@@ -73,7 +73,7 @@ $heading_sizes: 2.8rem, 2.6rem, 2.4rem, 2.25rem, 2rem;
 }
 
 .has-text-1 {
-  color: $text_1;
+  color: $text_1 !important;
 }
 
 .has-text-blue-sea {
@@ -86,6 +86,10 @@ $heading_sizes: 2.8rem, 2.6rem, 2.4rem, 2.25rem, 2rem;
 
 .has-color-warning {
   color: $warning;
+}
+
+.has-underline {
+  text-decoration: underline;
 }
 
 a,

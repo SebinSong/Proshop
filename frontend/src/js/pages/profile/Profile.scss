@@ -62,4 +62,12 @@
       }
     }
   }
+
+  .item-cta-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-top: 1.2rem;
+  }
 }

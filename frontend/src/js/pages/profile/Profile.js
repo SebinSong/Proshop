@@ -247,7 +247,7 @@ export default function Profile () {
 
                       <div className='detail-line items-name'>
                         <label>Items:</label>
-                        <span className='value has-yeseva'>
+                        <span className='value has-yeseva has-text-1 has-underline'>
                           { order.orderItems.map(item => item.name).join(', ') }
                         </span>
                       </div>
@@ -276,8 +276,16 @@ export default function Profile () {
                       <div className='detail-line'>
                         <label>Delivered at:</label>
                         <span className={cn('value', 'item-status', order.isDelivered ? 'is-completed' : 'is-not-completed')}>
-                          { order.isDelivered ? humanDate(order.deliveredAt) : 'Not delivered' }
+                          { order.isDelivered ? humanDate(order.deliveredAt) : 'Not delivered yet' }
                         </span>
+                      </div>
+
+                      <div className='item-cta-container'>
+                        <button className={cn('is-small', order.isPaid ? 'is-outline' : 'is-primary')}
+                          type='button'
+                          onClick={() => navigate(`/order-details/${order._id}`)}>
+                          {order.isPaid ? 'Details' : 'Make a payment'}
+                        </button>
                       </div>
                     </li>
                   )

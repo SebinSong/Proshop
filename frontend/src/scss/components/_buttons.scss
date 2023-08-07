@@ -26,6 +26,14 @@ button,
     size: $size_4;
   }
 
+  &.is-small {
+    min-height: 3.2rem;
+    font-size: $size_5;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 1.2rem;
+  }
+
   > * { display: inline-block; }
 
   > i.is-prefix { 
