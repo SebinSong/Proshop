@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useSelector } from '@redux-api'
 import { selectCartTotalQuantities } from '@store/features/cartSlice.js'
-import { isUserAuthenticated } from '@store/features/authSlice.js'
+import { isUserAuthenticated, isUserAdmin } from '@store/features/authSlice.js'
 import './Header.scss'
 // child components
 import HeaderSearchBar from './header-search-bar'
@@ -17,6 +17,8 @@ const Header = () => {
   const [showSearchBarInSmallDevice, setShowSearchBar] = useState(false)
   const currCartQuantities = useSelector(selectCartTotalQuantities)
   const isUserLoggedIn = useSelector(isUserAuthenticated)
+  const isAdmin = useSelector(isUserAdmin)
+
   // router utils
   const nav = useNavigate()
   const location = useLocation()
@@ -29,34 +31,54 @@ const Header = () => {
   const isActiveWithPath = path => location.pathname === path ? 'is-active' : ''
 
   const buttonEls = isUserLoggedIn
-    ? [
-        <button className="app-header__menu-btn"
-          onClick={navigateTo('/profile')}
-          key='profile'>
-          <span className="menu-btn__wrap">
-            <span className="text">My profile</span>
-            <Icon tag="i" name="user" />
-          </span>
-        </button>,
+    ? isAdmin
+      ? [
+          <button className="app-header__menu-btn"
+            onClick={navigateTo('/profile')}
+            key='profile-admin'>
+            <span className="menu-btn__wrap">
+              <span className="text">My profile</span>
+              <Icon tag="i" name="user" />
+            </span>
+          </button>,
 
-        isActiveWithPath('/cart') 
-          ? <button className="app-header__menu-btn"
-              onClick={navigateTo('/')}
-              key='products'>
-              <span className="menu-btn__wrap">
-                <span className="text">Products</span>
-                <Icon tag="i" name="handbag" />
-              </span>
-            </button>
-          : <button className="app-header__menu-btn"
-              onClick={navigateTo('/cart')}
-              key='cart'>
-              <span className={`menu-btn__wrap ${showCartBadge ? 'has-badge' : ''}`}>
-                <span className="text">Cart</span>
-                <Icon tag="i" name="cart" />
-              </span>
-            </button>
-      ]
+          <button className="app-header__menu-btn"
+            onClick={navigateTo('/admin-order-list')}
+            key='order-list'>
+            <span className="menu-btn__wrap">
+              <span className="text">Order list</span>
+              <Icon tag="i" name="handbag" />
+            </span>
+          </button>
+        ]
+      : [
+          <button className="app-header__menu-btn"
+            onClick={navigateTo('/profile')}
+            key='profile'>
+            <span className="menu-btn__wrap">
+              <span className="text">My profile</span>
+              <Icon tag="i" name="user" />
+            </span>
+          </button>,
+
+          isActiveWithPath('/cart') 
+            ? <button className="app-header__menu-btn"
+                onClick={navigateTo('/')}
+                key='products'>
+                <span className="menu-btn__wrap">
+                  <span className="text">Products</span>
+                  <Icon tag="i" name="handbag" />
+                </span>
+              </button>
+            : <button className="app-header__menu-btn"
+                onClick={navigateTo('/cart')}
+                key='cart'>
+                <span className={`menu-btn__wrap ${showCartBadge ? 'has-badge' : ''}`}>
+                  <span className="text">Cart</span>
+                  <Icon tag="i" name="cart" />
+                </span>
+              </button>
+        ]
     : [
         !isActiveWithPath('/login') &&
         <button className="app-header__menu-btn"
@@ -68,6 +90,7 @@ const Header = () => {
           </span>
         </button>
       ]
+
   return (
     <header className="l-toolbar app-header">
       <div className="app-header__content">

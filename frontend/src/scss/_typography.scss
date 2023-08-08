@@ -112,6 +112,7 @@ a,
   }
 
   &.has-underline {
+    text-decoration: none;
     border-bottom: 1px solid currentColor;
   }
 }

@@ -44,6 +44,7 @@ export const { setCredentials, clearCredentials } = authSlice.actions
 // selectors
 export const selectUserInfo = state => state.auth.userInfo || null
 export const isUserAuthenticated = state => Boolean(state.auth.userInfo)
+export const isUserAdmin = state => Boolean(state.auth.userInfo?.isAdmin)
 
 // slice-reducer
 export const authReducer = authSlice.reducer

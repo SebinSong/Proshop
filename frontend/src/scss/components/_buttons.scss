@@ -34,6 +34,14 @@ button,
     border-radius: 1.2rem;
   }
 
+  &.is-extra-small {
+    min-height: 2.6rem;
+    font-size: $size_5;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+    border-radius: 0.6rem;
+  }
+
   > * { display: inline-block; }
 
   > i.is-prefix { 

@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useSelector, useDispatch } from '@redux-api'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { validateEmail } from '@utilities'
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom'
+import {
+  validateEmail,
+  classNames as cn
+} from '@utilities'
 import { useLogin } from '@store/features/usersApiSlice.js'
 import { ToastContext } from '@hooks/use-toast'
 import { setCredentials, selectUserInfo } from '@store/features/authSlice'
@@ -17,16 +20,20 @@ export default function Login () {
   const [login, { isLoading }] = useLogin()
 
   // react-router hooks
+  const { pathname } = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [searchParams] = useSearchParams()
-  const redirectPath = searchParams.get('redirect') || '/'
   const disableLoginButton = isLoading ||
     !validateEmail(email) ||
     password.length < 3
 
   // context
   const { addToastItem } = useContext(ToastContext)
+
+  // computed state
+  const isAdmin = pathname === '/login/admin'
+  const redirectPath = searchParams.get('redirect') || (isAdmin ? '/admin-order-list' : '/')
 
   // effects
   useEffect(() => {
@@ -41,14 +48,19 @@ export default function Login () {
 
     try {
       const res = await login({ email, password }).unwrap()
+
+      if (!res.isAdmin) {
+        throw new Error('You are not authorized as an admin.')
+      }
+
       dispatch(setCredentials(res))
       navigate(redirectPath)
     } catch (err) {
       addToastItem({
         heading: 'Login Failed!',
         type: 'warning',
-        content: err?.data?.message || 'Something went wrong while trying to log you in.',
-        delay: 6 * 1000
+        content: err?.data?.message || err.message || 'Something went wrong while trying to log you in.',
+        delay: 5 * 1000
       })
     }
   }
@@ -56,7 +68,9 @@ export default function Login () {
   return (
     <PageTemplate classes='page-login'>
       <form className='page-form-container' onSubmit={submitHandler}>
-        <h1 className="page-template__page-heading is-underlined mb-50">Sign In</h1>
+        <h1 className={cn("page-template__page-heading is-underlined mb-50", isAdmin && 'is-for-admin')}>
+          { isAdmin ? 'Sign in for admin' : 'Sign in' }
+        </h1>
 
         <div className='form-field mb-30'>
           <label htmlFor='email-input'>Email Address</label>
@@ -84,17 +98,19 @@ export default function Login () {
             disabled={disableLoginButton}
           >Sign in</button>
           
-          <p className='to-register'>
-            New customer? 
-            <span tabIndex='0'
-              className='link has-underline'
-              onClick={() => navigate(
-                redirectPath.length > 1
-                  ? `/register?redirect=${redirectPath}`
-                  : '/register'
-              )}
-            >Register</span>
-          </p>
+          { !isAdmin &&
+            <p className='to-register'>
+              New customer? 
+              <span tabIndex='0'
+                className='link has-underline'
+                onClick={() => navigate(
+                  redirectPath.length > 1
+                    ? `/register?redirect=${redirectPath}`
+                    : '/register'
+                )}
+              >Register</span>
+            </p>
+          }
         </div>
       </form>
     </PageTemplate>

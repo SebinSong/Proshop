@@ -18,7 +18,8 @@ const findOrderItemById = async (id, res) => {
 // @route GET /orders
 // @access Private/Admin
 const getAllOrders = asyncHandler(async (req, res) => {
-  const allOrders = await Order.find({})
+  const allOrders = await Order.find({}).populate('user', 'id name')
+
   res.status(200).json(allOrders)
 })
 

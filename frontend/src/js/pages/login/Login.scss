@@ -1,6 +1,19 @@
 .page-login {
   position: relative;
 
+  .page-template__page-heading.is-for-admin {
+    color: $blue_sea;
+
+    &::before {
+      @include has-icon;
+      display: inline-block;
+      content: '\eb05';
+      margin-right: 0.8rem;
+      transform: scale(1.175);
+      color: inherit;
+    }
+  }
+
   .login-cta-container {
     position: relative;
     display: flex;

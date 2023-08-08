@@ -22,6 +22,9 @@ import PlaceOrder from '@pages/orders/PlaceOrder.js'
 import OrderDetails from '@pages/orders/OrderDetails.js'
 import NotFound from '@pages/not-found/NotFound.js'
 
+// admin pages
+import OrderList from '@pages/admin/order-list/OrderList.js'
+
 // global styles
 import '@scss/main.scss'
 
@@ -49,6 +52,10 @@ const router = createHashRouter([
         element: <Login />
       },
       {
+        path: 'login/admin',
+        element: <Login />
+      },
+      {
         path: 'register',
         element: <SignUp />
       },
@@ -71,6 +78,12 @@ const router = createHashRouter([
       {
         path: 'order-details/:id',
         element: <OrderDetails />
+      },
+
+      // @@ Admin pages @@
+      {
+        path: 'admin-order-list',
+        element: <OrderList />
       }
     ]
   }
