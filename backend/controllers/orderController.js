@@ -112,7 +112,14 @@ const UpdateOrderToPaid = asyncHandler(async (req, res) => {
 // @route PUT /orders/:id/deliver
 // @access Private/Admin
 const UpdateOrderToDelivered = asyncHandler(async (req, res) => {
-  res.send('Update order to delivered!')
+  const orderId = req.params.id
+  const order = await findOrderItemById(orderId, res)
+
+  order.isDelivered = true
+  order.deliveredAt = Date.now()
+  const updatedOrder = await order.save()
+
+  res.status(200).json(updatedOrder)
 })
 
 // @desc Undo various actions related to an order

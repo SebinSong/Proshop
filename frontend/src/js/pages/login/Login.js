@@ -32,8 +32,8 @@ export default function Login () {
   const { addToastItem } = useContext(ToastContext)
 
   // computed state
-  const isAdmin = pathname === '/login/admin'
-  const redirectPath = searchParams.get('redirect') || (isAdmin ? '/admin-order-list' : '/')
+  const isAdminLogin = pathname === '/login/admin'
+  const redirectPath = searchParams.get('redirect') || (isAdminLogin ? '/admin-order-list' : '/')
 
   // effects
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function Login () {
     try {
       const res = await login({ email, password }).unwrap()
 
-      if (!res.isAdmin) {
+      if (isAdminLogin && !res.isAdmin) {
         throw new Error('You are not authorized as an admin.')
       }
 
@@ -68,8 +68,8 @@ export default function Login () {
   return (
     <PageTemplate classes='page-login'>
       <form className='page-form-container' onSubmit={submitHandler}>
-        <h1 className={cn("page-template__page-heading is-underlined mb-50", isAdmin && 'is-for-admin')}>
-          { isAdmin ? 'Sign in for admin' : 'Sign in' }
+        <h1 className={cn("page-template__page-heading is-underlined mb-50", isAdminLogin && 'is-for-admin')}>
+          { isAdminLogin ? 'Sign in for admin' : 'Sign in' }
         </h1>
 
         <div className='form-field mb-30'>
@@ -98,7 +98,7 @@ export default function Login () {
             disabled={disableLoginButton}
           >Sign in</button>
           
-          { !isAdmin &&
+          { !isAdminLogin &&
             <p className='to-register'>
               New customer? 
               <span tabIndex='0'

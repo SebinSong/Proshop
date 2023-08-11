@@ -9,10 +9,17 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
         keepUnusedDataFor: 5 // seconds
       })
+    }),
+    markDelivered: builder.mutation({
+      query: orderId => ({
+        url: `${ORDERS_URL}/${orderId}/deliver`,
+        method: 'PUT'
+      })
     })
   })
 })
 
 export const {
-  useGetAllOrdersQuery: useGetAllOrders
+  useGetAllOrdersQuery: useGetAllOrders,
+  useMarkDeliveredMutation: useMarkDelivered
 } = adminApiSlice

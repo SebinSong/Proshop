@@ -6,22 +6,30 @@ import { selectUserInfo } from '@store/features/authSlice.js'
 import PageTemplate from './page-template/PageTemplate.js'
 import AdminNavBar from '../admin-navbar/AdminNavBar.js'
 
-export default function AdminPage ({ pageTitle = '', classes = '', children }) {
+export default function AdminPage ({ pageTitle = '', classes = '', widthConstraint = false, children }) {
+  // state
   const { pathname } = useLocation()
   const userInfo = useSelector(selectUserInfo)
   const isAdmin = Boolean(userInfo) && userInfo.isAdmin
+
+  // render
+  const content = <>
+    {
+      Boolean(pageTitle) &&
+      <h1 className="page-template__page-heading is-underlined">{pageTitle}</h1>
+    }
+    <AdminNavBar></AdminNavBar>
+    {children}
+  </>
 
   if (isAdmin) {
     return (
       <PageTemplate classes={classes}>
         {
-          Boolean(pageTitle) &&
-          <h1 className="page-template__page-heading is-underlined">{pageTitle}</h1>
+          widthConstraint
+            ? <div className='page-width-constraints'>{content}</div>
+            : content
         }
-
-        <AdminNavBar></AdminNavBar>
-
-        {children}
       </PageTemplate>
     )
   } else {

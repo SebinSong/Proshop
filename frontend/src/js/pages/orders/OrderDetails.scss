@@ -32,8 +32,13 @@
     }
   }
 
-  .price-summary-item.pay-btn {
+  .price-summary-item.cta-container {
     padding: 2rem;
+    padding-top: 3.6rem;
+
+    button {
+      align-self: stretch;
+    }
   }
 
   .paypal-buttons-wrapper {

@@ -1,12 +1,16 @@
 import React from 'react'
 import { useGetAllOrders } from '@store/features/adminApiSlice.js'
+import OrderTable from '@components/order-table/OrderTable.js'
 import './OrderList.scss'
 
-const { AdminPage } = React.Global
+const {
+  AdminPage,
+  LoaderSpinner
+} = React.Global
 
 export default function OrderList () {
   const {
-    data: allOrders,
+    data: allOrders = [],
     isLoading,
     isFetching,
     isError,
@@ -14,9 +18,32 @@ export default function OrderList () {
     refetch
   } = useGetAllOrders()
 
+  const statusFeedbackEl = (isLoading || isFetching)
+    ? (
+        <LoaderSpinner className='page-order-list__loader-spinner'>
+          <span>Loading<br />order data..</span>
+        </LoaderSpinner>
+      )
+    : isError
+      ? <p>{ error }</p>
+      : null
+
+  if (statusFeedbackEl) {
+    return statusFeedbackEl
+  }
+
+  console.log('@@ orders-fetched: ', allOrders)
+
+  // render
   return (
-    <AdminPage classes='page-order-list' pageTitle='Order list'>
-      <p>A random sentence.</p>
+    <AdminPage classes='page-order-list'
+      pageTitle='Order list'
+      widthConstraint={true}>
+      <OrderTable list={allOrders}
+        isLoading={isLoading || isFetching}
+        loadingFeedback='Loading order history...'
+        noItemsFeedback='No order history to show'
+        variant='admin' />
     </AdminPage>
   )
 }

@@ -3,6 +3,7 @@ import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import { useSelector } from '@redux-api'
 import OrderItemsList from './order-items-list/OrderItemsList.js'
 import { selectUserInfo } from '@store/features/authSlice'
+import { useMarkDelivered } from '@store/features/adminApiSlice.js'
 import { ToastContext } from '@hooks/use-toast'
 import { useParams } from 'react-router-dom'
 import {
@@ -37,12 +38,16 @@ export default function OrderDetails () {
   const userInfo = useSelector(selectUserInfo)
   const { addToastItem, unloadAllToast, isToastActive } = useContext(ToastContext)
   const [payOrder, { isLoading: isPayOrderLoading }] = usePayOrder()
+  const [markDelivered, { isLoading: isMarkingDelivered }] = useMarkDelivered()
   const [{ isPending }, paypalDispatch] =usePayPalScriptReducer()
   const {
     data: paypalData,
     isLoading: isPaypalClientLoading,
     error: paypalClientError
   } = useGetPayPalClientId()
+
+  // computed state
+  const isUserAdmin = Boolean(userInfo?.isAdmin)
 
   // methods
   const copyOrderId = () => {
@@ -98,31 +103,7 @@ export default function OrderDetails () {
       }
     })
   }
-  const onApproveTest = async () => {
-    try {
-      await payOrder ({
-        orderId,
-        details: {
-          payer: {}
-        }
-      })
 
-      addToastItem({
-        type: 'success',
-        heading: 'Payment successful!',
-        content: 'Your purchase has been successfully processed.',
-        delay: 3 * 1000
-      })
-      refetchOrderDetails()
-    } catch (err) {
-      addToastItem({
-        heading: 'Test payment Failed!',
-        type: 'warning',
-        content: err?.message || 'Something went wrong!',
-        delay: 5 * 1000
-      })
-    }
-  }
   const onPaypalError = (err) => {
     addToastItem({
       heading: 'Test payment Failed!',
@@ -131,6 +112,7 @@ export default function OrderDetails () {
       delay: 4 * 1000
     })
   }
+
   const createPaypalOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [{
@@ -141,11 +123,35 @@ export default function OrderDetails () {
     }).then(orderId => orderId)
   }
 
+  const markDeliverHandler = async () => {
+    try {
+      await markDelivered(orderId)
+      addToastItem({
+        type: 'success',
+        heading: 'Marked as delivered!',
+        content: 'successfully processed the update.',
+        delay: 3 * 1000
+      })
+      refetchOrderDetails()
+    } catch (err) {
+      addToastItem({
+        heading: 'API Failed!',
+        type: 'warning',
+        content: err?.data?.message ||
+          err.message ||
+          'Something went wrong while processing your payment. Please try it again',
+        delay: 5 * 1000
+      })
+    }
+  }
+
   if (isError) {
     console.log('error while fetching order-details: ', error)
   }
 
   useEffect(() => {
+    if (isUserAdmin) { return }
+
     if (!paypalClientError &&
       !isPaypalClientLoading &&
       paypalData.clientId) {
@@ -187,6 +193,49 @@ export default function OrderDetails () {
     paidAt,
     deliveredAt
   } = orderDetails
+
+  const callToActions = () => {
+    if (isUserAdmin) {
+      return isPaid && !isDelivered
+        ? (
+            <li className='price-summary-item is-centered cta-container'>
+              <button className='is-primary' type='button'
+                onClick={markDeliverHandler}
+                disabled={isMarkingDelivered}>
+                <span>Mark as delivered</span>
+                <i className='icon-arrow-right is-postfix'></i>
+              </button>
+            </li>
+          )
+        : null
+    } else {
+      return isPaid
+        ? null
+        : (
+          <li className='price-summary-item is-centered cta-container'>
+            {
+              ifElseComponent(
+                [
+                  isPayOrderLoading,
+                  <LoaderSpinner isSmall={true} key='processing-payment'>Processing your payment..</LoaderSpinner>
+                ],
+                [
+                  isPending,
+                  <LoaderSpinner isSmall={true} key='loading-paypal'>Loading Paypal data..</LoaderSpinner>
+                ],
+                <div className='paypal-buttons-wrapper'>
+                  <PayPalButtons
+                    createOrder={createPaypalOrder}
+                    onApprove={onPaypalApprove}
+                    onError={onPaypalError}
+                  ></PayPalButtons>
+                </div>
+              )
+            }
+          </li>
+        )
+    }    
+  }
 
   return (
     <ProtectedPage>
@@ -284,41 +333,7 @@ export default function OrderDetails () {
                 <span className='price-summary-item__value'>{formatMoney(totalPrice)}</span>
               </li>
 
-              { !orderDetails.isPaid && 
-                (
-                  <li className='price-summary-item is-centered pay-btn'>
-                    {
-                      ifElseComponent(
-                        [
-                          isPayOrderLoading,
-                          <LoaderSpinner isSmall={true} key='processing-payment'>Processing your payment..</LoaderSpinner>
-                        ],
-                        [
-                          isPending,
-                          <LoaderSpinner isSmall={true} key='loading-paypal'>Loading Paypal data..</LoaderSpinner>
-                        ],
-                        <>
-                          {/*
-                            <button className='is-primary' type='button'
-                              onClick={onApproveTest}>
-                              <span>Test pay order</span>
-                              <i className='icon-arrow-right is-postfix'></i>
-                            </button>
-                          */}
-
-                          <div className='paypal-buttons-wrapper'>
-                            <PayPalButtons
-                              createOrder={createPaypalOrder}
-                              onApprove={onPaypalApprove}
-                              onError={onPaypalError}
-                            ></PayPalButtons>
-                          </div>
-                        </>
-                      )
-                    }
-                  </li>
-                )
-              }
+              { callToActions() }
             </ul>
           </div>
         </div>

@@ -24,6 +24,7 @@ import NotFound from '@pages/not-found/NotFound.js'
 
 // admin pages
 import OrderList from '@pages/admin/order-list/OrderList.js'
+import ProductList from '@pages/admin/product-list/ProductList.js'
 
 // global styles
 import '@scss/main.scss'
@@ -84,6 +85,10 @@ const router = createHashRouter([
       {
         path: 'admin-order-list',
         element: <OrderList />
+      },
+      { 
+        path: 'admin-product-list',
+        element: <ProductList />
       }
     ]
   }

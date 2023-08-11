@@ -4,20 +4,19 @@ import { useDispatch, useSelector } from '@redux-api'
 import {
   validateEmail,
   ifElseComponent,
-  humanDate,
-  formatMoney,
   classNames as cn
 } from '@utilities'
 import { useLogout, useUpdateProfile } from '@store/features/usersApiSlice.js'
 import { useGetMyOrders } from '@store/features/ordersApiSlice.js'
 import { selectUserInfo } from '@store/features/authSlice'
 import { clearCredentials, setCredentials } from '@store/features/authSlice'
+import OrderTable from '@components/order-table/OrderTable.js'
 import { useNavigate } from 'react-router-dom'
 import { ToastContext } from '@hooks/use-toast'
 import { useValidation } from '@hooks/use-validation'
 import './Profile.scss'
 
-const { ProtectedPage, PageTemplate, LoaderSpinner } = React.Global
+const { ProtectedPage, PageTemplate } = React.Global
 
 export default function Profile () {
   const userInfo = useSelector(selectUserInfo)
@@ -223,76 +222,11 @@ export default function Profile () {
         <div className='page-width-constraints'>
           <h3 className='is-title-5 sub-heading is-my-orders'>My order history</h3>
 
-          <ul className='my-orders-table'>
-            {
-              isLoadingOrderHistory &&
-                <LoaderSpinner isSmall={true}>Loading order history...</LoaderSpinner>
-            }
-
-            {
-              (!isLoadingOrderHistory) &&
-              ifElseComponent(
-                [
-                  !Boolean(myOrders) || myOrders.length === 0,
-                  <li className='my-orders-table__item no-history' key='no-history-item'>You have no previous order history.</li>
-                ],
-                [
-                  myOrders?.length,
-                  myOrders.map(order => 
-                    <li className='my-orders-table__item' key={order._id}>
-                      <div className='detail-line order-id'>
-                        <label># Order ID:</label>
-                        <span className='value'>{order._id}</span>
-                      </div>
-
-                      <div className='detail-line items-name'>
-                        <label>Items:</label>
-                        <span className='value has-yeseva has-text-1 has-underline'>
-                          { order.orderItems.map(item => item.name).join(', ') }
-                        </span>
-                      </div>
-
-                      <div className='detail-line'>
-                        <label>Total:</label>
-                        <span className='value has-text-bold'>
-                          { formatMoney(order.totalPrice) }
-                        </span>
-                      </div>
-
-                      <div className='detail-line'>
-                        <label>Created at:</label>
-                        <span className='value has-text-bold'>
-                          { humanDate(order.createdAt) }
-                        </span>
-                      </div>
-
-                      <div className='detail-line'>
-                        <label>Paid at:</label>
-                        <span className={cn('value', 'item-status', order.isPaid ? 'is-completed' : 'is-not-completed')}>
-                          { order.isPaid ? humanDate(order.paidAt) : 'Not paid' }
-                        </span>
-                      </div>
-
-                      <div className='detail-line'>
-                        <label>Delivered at:</label>
-                        <span className={cn('value', 'item-status', order.isDelivered ? 'is-completed' : 'is-not-completed')}>
-                          { order.isDelivered ? humanDate(order.deliveredAt) : 'Not delivered yet' }
-                        </span>
-                      </div>
-
-                      <div className='item-cta-container'>
-                        <button className={cn('is-small', order.isPaid ? 'is-outline' : 'is-primary')}
-                          type='button'
-                          onClick={() => navigate(`/order-details/${order._id}`)}>
-                          {order.isPaid ? 'Details' : 'Make a payment'}
-                        </button>
-                      </div>
-                    </li>
-                  )
-                ]
-              )
-            }
-          </ul>
+          <OrderTable list={myOrders}
+            isLoading={isLoadingOrderHistory}
+            loadingFeedback='Loading order history...'
+            noItemsFeedback='You have no previous order history.'
+            variant='profile' />
         </div>
       </PageTemplate>
     </ProtectedPage>
