@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice"
-import { ORDERS_URL, PRODUCTS_URL } from '@frontend-utils/constants.js'
+import { ORDERS_URL, PRODUCTS_URL, USERS_URL } from '@frontend-utils/constants.js'
 
 export const adminApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -47,12 +47,21 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: data
       })
+    }),
+    getUsers: builder.query({
+      query: () => ({
+        url: USERS_URL,
+        method: 'GET',
+        keepUnusedDataFor: 5 // seconds
+      }),
+      providesTags: ['Users']
     })
   })
 })
 
 export const {
   useGetAllOrdersQuery: useGetAllOrders,
+  useGetUsersQuery: usegetUsers,
   useMarkDeliveredMutation: useMarkDelivered,
   useCreateProductMutation: useCreateProduct,
   useUpdateProductMutation: useUpdateProduct,

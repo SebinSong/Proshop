@@ -77,7 +77,7 @@ export default function ProductList () {
         <span>Loading<br />product data..</span>
       </LoaderSpinner>
     : isError
-      ? <p>{ error }</p>
+      ? <p>{ JSON.stringify(error) }</p>
       : null
 
   if (loadingFeedback) {

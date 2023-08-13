@@ -17,7 +17,7 @@ const navList = [
   {
     id: 'users',
     name: 'User list',
-    to: '/admin-users'
+    to: '/admin-user-list'
   }
 ]
 

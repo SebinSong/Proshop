@@ -16,6 +16,17 @@ const passwordsMatch = async (pw1, pw2) => {
   return await bcrypt.compare(pw1, pw2)
 }
 
+const findUserById = async (userId, res) => {
+  const user = await User.findById(userId)
+
+  if (!user) {
+    res.status(404)
+    throw new Error(`User with the id [${userId}] cannot be found.`)
+  }
+
+  return user
+}
+
 const generateAndSendToken = (user, res) => {
   const token = jwt.sign(
     { userId: user._id || user.id }, // payload
@@ -44,7 +55,19 @@ const generateAndSendToken = (user, res) => {
 // @route GET /users
 // @access Private/Admin
 const getUsers = asyncHandler(async (req, res, next) => {
-  res.send('Get all user!')
+  const users = await User.find({})
+  res.status(200).json(users)
+})
+
+// @desc Get user by id
+// @route GET /users/:id
+// @access Private/Admin
+const getUserById = asyncHandler(async (req, res, next) => {
+  const userId = req.params.id
+  const user = await findUserById(userId, res)
+  await user.select('-password')
+
+  res.status(200).json(user)
 })
 
 // @desc Auth user & get token
@@ -144,25 +167,46 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
   })
 })
 
-// @desc Get user by id
-// @route GET /users/:id
-// @access Private/Admin
-const getUserById = asyncHandler(async (req, res, next) => {
-  res.send('Get a user by id!')
-})
-
 // @desc Delete user 
 // @route DELETE /users/:id
 // @access Private/Admin
 const deleteUser = asyncHandler(async (req, res, next) => {
-  res.send('Delete user!')
+  const userId = req.params.id
+  const user = await findUserById(userId)
+
+  if (user.isAdmin) {
+    res.status(400)
+    throw new Error('Cannot delete an admin user.')
+  } else {
+    await User.deleteOne({ _id: user._id })
+    res.status(204).json({
+      message: `Successfully deleted the user [${userId}]`
+    })
+  }
 })
 
 // @desc Update user by id
 // @route PUT /users/:id
 // @access Private/Admin
 const updateUser = asyncHandler(async (req, res, next) => {
-  res.send('Update user by id!')
+  const userId = req.params.id
+  const user = await findUserById(userId)
+
+  for ([key, value] of Object.entries(req.body)) {
+    if (key === 'isAdmin') {
+      user.isAdmin = Boolean(value)
+    } else {
+      user[key] = value
+    }
+  }
+
+  const updatedUser = await user.save()
+  res.status(200).json({
+    _id: updatedUser._id,
+    name: updatedUser.name,
+    email: updatedUser.email,
+    isAdmin: updatedUser.isAdmin
+  })
 })
 
 module.exports = {
