@@ -44,6 +44,22 @@ export default function ProductEdit () {
     countInStock: 0
   })
 
+  // computed state
+  const fieldIsUpdated = key => {
+    const stringKeys = ['name', 'brand', 'category', 'description']
+    const currVal = details[key]
+    const valAgainst = serverData[key]
+
+    if (stringKeys.includes(key)) {
+      return currVal.trim() !== valAgainst
+    } else { // 
+      return currVal > 0 && (currVal !== valAgainst)
+    }
+
+    return false
+  }
+  const anyFieldUdpated = Object.keys(details).some(fieldIsUpdated)
+
   // validation
   const {
     formError,
@@ -68,7 +84,12 @@ export default function ProductEdit () {
     e.preventDefault()
 
     try {
-      const res = await updateProduct({}).unwrap()
+      const extractedChanges = Object.entries(details).filter(
+        ([key, value]) => fieldIsUpdated(key)
+      )
+      const res = await updateProduct({
+        id: productId, data: Object.fromEntries(extractedChanges)
+      }).unwrap()
 
       addToastItem({
         type: 'success',
@@ -133,7 +154,7 @@ export default function ProductEdit () {
       hideAdminNav={true}>
       <div className='go-back-container'>
         <button className='is-small is-outline' type='button'
-          onClick={() => navigate('/admin-product-list')}>
+          onClick={() => navigate('/admin-product-list?refresh=true')}>
             <i className="icon-arrow-left is-prefix" />
             <span>Go back</span>
           </button>
@@ -197,7 +218,7 @@ export default function ProductEdit () {
         <div className='buttons-container mt-20'>
           <button className='is-primary update-btn'
             type='submit'
-            disabled={isUpdatingProduct}
+            disabled={isUpdatingProduct || !anyFieldUdpated}
           >Update</button>
         </div>
       </form>

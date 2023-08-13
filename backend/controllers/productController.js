@@ -55,7 +55,7 @@ const createProduct = asyncHandler(async (req, res) => {
 const updateProduct = asyncHandler(async (req, res) => {
   const targetProduct = await findProductById(req.params.id)
   
-  for (const [key, value] in Object.entries(req.body)) {
+  for (const [key, value] of Object.entries(req.body)) {
     targetProduct[key] = value
   }
 
