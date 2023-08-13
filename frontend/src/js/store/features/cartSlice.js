@@ -23,7 +23,7 @@ const cartSlice = createSlice({
       const item = action.payload
       const index = state.items.findIndex(x => x._id === item._id)
       const {
-        _id, image, name, brand, category,
+        _id, image, imageAbsPath = '', name, brand, category,
         countInStock, qty, price, rating, description = ''
       } = item
 
@@ -34,7 +34,8 @@ const cartSlice = createSlice({
       } else {
         state.items.push({
           _id, image, name, brand, category,
-          countInStock, qty, price, rating, description
+          countInStock, qty, price, rating, description,
+          imageAbsPath
         })
       }
     },

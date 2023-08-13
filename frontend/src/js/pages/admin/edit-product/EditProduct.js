@@ -2,7 +2,10 @@ import React, { useEffect, useContext } from 'react'
 import { useImmer } from 'use-immer'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useGetProductDetailsQuery } from '@store-slice/productsApiSlice.js'
-import { useUpdateProduct } from '@store-slice/adminApiSlice.js'
+import {
+  useUpdateProduct,
+  useUploadProductImage
+} from '@store-slice/adminApiSlice.js'
 import { ToastContext } from '@hooks/use-toast'
 import { useValidation } from '@hooks/use-validation'
 import {
@@ -28,25 +31,30 @@ export default function ProductEdit () {
     isError,
     error
   } = useGetProductDetailsQuery(productId)
+  // mutations
   const [updateProduct, {
     isLoading: isUpdatingProduct,
     isError: updateProductError
   }] = useUpdateProduct()
+  const [uploadProductImage, {
+    isLoading: isUploadingProductImage,
+    isError: uploadProductImageError
+  }] = useUploadProductImage()
 
   // local-state
   const [details, setDetails] = useImmer({
     name: '',
     price: 0,
-    image: '',
     brand: '',
     category: '',
     description: '',
+    imageAbsPath: '',
     countInStock: 0
   })
 
   // computed state
   const fieldIsUpdated = key => {
-    const stringKeys = ['name', 'brand', 'category', 'description']
+    const stringKeys = ['name', 'brand', 'category', 'description', 'imageAbsPath']
     const currVal = details[key]
     const valAgainst = serverData[key]
 
@@ -70,8 +78,13 @@ export default function ProductEdit () {
     [
       {
         key: 'name',
-        check: val => val.length > 50,
+        check: val => val.length <= 50,
         errMsg: 'Product name cannot be longer 50 characters.'
+      },
+      {
+        key: 'imageAbsPath',
+        check: val => val ? /\w+\.\w+$/i.test(val) : true, // accept an empty string
+        errMsg: 'Image path field must match the file-path format.'
       }
     ]
   )
@@ -83,28 +96,30 @@ export default function ProductEdit () {
   const updateProductHandler = async (e) => {
     e.preventDefault()
 
-    try {
-      const extractedChanges = Object.entries(details).filter(
-        ([key, value]) => fieldIsUpdated(key)
-      )
-      const res = await updateProduct({
-        id: productId, data: Object.fromEntries(extractedChanges)
-      }).unwrap()
+    if (validateAll()) {
+      try {
+        const extractedChanges = Object.entries(details).filter(
+          ([key, value]) => fieldIsUpdated(key)
+        )
+        const res = await updateProduct({
+          id: productId, data: Object.fromEntries(extractedChanges)
+        }).unwrap()
 
-      addToastItem({
-        type: 'success',
-        heading: 'Updated the product details!',
-        content: 'Update operation was successful.',
-        delay: 5 * 1000
-      })
-      refetch()
-    } catch (err) {
-      addToastItem({
-        heading: 'Failed to update product.',
-        type: 'warning',
-        content: err?.data?.message || err.error || 'Something went wrong. please try again',
-        delay: 5 * 1000
-      })
+        addToastItem({
+          type: 'success',
+          heading: 'Updated the product details!',
+          content: 'Update operation was successful.',
+          delay: 5 * 1000
+        })
+        refetch()
+      } catch (err) {
+        addToastItem({
+          heading: 'Failed to update product.',
+          type: 'warning',
+          content: err?.data?.message || err.error || 'Something went wrong. please try again',
+          delay: 5 * 1000
+        })
+      }
     }
   }
   const updateFieldFactory = (key, numberOnly = false) => {
@@ -121,17 +136,49 @@ export default function ProductEdit () {
       }
     }
   }
+  const uploadFileHandler = async (e) => {
+    const targetFile = e.target.files[0] || null
+    
+    if (targetFile) {
+      e.target.nextSibling.textContent = targetFile.name
+
+      const formData = new FormData()
+      formData.append('image', targetFile)
+
+      try {
+        const imgUploadRes = await uploadProductImage(formData).unwrap()
+        const updateRes = await updateProduct({
+          id: productId, data: { imageAbsPath: imgUploadRes.image }
+        }).unwrap()
+
+        addToastItem({
+          type: 'success',
+          heading: 'Image uploaded!',
+          content: 'Uploading the product image was successful.',
+          delay: 5 * 1000
+        })
+        refetch()
+      } catch (err) {
+        addToastItem({
+          heading: 'Failed to upload image!',
+          type: 'warning',
+          content: err?.data?.message || err.error || 'Something went wrong. please try again',
+          delay: 5 * 1000
+        })
+      }
+    }
+  }
 
   // effects
   useEffect(() => {
     setDetails(draft => {
       draft.name = serverData.name || ''
       draft.price = serverData.price || 0
-      draft.image = serverData.image || ''
       draft.brand = serverData.brand || ''
       draft.category = serverData.category || ''
       draft.description = serverData.description || ''
-      draft.countInStock = serverData.countInStock || 0
+      draft.countInStock = serverData.countInStock || 0,
+      draft.imageAbsPath = serverData?.imageAbsPath || ''
     })
   }, [serverData])
 
@@ -214,6 +261,32 @@ export default function ProductEdit () {
             value={details.category}
             placeholder='Category' />
         </div>
+
+        <div className='form-field mb-30'>
+          <label htmlFor='description-input'>Product image</label>
+          <input id='imageAbsPath-input' type='text'
+            className='custom-input'
+            value={details.imageAbsPath}
+            onInput={e => e.preventDefault()}
+            placeholder='Iamge absolute path' />
+
+          <div className='file-input-wrapper'>
+            <label className={cn('custom-file-input file-upload', { 'is-disabled': isUpdatingProduct || isUploadingProductImage })}
+              htmlFor='image-file'>
+              <input id='image-file' type='file'
+                accept='image/*'
+                onChange={uploadFileHandler} />
+
+              <span className='custom-label'>Choose file</span>
+            </label>
+          </div>
+        </div>
+        {
+          formError &&
+          <p className='form-error-msg mt-20'>
+            {formError?.errMsg}
+          </p>
+        }
 
         <div className='buttons-container mt-20'>
           <button className='is-primary update-btn'

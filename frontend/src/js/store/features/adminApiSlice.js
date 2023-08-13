@@ -33,6 +33,13 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         }
       },
       invalidatesTags: ['Products']
+    }),
+    uploadProductImage: builder.mutation({
+      query: (data) => ({
+        url: '/fileupload',
+        method: 'POST',
+        body: data
+      })
     })
   })
 })
@@ -41,5 +48,6 @@ export const {
   useGetAllOrdersQuery: useGetAllOrders,
   useMarkDeliveredMutation: useMarkDelivered,
   useCreateProductMutation: useCreateProduct,
-  useUpdateProductMutation: useUpdateProduct
+  useUpdateProductMutation: useUpdateProduct,
+  useUploadProductImageMutation: useUploadProductImage
 } = adminApiSlice

@@ -33,8 +33,11 @@ const productSchema = mongoose.Schema({
     required: true
   },
   image: {
+    type: String
+  },
+  imageAbsPath: {
     type: String,
-    required: true
+    default: ''
   },
   brand: {
     type: String,

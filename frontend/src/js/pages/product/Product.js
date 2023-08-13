@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from '@redux-api'
 import Rating from '@components/rating/Rating.js'
 import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
+import { BASE_URL } from '@frontend-utils/constants.js'
 
 const { PageTemplate, LoaderSpinner } = React.Global
 
@@ -51,11 +52,12 @@ export default function Product () {
   }
 
   const {
-    image: filename, name, brand, rating,
+    image: filename, imageAbsPath = '',
+    name, brand, rating,
     numReviews, price, description,
     countInStock
   } = (data || {})
-  const imgPath = `images/products/${filename}`
+  const imgPath = filename ? `images/products/${filename}` : (BASE_URL + imageAbsPath) || ''
 
   return (
     <PageTemplate classes='page-product'>

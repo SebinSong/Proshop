@@ -1,4 +1,5 @@
 import React from 'react'
+import { BASE_URL } from '@frontend-utils/constants.js'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Rating from '@components/rating/Rating.js'
@@ -9,10 +10,10 @@ export default function HomeProductCard ({ productData }) {
 
   const nav = useNavigate()
   const {
-    name, description, image: filename,
+    name, description, image: filename, imageAbsPath = '',
     price, rating, numReviews, brand, _id
   } = productData
-  const imgPath = `images/products/${filename}`
+  const imgPath = filename ? `images/products/${filename}` : BASE_URL + imageAbsPath
 
   return (
     <div className="home-product-card" onClick={() => nav(`product/${_id}`)}>

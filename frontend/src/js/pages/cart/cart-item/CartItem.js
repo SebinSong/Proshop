@@ -1,4 +1,5 @@
 import React from 'react'
+import { BASE_URL } from '@frontend-utils/constants.js'
 import { useDispatch } from '@redux-api'
 import { useNavigate } from 'react-router-dom'
 import { formatMoney } from '@utilities'
@@ -11,10 +12,11 @@ export default function CartItem (props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {
-    image: imgFileName = '', name, brand, category,
+    image: imgFileName = '', imageAbsPath = '',
+    name, brand, category,
     countInStock, qty, price, _id
   } = props
-  const imgPath = `images/products/${imgFileName}`
+  const imgPath = imgFileName ? `images/products/${imgFileName}` : BASE_URL + imageAbsPath
 
   // methods
   const onQuantityChange = (val) => { dispatch(addItemToCartList({ ...props, qty: val })) }

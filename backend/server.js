@@ -9,6 +9,7 @@ const { connectDB } = require('./db.js')
 const productRouter = require('./routes/productRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
 const orderRouter = require('./routes/orderRoutes.js')
+const uploadRouter = require('./routes/uploadRoutes.js')
 
 // import middlewares
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware.js')
@@ -22,6 +23,7 @@ const {
 } = process.env
 
 const app = express()
+const dirName = path.resolve()
 
 // request parser middlewares
 app.use(cookieParser())
@@ -43,6 +45,18 @@ app.get('/', (req, res) => {
 app.use('/product(s)?', productRouter) // products API
 app.use('/users', userRouter)
 app.use('/orders', orderRouter)
+app.use('/fileupload', uploadRouter)
+
+// serve-static for '/uploads' endpoint
+app.use('/uploads',
+  (req, res, next) => {
+    console.log('@@@ uploaded image is requested!!: ', req.method, req.url)
+    console.log('@@@ serve-static dirname: ', path.join(__dirname, '/uploads'))
+    next()
+  },
+  express.static(path.join(__dirname, '/uploads'))
+)
+
 
 // error handler
 app.use(notFound)
