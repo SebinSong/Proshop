@@ -6,7 +6,12 @@ import { selectUserInfo } from '@store/features/authSlice.js'
 import PageTemplate from './page-template/PageTemplate.js'
 import AdminNavBar from '../admin-navbar/AdminNavBar.js'
 
-export default function AdminPage ({ pageTitle = '', classes = '', widthConstraint = false, children }) {
+export default function AdminPage ({
+  pageTitle = '',
+  classes = '',
+  hideAdminNav = false,
+  widthConstraint = false,
+  children }) {
   // state
   const { pathname } = useLocation()
   const userInfo = useSelector(selectUserInfo)
@@ -18,7 +23,11 @@ export default function AdminPage ({ pageTitle = '', classes = '', widthConstrai
       Boolean(pageTitle) &&
       <h1 className="page-template__page-heading is-underlined">{pageTitle}</h1>
     }
-    <AdminNavBar></AdminNavBar>
+
+    {
+      !hideAdminNav && <AdminNavBar></AdminNavBar>
+    }
+
     {children}
   </>
 

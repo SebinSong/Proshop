@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice"
-import { ORDERS_URL } from '@frontend-utils/constants.js'
+import { ORDERS_URL, PRODUCTS_URL } from '@frontend-utils/constants.js'
 
 export const adminApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -15,11 +15,29 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         url: `${ORDERS_URL}/${orderId}/deliver`,
         method: 'PUT'
       })
+    }),
+    createProduct: builder.mutation({
+      query: (data = {}) => ({
+        url: PRODUCTS_URL,
+        method: 'POST',
+        body: data,
+        invalidatesTags: ['Product']
+      })
+    }),
+    updateProduct: builder.mutation({
+      query: (productId, data) => ({
+        url: `${PRODUCTS_URL}/${productId}`,
+        method: 'PUT',
+        body: data,
+        invalidatesTags: ['Product']
+      })
     })
   })
 })
 
 export const {
   useGetAllOrdersQuery: useGetAllOrders,
-  useMarkDeliveredMutation: useMarkDelivered
+  useMarkDeliveredMutation: useMarkDelivered,
+  useCreateProductMutation: useCreateProduct,
+  useUpdateProductMutation: useUpdateProduct
 } = adminApiSlice

@@ -111,3 +111,7 @@ export function humanDate (date, options = {
 
   return new Date(date).toLocaleString(locale, options)
 }
+
+export function isStringNumberOnly (val) {
+  return /^\d*\.?\d*$/.test(val)
+}

@@ -1,5 +1,109 @@
+$solid-border: 1px solid var(--divider-color);
+
 .admin-page-product-list {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
+  max-width: 1020px;
+
+  .loading-feedback {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 3.2rem;
+  }
+
+  .custom-table-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .create-btn-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+  }
+
+  .table-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    height: max-content;
+  }
+
+  .product-list-table {
+    min-width: 100%;
+    border-top: $solid-border;
+
+    tr {
+      height: 4.2rem;
+    }
+
+    td {
+      font-size: $size_6;
+      white-space: nowrap;
+
+      &:not(:last-of-type) {
+        padding-right: 1.2rem;
+      }
+    }
+
+    .td-id,
+    .td-name {
+      padding-right: 2rem;
+    }
+
+    .td-id,
+    .th-id {
+      background-color: $secondary_0;
+      position: sticky;
+      left: 0;
+      border-right: $solid-border;
+    }
+
+    .td-name,
+    .th-name {
+      padding-left: 1.2rem;
+    }
+
+    .th-category,
+    .td-category {
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .td-brand,
+    .td-price {
+      min-width: 5.6rem;
+    }
+
+    .td-name,
+    .td-price {
+      color: $text_1;
+      font-weight: 600;
+    }
+
+    .th-actions,
+    .td-actions {
+      text-align: right;
+      min-width: 7.6rem;
+      padding: 0;
+    }
+  }
+
+  .action-btn {
+    border: $solid-border;
+
+    &:not(:last-of-type) {
+      margin-right: 0.6rem;
+    }
+
+    &.edit-btn {
+      background-color: $primary_0;
+      color: $background_0;
+    }
+
+    &.remove-btn {
+      background-color: $warning;
+    }
+  }
 }

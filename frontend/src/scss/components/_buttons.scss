@@ -73,6 +73,16 @@ button,
     font-size: 1.6rem;
   }
 
+  &.icon-small {
+    padding: 0;
+    min-width: unset;
+    min-height: unset;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 0.4rem;
+    font-size: $size_4;
+  }
+
   &.is-text-btn {
     min-width: 9.6rem;
   }

@@ -6,17 +6,17 @@ import './AdminNavBar.scss'
 const navList = [
   {
     id: 'orders',
-    name: 'Orders',
+    name: 'Order list',
     to: '/admin-order-list'
   },
   {
     id: 'products',
-    name: 'Products',
+    name: 'Product list',
     to: '/admin-product-list'
   },
   {
     id: 'users',
-    name: 'Users',
+    name: 'User list',
     to: '/admin-users'
   }
 ]

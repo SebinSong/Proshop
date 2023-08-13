@@ -1,10 +1,21 @@
 const express = require('express')
 const logger = require('morgan')
-const { getProducts, getProductById } = require('../controllers/productController')
+const {
+  getProducts,
+  getProductById,
+  createProduct,
+  updateProduct
+} = require('../controllers/productController')
+const { admin, protect } = require('../middlewares/authMiddleWare.js')
 
 const router = express.Router()
 router.use(logger('dev'))
-router.route('/').get(getProducts)
-router.route('/:id').get(getProductById)
+router.route('/')
+  .get(getProducts)
+  .post(protect, admin, createProduct)
+
+router.route('/:id')
+  .get(getProductById)
+  .put(protect, admin, updateProduct)
 
 module.exports = router

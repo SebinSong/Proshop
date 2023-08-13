@@ -23,3 +23,32 @@
     color: $green_light !important;
   }
 }
+
+.summary-list {
+  position: relative;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: 100%;
+  background-color: var(--secondary);
+  border: 1px solid var(--divider-color);
+
+  &-label {
+    display: block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--divider-color);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: $size_5;
+    line-height: 1.3125;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 1.8;
+
+    > * { display: inline-block; }
+  }
+}
