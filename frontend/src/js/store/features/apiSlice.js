@@ -4,7 +4,7 @@ import { BASE_URL } from '@frontend-utils/constants.js'
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-  tagTypes: ['Product', 'Order', 'User'],
+  tagTypes: ['Products', 'Order', 'User'],
   endpoints: builder => ({ })
 })
 export const injectEndpoints = apiSlice.injectEndpoints

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useGetProductsQuery } from '@store/features/productsApiSlice.js'
 import { useCreateProduct } from '@store/features/adminApiSlice.js'
@@ -13,7 +13,6 @@ const {
 } = React.Global
 
 export default function ProductList () {
-  const [searchParams] = useSearchParams()
   const {
     data: products,
     isLoading,
@@ -48,13 +47,6 @@ export default function ProductList () {
       })
     }
   }
-
-  // effects
-  useEffect(() => {
-    if (searchParams.get('refresh')) {
-      refetch()
-    }
-  }, [])
 
   const loadingFeedback = isLoading
     ? <LoaderSpinner classes='loading-feedback'>

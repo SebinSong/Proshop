@@ -20,19 +20,19 @@ export const adminApiSlice = apiSlice.injectEndpoints({
       query: (data = {}) => ({
         url: PRODUCTS_URL,
         method: 'POST',
-        body: data,
-        invalidatesTags: ['Product']
-      })
+        body: data
+      }),
+      invalidatesTags: ['Products']
     }),
     updateProduct: builder.mutation({
       query: ({ id: productId, data }) => {
-        return ({
+        return {
           url: `${PRODUCTS_URL}/${productId}`,
           method: 'PUT',
-          body: data,
-          invalidatesTags: ['Product']
-        })
-      }
+          body: data
+        }
+      },
+      invalidatesTags: ['Products']
     })
   })
 })

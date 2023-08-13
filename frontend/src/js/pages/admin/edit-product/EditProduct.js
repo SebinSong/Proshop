@@ -154,7 +154,7 @@ export default function ProductEdit () {
       hideAdminNav={true}>
       <div className='go-back-container'>
         <button className='is-small is-outline' type='button'
-          onClick={() => navigate('/admin-product-list?refresh=true')}>
+          onClick={() => navigate('/admin-product-list')}>
             <i className="icon-arrow-left is-prefix" />
             <span>Go back</span>
           </button>
