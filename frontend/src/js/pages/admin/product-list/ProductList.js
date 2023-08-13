@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useGetProductsQuery } from '@store/features/productsApiSlice.js'
-import { useCreateProduct } from '@store/features/adminApiSlice.js'
+import { useCreateProduct, useDeleteProduct } from '@store/features/adminApiSlice.js'
 import { formatMoney } from '@utilities'
 import { ToastContext } from '@hooks/use-toast'
 
@@ -22,6 +22,7 @@ export default function ProductList () {
     refetch
   } = useGetProductsQuery()
   const [createProduct, { isLoading: isCreatingProduct }] = useCreateProduct()
+  const [deleteProduct, { isLoading: isDeletingProduct }] = useDeleteProduct()
   const navigate = useNavigate()
   
   // context
@@ -45,6 +46,29 @@ export default function ProductList () {
         content: err?.data?.message || err.error || 'Something went wrong. please try again',
         delay: 5 * 1000
       })
+    }
+  }
+  const removeProductHandler = async (productId) => {
+    if (isDeletingProduct) { return }
+
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      try {
+        const res = await deleteProduct(productId).unwrap()
+        addToastItem({
+          type: 'success',
+          heading: 'Product deleted!',
+          content: res?.message || `The product(id: ${productId}) has been successfully deleted.`,
+          delay: 5 * 1000
+        })
+        refetch()
+      } catch (err) {
+        addToastItem({
+          heading: 'Failed to delete a product!',
+          type: 'warning',
+          content: err?.data?.message || err.error || 'Something went wrong. please try again',
+          delay: 5 * 1000
+        })
+      }
     }
   }
 
@@ -103,6 +127,8 @@ export default function ProductList () {
 
                       <button className='icon-small action-btn remove-btn'
                         title='Remove product'
+                        onClick={() => removeProductHandler(product._id)}
+                        disabled={isDeletingProduct}
                         type='button'>
                         <i className='icon-trash-can'></i>
                       </button>

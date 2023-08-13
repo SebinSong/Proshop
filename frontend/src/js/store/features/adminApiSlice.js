@@ -24,6 +24,13 @@ export const adminApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Products']
     }),
+    deleteProduct: builder.mutation({
+      query: (productId) => ({
+        url: `${PRODUCTS_URL}/${productId}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Products']
+    }),
     updateProduct: builder.mutation({
       query: ({ id: productId, data }) => {
         return {
@@ -49,5 +56,6 @@ export const {
   useMarkDeliveredMutation: useMarkDelivered,
   useCreateProductMutation: useCreateProduct,
   useUpdateProductMutation: useUpdateProduct,
-  useUploadProductImageMutation: useUploadProductImage
+  useUploadProductImageMutation: useUploadProductImage,
+  useDeleteProductMutation: useDeleteProduct
 } = adminApiSlice

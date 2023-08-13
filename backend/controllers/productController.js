@@ -63,9 +63,26 @@ const updateProduct = asyncHandler(async (req, res) => {
   res.status(200).json(updatedProduct)
 })
 
+// @desc Delete a product
+// @route DELETE /products/:id
+// @access Private/Admin
+const deleteProduct = asyncHandler(async (req, res) => {
+  const productId = req.params.id
+  const product = await Product.findById(productId)
+  
+  if (product) {
+    await Product.deleteOne({ _id: product._id })
+  }
+
+  res.status(204).json({
+    message: `Successfully deleted the product [${productId}]`
+  })
+})
+
 module.exports = {
   getProducts,
   getProductById,
   createProduct,
-  updateProduct
+  updateProduct,
+  deleteProduct
 }
