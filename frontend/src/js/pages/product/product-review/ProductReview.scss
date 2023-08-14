@@ -35,6 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    margin-bottom: 0.4rem;
 
     &.is-column {
       flex-direction: column;
@@ -48,6 +49,12 @@
     margin-right: 0.8rem;
     text-decoration: underline;
     letter-spacing: 1px;
+
+    &.comment-label {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 
   .rating-preview {
@@ -63,6 +70,12 @@
     padding-bottom: 3.2rem;
     border-bottom: 1px solid $text_1;
     margin-bottom: 1.6rem;
+
+    &.no-divider {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
   }
 
   .review-list__item {
@@ -85,6 +98,12 @@
         line-height: 1;
       }
     }
+  }
+
+  .info-sentence {
+    display: inline-block;
+    font-size: 0.825em;
+    margin-right: 0.4rem;
   }
 
   button.review-submit-btn {

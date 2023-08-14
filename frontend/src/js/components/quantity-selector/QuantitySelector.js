@@ -18,7 +18,6 @@ export default function QuantitySelector ({
     if (qty > min) { setQty(qty - 1) }
   }
 
-
   // effects
   useEffect(() => {
     onChange && onChange(qty)

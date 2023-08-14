@@ -52,10 +52,10 @@
     }
   }
 
-  .page-description {
+  .page-description,
+  .info-sentence {
     display: block;
     font-size: $size_5;
-    margin-top: 0.8rem;
     color: $neautral_dark_1;
 
     &::before {
@@ -66,6 +66,10 @@
       font-size: 1.25em;
       transform: translateY(0.2rem);
     }
+  }
+
+  .page-description {
+    margin-top: 0.8rem;
   }
 
   .page-form-container,

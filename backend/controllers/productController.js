@@ -1,6 +1,7 @@
 const Product = require('../models/productModel')
 const asyncHandler = require('../middlewares/asyncHandler')
 
+// helpers
 const findProductById = async (id, res) => {
   const product = await Product.findById(id)
 
@@ -11,6 +12,7 @@ const findProductById = async (id, res) => {
 
   return product
 }
+const genId = () => Math.random().toString(20).slice(2)
 
 // @desc    Fetch all products
 // @route   GET /products
@@ -98,6 +100,7 @@ const createProductReview = asyncHandler(async (req, res) => {
       user: req.user._id,
       name: req.user.name,
       rating: Number(rating),
+      reviewId: genId(),
       comment
     })
     const len = product.reviews.length
