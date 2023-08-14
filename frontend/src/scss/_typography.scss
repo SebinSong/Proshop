@@ -88,6 +88,10 @@ $heading_sizes: 2.8rem, 2.6rem, 2.4rem, 2.25rem, 2rem;
   color: $warning;
 }
 
+.has-color-green {
+  color: $green_light !important;
+}
+
 .has-underline {
   text-decoration: underline;
 }

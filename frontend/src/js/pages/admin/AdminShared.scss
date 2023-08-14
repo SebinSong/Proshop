@@ -1,0 +1,55 @@
+$solid-border: 1px solid var(--divider-color);
+
+.loading-feedback {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 3.2rem;
+}
+
+.table-container {
+  position: relative;
+  width: 100%;
+}
+
+.table-wrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  height: max-content;
+}
+
+.list-table {
+  min-width: 100%;
+  border-top: $solid-border;
+
+  tr {
+    height: 4.2rem;
+    background-color: $secondary_0;
+  }
+
+  td {
+    font-size: $size_6;
+    white-space: nowrap;
+
+    &:not(:last-of-type) {
+      padding-right: 1.2rem;
+    }
+  }
+}
+
+.action-btn {
+  border: $solid-border;
+
+  &:not(:last-of-type) {
+    margin-right: 0.6rem;
+  }
+
+  &.edit-btn {
+    background-color: $primary_0;
+    color: $background_0;
+  }
+
+  &.remove-btn {
+    background-color: $warning;
+  }
+}

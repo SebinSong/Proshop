@@ -6,6 +6,7 @@ import { formatMoney } from '@utilities'
 import { ToastContext } from '@hooks/use-toast'
 
 import './ProductList.scss'
+import '../AdminShared.scss'
 
 const {
   AdminPage,
@@ -96,7 +97,7 @@ export default function ProductList () {
         </div>
 
         <div className='table-wrapper'>
-          <table className='table product-list-table'>
+          <table className='table list-table product-list-table'>
             <thead>
               <tr>
                 <th className='th-id'>ID</th>

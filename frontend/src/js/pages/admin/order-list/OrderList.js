@@ -32,8 +32,6 @@ export default function OrderList () {
     return statusFeedbackEl
   }
 
-  console.log('@@ orders-fetched: ', allOrders)
-
   // render
   return (
     <AdminPage classes='page-order-list'
