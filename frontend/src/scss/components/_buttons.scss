@@ -120,4 +120,8 @@ button,
     justify-content: flex-start;
     flex-wrap: unset;
   }
+
+  &.is-right-aligned {
+    justify-content: flex-end;
+  }
 }

@@ -18,13 +18,24 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         url: `${SINGLE_PRODUCT_URL}/${productId}`
       }),
       keepUnusedDataFor: 10
+    }),
+    createProductReview: builder.mutation({
+      query: ({
+        productId, data
+      }) => ({
+        url: `${PRODUCTS_URL}/${productId}/reviews`,
+        method: 'POST',
+        body: data
+      }),
+      invalidatesTags: ['Products']
     })
   })
 })
 
 export const {
   useGetProductsQuery,
-  useGetProductDetailsQuery
+  useGetProductDetailsQuery,
+  useCreateProductReviewMutation: useCreateProductReview
  } = productsApiSlice
 
  // define selectors

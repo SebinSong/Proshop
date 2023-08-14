@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useGetProductDetailsQuery } from '@store-slice/productsApiSlice.js'
 import { addToCart, selectCartItemById } from '@store/features/cartSlice.js'
 import { isUserAuthenticated } from '@store/features/authSlice.js'
-import './Product.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from '@redux-api'
 import Rating from '@components/rating/Rating.js'
 import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
+import ProductReview from './product-review/ProductReview.js'
 import { BASE_URL } from '@frontend-utils/constants.js'
+
+import './Product.scss'
 
 const { PageTemplate, LoaderSpinner } = React.Global
 
@@ -20,10 +22,13 @@ export default function Product () {
   const isUserLoggedIn = useSelector(isUserAuthenticated)
   const [quantity, SetQuantity] = useState(inCartData?.qty || 0)
   const [submitted ,SetSubmitted] = useState(false)
+
+  // api-related state
   const {
     data,
     isLoading,
     isFetching,
+    refetch,
     isError,
     error
   } = useGetProductDetailsQuery(productId)
@@ -55,7 +60,7 @@ export default function Product () {
     image: filename, imageAbsPath = '',
     name, brand, rating,
     numReviews, price, description,
-    countInStock
+    reviews, countInStock
   } = (data || {})
   const imgPath = filename ? `images/products/${filename}` : (BASE_URL + imageAbsPath) || ''
 
@@ -112,6 +117,7 @@ export default function Product () {
                     }
                   </span>
                 </div>
+
                 {
                   countInStock > 0 &&
                   <>
@@ -147,6 +153,11 @@ export default function Product () {
                   </>
                 }
               </div>
+
+              <ProductReview productId={productId}
+                refetchProductDetails={refetch}
+                reviews={reviews}
+              ></ProductReview>
             </div>
           </div>
         </>

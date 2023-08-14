@@ -1,6 +1,8 @@
-.custom-input {
+.custom-input,
+.custom-textarea {
   background-color: $neautral_light;
   font-size: $size_normal;
+  font-family: inherit;
   color: $text_1;
   padding: 0 1.4rem;
   transition:
@@ -11,10 +13,14 @@
   border-radius: 1.2rem;
   border: 1px solid $neautral_light_2;
   box-shadow: 0px 0px 4px 3px rgba(0,0,0,0.0285);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 
   &:focus,
   &:active { 
     border: 1px solid $text_1;
+    outline: none;
   }
 
   &:hover,
@@ -29,13 +35,19 @@
 
   @include placeholder {
     color: $neautral_light_2;
+    letter-spacing: 1px;
     font: {
-      weight: 300;
       style: italic;
       family: inherit;
       size: $size_normal;
     }
   }
+}
+
+.custom-textarea {
+  line-height: 1.4;
+  padding: 1.6rem;
+  resize: none;
 }
 
 .form-field {

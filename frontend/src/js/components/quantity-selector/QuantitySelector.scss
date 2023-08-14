@@ -38,3 +38,17 @@
     min-width: 3.2rem;
   }
 }
+
+.quantity-selector.is-small {
+  .quantity-selector__decrement-btn,
+  .quantity-selector__increment-btn {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: $size_4;
+  }
+
+  .quantity-selector__qty {
+    font-size: $size_5;
+    min-width: 2.6rem;
+  }
+}

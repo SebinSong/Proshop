@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { classNames as cn } from '@utilities'
 import './QuantitySelector.scss'
 
 export default function QuantitySelector ({
   min = 0, max = 100, value = null,
-  onChange = null, classes = '',
+  onChange = null, classes = '', isSmall = false,
   disabled = false
 }) {
   // state
@@ -24,7 +25,7 @@ export default function QuantitySelector ({
   }, [qty])
   
   return (
-    <div className={`quantity-selector ${classes}`}>
+    <div className={cn('quantity-selector', classes, isSmall && 'is-small')}>
       <button className='quantity-selector__decrement-btn'
         type='button' onClick={decrement}>-</button>
       <span className='quantity-selector__qty'>{qty}</span>

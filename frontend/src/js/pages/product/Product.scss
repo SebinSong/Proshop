@@ -66,6 +66,8 @@ $border_solid: 1px solid $text_1;
       }
 
       @include littleWide {
+        position: sticky;
+        top: 0;
         margin-right: 3.8rem;
         width: 40vw;
         max-width: 60rem;
