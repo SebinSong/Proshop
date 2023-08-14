@@ -8,9 +8,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: payload => ({
         url: `${USERS_URL}/auth`,
         method: 'POST',
-        body: payload,
-        keepUnusedDataFor: HOURS_MILLIS
-      })
+        body: payload
+      }),
+      keepUnusedDataFor: HOURS_MILLIS
     }),
     logout: builder.mutation({
       query: () => ({
@@ -23,11 +23,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: USERS_URL,
         method: 'POST',
         body: payload
-      })
+      }),
+      invalidatesTags: ['Users']
     }),
     getProfile: builder.query({
-      url: `${USERS_URL}/profile`,
-      method: 'GET',
+      query: () => ({
+        url: `${USERS_URL}/profile`,
+        method: 'GET'
+      }),
       keepUnusedDataFor: 5
     }),
     updateProfile: builder.mutation({

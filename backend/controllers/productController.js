@@ -79,10 +79,45 @@ const deleteProduct = asyncHandler(async (req, res) => {
   })
 })
 
+// @desc Create a product review
+// @route POST /products/:id/reviews
+// @access Private
+const createProductReview = asyncHandler(async (req, res) => {
+  const productId = req.params.id
+  const product = await Product.findById(productId)
+  const alreadyReviewed = product.reviews.find(
+    review => String(review.user) === req.user._id
+  )
+
+  if (alreadyReviewed) {
+    res.status(400)
+    throw new Error('User has already reviewed this product.')
+  } else {
+    const { rating, comment } = req.body
+    product.reviews.push({
+      user: req.user._id,
+      name: req.user.name,
+      rating: Number(rating),
+      comment
+    })
+    const len = product.reviews.length
+    product.numReviews = len
+    product.rating = product.reviews.reduce(
+      (sum, review) => sum + Number(review.rating), 0
+    ) / len
+
+    await product.save()
+    res.status(201).json({
+      message: 'Review created.'
+    })
+  }
+})
+
 module.exports = {
   getProducts,
   getProductById,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  createProductReview
 }

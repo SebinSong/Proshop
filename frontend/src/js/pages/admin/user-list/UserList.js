@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { ToastContext } from '@hooks/use-toast'
-import { usegetUsers } from '@store/features/adminApiSlice.js'
+import { usegetUsers, useDeleteUser } from '@store/features/adminApiSlice.js'
 import { useNavigate } from 'react-router-dom'
 import {
   classNames as cn
@@ -24,13 +24,38 @@ export default function UserList () {
     error,
     refetch
   } = usegetUsers()
+  const [
+    deleteUser,
+    {
+      isLoading: isDeletingUser,
+      error: deleteUserError
+    }
+  ] = useDeleteUser()
 
   // context
   const { addToastItem } = useContext(ToastContext)
 
   // methods
-  const removeUserHandler = () => {
-    alert('!Implement delete-user.')
+  const deleteUserHandler = async (userId) => {
+    if (!window.confirm('Are you sure you want to delete this user?')) { return }
+
+    try {
+      const res = await deleteUser(userId).unwrap()
+      addToastItem({
+        type: 'success',
+        heading: 'User deleted!',
+        content: res?.message || `The user(id: ${userId}) has been successfully deleted.`,
+        delay: 5 * 1000
+      })
+      refetch()
+    } catch (err) {
+      addToastItem({
+        heading: 'Failed to delete a user!',
+        type: 'warning',
+        content: err?.data?.message || err.error || 'Something went wrong. please try again',
+        delay: 5 * 1000
+      })
+    }
   }
 
   // render
@@ -84,7 +109,8 @@ export default function UserList () {
 
                       <button className='icon-small action-btn remove-btn'
                         title='Remove user'
-                        onClick={() => removeUserHandler(user._id)}
+                        disabled={isDeletingUser}
+                        onClick={() => deleteUserHandler(user._id)}
                         type='button'>
                         <i className='icon-trash-can'></i>
                       </button>

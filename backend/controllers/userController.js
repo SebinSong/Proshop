@@ -16,8 +16,8 @@ const passwordsMatch = async (pw1, pw2) => {
   return await bcrypt.compare(pw1, pw2)
 }
 
-const findUserById = async (userId, res) => {
-  const user = await User.findById(userId)
+const findUserById = async (userId, res, opts = {}) => {
+  const user = await User.findById(userId, undefined, opts)
 
   if (!user) {
     res.status(404)
@@ -64,8 +64,7 @@ const getUsers = asyncHandler(async (req, res, next) => {
 // @access Private/Admin
 const getUserById = asyncHandler(async (req, res, next) => {
   const userId = req.params.id
-  const user = await findUserById(userId, res)
-  await user.select('-password')
+  const user = await findUserById(userId, res, { projection: '-password' })
 
   res.status(200).json(user)
 })

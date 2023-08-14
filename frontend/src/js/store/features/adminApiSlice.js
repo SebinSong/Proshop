@@ -6,9 +6,9 @@ export const adminApiSlice = apiSlice.injectEndpoints({
     getAllOrders: builder.query({
       query: () => ({
         url: ORDERS_URL,
-        method: 'GET',
-        keepUnusedDataFor: 5 // seconds
-      })
+        method: 'GET'
+      }),
+      keepUnusedDataFor: 5 // seconds
     }),
     markDelivered: builder.mutation({
       query: orderId => ({
@@ -51,10 +51,32 @@ export const adminApiSlice = apiSlice.injectEndpoints({
     getUsers: builder.query({
       query: () => ({
         url: USERS_URL,
-        method: 'GET',
-        keepUnusedDataFor: 5 // seconds
+        method: 'GET'
       }),
+      keepUnusedDataFor: 5, // seconds
       providesTags: ['Users']
+    }),
+    deleteUser: builder.mutation({
+      query: userId => ({
+        url: `${USERS_URL}/${userId}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Users']
+    }),
+    getUserDetails: builder.query({
+      query: userId => ({
+        url: `${USERS_URL}/${userId}`,
+        method: 'GET'
+      }),
+      keepUnusedDataFor: 5 // seconds
+    }),
+    updateUserDetails: builder.mutation({
+      query: ({ userId, data }) => ({
+        url: `${USERS_URL}/${userId}`,
+        method: 'PUT',
+        body: data
+      }),
+      invalidatesTags: ['Users']
     })
   })
 })
@@ -66,5 +88,8 @@ export const {
   useCreateProductMutation: useCreateProduct,
   useUpdateProductMutation: useUpdateProduct,
   useUploadProductImageMutation: useUploadProductImage,
-  useDeleteProductMutation: useDeleteProduct
+  useDeleteProductMutation: useDeleteProduct,
+  useDeleteUserMutation: useDeleteUser,
+  useGetUserDetailsQuery: useGetUserDetails,
+  useUpdateUserDetailsMutation: useUpdateUserDtails
 } = adminApiSlice

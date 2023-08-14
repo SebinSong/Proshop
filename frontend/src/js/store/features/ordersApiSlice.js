@@ -34,9 +34,9 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
     getPaypalClientId: builder.query({
       query: () => ({
         url: PAYPAL_URL,
-        method: 'GET',
-        keepUnusedDataFor: 5 // seconds
+        method: 'GET'
       }),
+      keepUnusedDataFor: 5 // seconds
     })
   })
 })

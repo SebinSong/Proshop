@@ -27,6 +27,8 @@ import OrderList from '@pages/admin/order-list/OrderList.js'
 import ProductList from '@pages/admin/product-list/ProductList.js'
 import UserList from '@pages/admin/user-list/UserList.js'
 import EditProduct from '@pages/admin/edit-product/EditProduct.js'
+import EditUser from '@pages/admin/edit-user/EditUser.js'
+
 
 // global styles
 import '@scss/main.scss'
@@ -99,6 +101,10 @@ const router = createHashRouter([
       {
         path: 'admin-update-product/:id',
         element: <EditProduct />
+      },
+      {
+        path: 'admin-update-user/:id',
+        element: <EditUser />
       }
     ]
   }
