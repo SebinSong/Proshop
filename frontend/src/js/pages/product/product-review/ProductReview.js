@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { useSelector } from '@redux-api'
 import { useCreateProductReview } from '@store-slice/productsApiSlice.js'
-import { selectUserInfo } from '@store/features/authSlice'
+import { selectUserInfo, isUserAuthenticated } from '@store/features/authSlice'
 import { ToastContext } from '@hooks/use-toast'
 import { humanDate, classNames as cn } from '@utilities'
 import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
@@ -17,11 +17,14 @@ function ProductReview ({
   const [rating, setRating] = useState(null)
   const [comment, setComment] = useState('')
   const userInfo = useSelector(selectUserInfo)
+  const isUserLoggedIn = useSelector(isUserAuthenticated)
 
   // computed state
   const noReview = !reviews || reviews?.length === 0
   const enableSubmitBtn = Boolean(rating) && comment.length > 10
-  const hasMyReview = !noReview && reviews.some(review => review.user === userInfo._id)
+  const hasMyReview = isUserLoggedIn &&
+    !noReview &&
+    reviews.some(review => review.user === userInfo?._id)
 
   // api-related state
   const [createProductReview, {

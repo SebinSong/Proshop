@@ -21,6 +21,8 @@ const {
   NODE_ENV = 'development',
   PAYPAL_CLIENT_ID
 } = process.env
+const isProd = NODE_ENV === 'production'
+const FRONTEND_APP_DIST = path.resolve(__dirname, '../dist')
 
 const app = express()
 const dirName = path.resolve()
@@ -39,24 +41,28 @@ app.get('/config/paypal', (req, res) => {
 })
 
 // register routes
-app.get('/', (req, res) => {
-  res.send('API is running')
-})
 app.use('/product(s)?', productRouter) // products API
 app.use('/users', userRouter)
 app.use('/orders', orderRouter)
 app.use('/fileupload', uploadRouter)
 
 // serve-static for '/uploads' endpoint
-app.use('/uploads',
-  (req, res, next) => {
-    console.log('@@@ uploaded image is requested!!: ', req.method, req.url)
-    console.log('@@@ serve-static dirname: ', path.join(__dirname, '/uploads'))
-    next()
-  },
+app.use(
+  '/uploads',
   express.static(path.join(__dirname, '/uploads'))
 )
 
+if (isProd) {
+  app.use(express.static(FRONTEND_APP_DIST))
+  app.get('*', (req, res) => {
+    // any route that is not api will be redirected to index.html
+    res.sendFile(path.join(FRONTEND_APP_DIST, 'index.html'))
+  })
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running')
+  })
+}
 
 // error handler
 app.use(notFound)

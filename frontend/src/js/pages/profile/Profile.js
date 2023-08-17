@@ -91,6 +91,7 @@ export default function Profile () {
         content: err?.data?.message || 'The server appears to be experiencing an issue, please try again later.',
         delay: 6 * 1000
       })
+      dispatch(clearCredentials())
     }
   }
   const updateFactory = key => {
