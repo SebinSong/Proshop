@@ -10,6 +10,7 @@
     "dev-server": "nodemon backend/server",
     "dev": "concurrently \"npm:dev-server\" \"npm:dev-frontend\"",
     "build": "npm install && webpack --env mode=production",
+    "start": "node backend/server",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
     "predeploy": "npm run build",
