@@ -81,6 +81,12 @@
   .review-list__item {
     position: relative;
     width: 100%;
+    padding-top: 1.2rem;
+
+    &:not(:last-of-type) {
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--divider-color);
+    }
 
     &.no-history {
       display: flex;
@@ -97,6 +103,38 @@
         font-size: 5.2rem;
         line-height: 1;
       }
+    }
+
+    .review-list__item-name-and-rate {
+      display: flex;
+      align-items: flex-end;
+      font-weight: 600;
+      font-size: $size_5;
+
+      .review-item__name {
+        margin-right: 0.8rem;
+
+        i {
+          display: inline-block;
+          font-size: 1.425em;
+          margin-right: 0.2rem;
+          transform: translateY(0.3rem);
+        }
+      }
+    }
+
+    .review-item__date {
+      display: block;
+      padding-left: 0.2rem;
+      font-weight: 700;
+      font-size: $size_6;
+      color: $neautral_dark_1;
+      margin-bottom: 1.6rem;
+    }
+
+    .review-item__comment {
+      font-style: italic;
+      color: $text_1;
     }
   }
 

@@ -3,7 +3,7 @@ import { useSelector } from '@redux-api'
 import { useCreateProductReview } from '@store-slice/productsApiSlice.js'
 import { selectUserInfo } from '@store/features/authSlice'
 import { ToastContext } from '@hooks/use-toast'
-import { classNames as cn } from '@utilities'
+import { humanDate, classNames as cn } from '@utilities'
 import QuantitySelector from '@components/quantity-selector/QuantitySelector.js'
 import Rating from '@components/rating/Rating.js'
 import './ProductReview.scss'
@@ -74,8 +74,19 @@ function ProductReview ({
           reviews.length > 0 &&
           reviews.map(review => (
             <li className='review-list__item' key={review.reviewId}>
-              <div>name: {review.name}</div>
-              <div>comment: {review.comment}</div>
+              <div className='review-list__item-name-and-rate'>
+                <span className='review-item__name'>
+                  <i className='icon-circle-user'></i>
+                  <span>{review.name}</span>
+                </span>
+
+                <Rating classes='review-item__rate'
+                  rate={review.rating}
+                  color='#f56e20' />
+              </div>
+
+              <div className='review-item__date'>{humanDate(review.createdAt)}</div>
+              <div className='review-item__comment'>{review.comment}</div>
             </li>
           ))
         }
