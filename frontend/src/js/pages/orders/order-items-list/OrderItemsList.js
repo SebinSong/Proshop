@@ -4,7 +4,8 @@ import { BASE_URL } from '@frontend-utils/constants.js'
 import './OrderItemsList.scss'
 
 export default function OrderItemsList ({ items, classes = '' }) {
-  const imgSrc = item.image ? `images/products/${item.image}` : (BASE_URL + item.imageAbsPath) || ''
+  const imgSrc = item => item.image ? `images/products/${item.image}` : (BASE_URL + item.imageAbsPath) || ''
+
   return (
     <ul className={`order-items-list ${classes}`}>
       {
@@ -12,7 +13,7 @@ export default function OrderItemsList ({ items, classes = '' }) {
           item => (
             <li className='order-items-list__item' key={item._id}>
               <img className='product-image'
-                src={imgSrc}
+                src={imgSrc(item)}
                 alt={item.name} />
               
               <h4 className='product-name'>{item.name}</h4>
